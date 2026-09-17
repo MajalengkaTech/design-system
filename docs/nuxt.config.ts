@@ -51,6 +51,18 @@ export default defineNuxtConfig({
     aiGatewayApiKey: process.env.AI_GATEWAY_API_KEY || '',
   },
 
+  // Shiki (syntax highlighter, dipakai AssistantPanel & MDC) bawa onig.wasm.
+  // Rolldown tidak bisa bundle WASM itu untuk target Workers (import "env"
+  // bawaan WASM disangka module JS) — externalize saja, bukan sesuatu yang
+  // perlu di-bundle.
+  vite: {
+    build: {
+      rolldownOptions: {
+        external: [/onig\.wasm$/],
+      },
+    },
+  },
+
   app: {
     head: {
       titleTemplate: '%s · Majalengka Design System',
