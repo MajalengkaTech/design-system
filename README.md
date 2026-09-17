@@ -42,7 +42,7 @@ bun add @majalengka/vue @majalengka/css
 ```vue
 <script setup lang="ts">
 import { MjlTrustBanner, MjlButton, MjlFormField, MjlInput } from '@majalengka/vue';
-import '@majalengka/css/dist/majalengka.css';
+import '@majalengka/css';
 </script>
 
 <template>
