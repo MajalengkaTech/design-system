@@ -59,7 +59,8 @@ export default defineAppConfig({
         items: [
           'Bagaimana cara membuat tombol dengan variasi yang berbeda?',
           'Bagaimana cara menggunakan komponen Form Field?',
-          'Apa perbedaan Badge, Chip, dan Label?',
+          'Apa perbedaan Badge dan Chip?',
+          'Kapan pakai Modal, dan kapan pakai ConfirmDialog?',
         ],
       },
       {
@@ -67,7 +68,7 @@ export default defineAppConfig({
         items: [
           'Apakah MDS memenuhi standar WCAG 2.1?',
           'Bagaimana cara memastikan kontras warna yang cukup?',
-          'Apa itu Gov Banner dan kapan digunakan?',
+          'Apa itu TrustBanner dan kapan digunakan?',
         ],
       },
     ],
