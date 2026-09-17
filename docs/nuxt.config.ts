@@ -1,7 +1,13 @@
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-17',
   devtools: { enabled: false },
-  css: ['~/assets/css/main.css'],
+  // CSS custom kita ada di app/app.css — nama file itu memang konvensi
+  // khusus Docus (lihat node_modules/docus/modules/css.ts): kalau ada,
+  // otomatis di-import SETELAH @import "tailwindcss" di dalam docus.css
+  // yang sama, jadi @theme di dalamnya benar-benar diproses Tailwind.
+  // Daftar manual lewat css:[...] di sini salah -- file jadi entry CSS
+  // terpisah yang tidak tersambung ke proses Tailwind sama sekali (itu
+  // kenapa @theme sebelumnya tidak pernah benar-benar aktif).
 
   // Site identity — dipakai AI assistant & llms.txt
   site: {

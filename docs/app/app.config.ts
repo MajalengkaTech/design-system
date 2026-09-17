@@ -23,12 +23,14 @@ export default defineAppConfig({
     },
     // "garis kecil" = ring tipis di dalam (bukan border, biar sudutnya tetap
     // tajam — prinsip kumo-design shadow-borders), "bagian terang di atas" =
-    // gradient putih transparan yang memudar ke bawah, cuma kelihatan di
-    // solid variant karena butuh latar warna solid buat sheen-nya kebaca.
+    // inset shadow putih tipis di tepi atas. Sengaja pakai shadow, bukan
+    // bg-linear-to-b — bg-linear-to-b kepakai slot "background" yang sama
+    // dengan bg-primary di tailwind-merge, jadi malah MENGHAPUS warna solid
+    // tombolnya (itu yang bikin tombol jadi transparan/hilang kemarin).
     button: {
       variants: {
         variant: {
-          solid: 'ring-1 ring-inset ring-white/15 bg-linear-to-b from-white/20 to-transparent',
+          solid: 'ring-1 ring-inset ring-white/15 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25)]',
         },
       },
     },
