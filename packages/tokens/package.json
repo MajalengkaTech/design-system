@@ -10,6 +10,10 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./preset": {
+      "import": "./dist/preset.js",
+      "types": "./dist/preset.d.ts"
+    },
     "./css": "./dist/tokens.css",
     "./css/dark": "./dist/tokens-dark.css"
   },

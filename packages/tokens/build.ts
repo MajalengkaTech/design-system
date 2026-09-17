@@ -245,11 +245,14 @@ export const brand = {
   primary: "#0014A8",
   mango: "#F0A202",
   name: "Majalengka Design System",
-  tagline: "Desain Sistem Pemerintahan Kabupaten Majalengka"
+  tagline: "Design system open-source untuk ekosistem web Majalengka.tech"
 } as const;
 `;
 
-writeFileSync(resolve(distDir, "index.js"), tsContent);
+// index.js is executed as plain JS at runtime — "as const" is TS-only syntax
+// and would throw a SyntaxError there, so strip it. index.d.ts is read by the
+// TypeScript compiler only, so it keeps "as const" for literal-type inference.
+writeFileSync(resolve(distDir, "index.js"), tsContent.replaceAll(" as const", ""));
 writeFileSync(resolve(distDir, "index.d.ts"), tsContent);
 
 // 4. Generate UnoCSS Preset & Tailwind Config helper
