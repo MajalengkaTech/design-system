@@ -19,7 +19,18 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'brand',
-      neutral: 'neutral',
+      neutral: 'gray',
+    },
+    // "garis kecil" = ring tipis di dalam (bukan border, biar sudutnya tetap
+    // tajam — prinsip kumo-design shadow-borders), "bagian terang di atas" =
+    // gradient putih transparan yang memudar ke bawah, cuma kelihatan di
+    // solid variant karena butuh latar warna solid buat sheen-nya kebaca.
+    button: {
+      variants: {
+        variant: {
+          solid: 'ring-1 ring-inset ring-white/15 bg-linear-to-b from-white/20 to-transparent',
+        },
+      },
     },
   },
 

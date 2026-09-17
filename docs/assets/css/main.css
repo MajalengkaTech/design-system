@@ -1,93 +1,19 @@
 @import "@majalengka/css/dist/majalengka.css";
 
-/* Brand & Neutral Palette Definition for Nuxt UI & Tailwind */
+/* Brand palette (Biru Majalengka) — dipetakan lewat app.config.ts (ui.colors.primary: 'brand').
+   Nuxt UI yang urus turunan --ui-color-primary-* & penyesuaian dark mode-nya sendiri. */
 @theme {
-  --color-brand-50: var(--mjl-color-primary-50, #EEF1FF);
-  --color-brand-100: var(--mjl-color-primary-100, #DDE3FF);
-  --color-brand-200: var(--mjl-color-primary-200, #BCC7FF);
-  --color-brand-300: var(--mjl-color-primary-300, #94A3FF);
-  --color-brand-400: var(--mjl-color-primary-400, #6B7DFF);
-  --color-brand-500: var(--mjl-color-primary-500, #4256F5);
-  --color-brand-600: var(--mjl-color-primary-600, #2434D6);
-  --color-brand-700: var(--mjl-color-primary-700, #0014A8);
-  --color-brand-800: var(--mjl-color-primary-800, #001086);
-  --color-brand-900: var(--mjl-color-primary-900, #000C63);
-  --color-brand-950: var(--mjl-color-primary-950, #00073A);
-
-  /* MJL Neutral — abu netral tanpa tint biru, override slate bawaan */
-  --color-neutral-50: #FFFFFF;
-  --color-neutral-100: #F7F8FA;
-  --color-neutral-200: #EEF0F4;
-  --color-neutral-300: #DFE3EA;
-  --color-neutral-400: #C6CCD8;
-  --color-neutral-500: #97A0B2;
-  --color-neutral-600: #6B7488;
-  --color-neutral-700: #4C5466;
-  --color-neutral-800: #363D4D;
-  --color-neutral-900: #222834;
-  --color-neutral-950: #0B0E15;
-}
-
-/* Docus Customizations for Majalengka Branding */
-:root {
-  /* Brand palette (Biru Majalengka) */
-  --color-brand-50: #EEF1FF;
-  --color-brand-100: #DDE3FF;
-  --color-brand-200: #BCC7FF;
-  --color-brand-300: #94A3FF;
-  --color-brand-400: #6B7DFF;
-  --color-brand-500: #4256F5;
-  --color-brand-600: #2434D6;
-  --color-brand-700: #0014A8;
-  --color-brand-800: #001086;
-  --color-brand-900: #000C63;
-  --color-brand-950: #00073A;
-
-  /* Override Nuxt UI / Docus primary color tokens */
-  --ui-color-primary-50: var(--color-brand-50);
-  --ui-color-primary-100: var(--color-brand-100);
-  --ui-color-primary-200: var(--color-brand-200);
-  --ui-color-primary-300: var(--color-brand-300);
-  --ui-color-primary-400: var(--color-brand-400);
-  --ui-color-primary-500: var(--color-brand-500);
-  --ui-color-primary-600: var(--color-brand-600);
-  --ui-color-primary-700: var(--color-brand-700);
-  --ui-color-primary-800: var(--color-brand-800);
-  --ui-color-primary-900: var(--color-brand-900);
-  --ui-color-primary-950: var(--color-brand-950);
-
-  /* Override neutral — hapus efek slate bawaan Docus, pakai MJL neutral abu murni */
-  --ui-color-neutral-50: #FFFFFF;
-  --ui-color-neutral-100: #F7F8FA;
-  --ui-color-neutral-200: #EEF0F4;
-  --ui-color-neutral-300: #DFE3EA;
-  --ui-color-neutral-400: #C6CCD8;
-  --ui-color-neutral-500: #97A0B2;
-  --ui-color-neutral-600: #6B7488;
-  --ui-color-neutral-700: #4C5466;
-  --ui-color-neutral-800: #363D4D;
-  --ui-color-neutral-900: #222834;
-  --ui-color-neutral-950: #0B0E15;
-
-  --ui-primary: var(--mjl-text-brand, #0014A8);
-}
-
-.dark {
-  /* Di mode gelap, warna brand aktif menggunakan luminous variant agar kontras tinggi */
-  --ui-primary: var(--mjl-text-brand, #94A3FF);
-
-  /* Invert neutral di dark mode — teks harus terang, background harus gelap */
-  --ui-color-neutral-50: #0B0E15;
-  --ui-color-neutral-100: #151922;
-  --ui-color-neutral-200: #1C222E;
-  --ui-color-neutral-300: #2D3748;
-  --ui-color-neutral-400: #3E4C63;
-  --ui-color-neutral-500: #6B7488;
-  --ui-color-neutral-600: #97A0B2;
-  --ui-color-neutral-700: #C6CCD8;
-  --ui-color-neutral-800: #DFE3EA;
-  --ui-color-neutral-900: #F7F8FA;
-  --ui-color-neutral-950: #FFFFFF;
+  --color-brand-50: oklch(100% 0 none);
+  --color-brand-100: oklch(96.341% 0.0175 279.06);
+  --color-brand-200: oklch(77.793% 0.11301 274.6);
+  --color-brand-300: oklch(61.194% 0.20942 270.46);
+  --color-brand-400: oklch(49.548% 0.28383 265.05);
+  --color-brand-500: oklch(41.79% 0.25771 264.18);
+  --color-brand-600: oklch(35.237% 0.21451 264.16);
+  --color-brand-700: oklch(29.833% 0.1779 264.1);
+  --color-brand-800: oklch(22.71% 0.12703 263.82);
+  --color-brand-900: oklch(13.862% 0.06273 261.7);
+  --color-brand-950: oklch(7.1516% 0.02779 259.05);
 }
 
 /* Custom interactive container (Pure Semantic Functional Architecture) */
