@@ -1,0 +1,67 @@
+/**
+ * Majalengka Design System - Toast Notification
+ */
+
+.mjl-toast-container {
+  position: fixed;
+  bottom: var(--mjl-space-6, 24px);
+  right: var(--mjl-space-6, 24px);
+  z-index: var(--mjl-layer-toast, 1500);
+  display: flex;
+  flex-direction: column;
+  gap: var(--mjl-space-3, 12px);
+  max-width: 400px;
+  width: calc(100vw - 32px);
+  pointer-events: none;
+}
+
+.mjl-toast {
+  pointer-events: auto;
+  background-color: var(--mjl-color-surface-card, #FFFFFF);
+  border: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  border-radius: var(--mjl-radius-md, 10px);
+  box-shadow: var(--mjl-shadow-lg);
+  padding: var(--mjl-space-4, 16px);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mjl-space-3, 12px);
+  animation: mjl-toast-slide 250ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.mjl-toast__content {
+  flex: 1;
+}
+
+.mjl-toast__title {
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-weight: 700;
+  color: var(--mjl-color-text-primary, #222834);
+  margin-bottom: 2px;
+}
+
+.mjl-toast__desc {
+  font-size: var(--mjl-text-xs-size, 12px);
+  color: var(--mjl-color-text-secondary, #6B7488);
+  line-height: 1.4;
+}
+
+.mjl-toast__close {
+  background: transparent;
+  border: none;
+  color: var(--mjl-color-text-muted, #97A0B2);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: var(--mjl-radius-sm, 4px);
+}
+
+@keyframes mjl-toast-slide {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

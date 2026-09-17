@@ -1,0 +1,54 @@
+/**
+ * Majalengka Design System - StatCard (Metric Card)
+ */
+
+.mjl-stat-card {
+  background-color: var(--mjl-color-surface-card, #FFFFFF);
+  border: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  border-radius: var(--mjl-radius-lg, 16px);
+  padding: var(--mjl-space-5, 20px);
+  box-shadow: var(--mjl-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--mjl-space-2, 8px);
+}
+
+.mjl-stat-card__label {
+  font-family: var(--mjl-font-body, 'Inter', sans-serif);
+  font-size: var(--mjl-text-sm-size, 14px);
+  color: var(--mjl-color-text-secondary, #6B7488);
+  font-weight: 500;
+}
+
+.mjl-stat-card__value {
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-3xl-size, 30px);
+  font-weight: 700;
+  color: var(--mjl-color-text-primary, #222834);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.mjl-stat-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-2, 8px);
+  font-size: var(--mjl-text-xs-size, 12px);
+  color: var(--mjl-color-text-muted, #97A0B2);
+}
+
+.mjl-stat-card__trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.mjl-stat-card__trend--up {
+  color: var(--mjl-color-status-success-fg, #065F46);
+}
+
+.mjl-stat-card__trend--down {
+  color: var(--mjl-color-status-danger-fg, #991B1B);
+}

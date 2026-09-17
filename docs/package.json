@@ -1,0 +1,19 @@
+{
+  "name": "majalengka-design-system-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev --extends docus",
+    "build": "nuxt build --extends docus",
+    "generate": "nuxt generate --extends docus",
+    "preview": "nuxt preview --extends docus"
+  },
+  "dependencies": {
+    "docus": "latest",
+    "better-sqlite3": "^12.5.0",
+    "nuxt": "^4.2.2",
+    "@majalengka/tokens": "workspace:*",
+    "@majalengka/css": "workspace:*",
+    "@majalengka/vue": "workspace:*"
+  }
+}

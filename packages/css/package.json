@@ -1,0 +1,23 @@
+{
+  "name": "@majalengka/css",
+  "version": "0.1.0",
+  "description": "Pure CSS distribution for Majalengka Design System (zero build required)",
+  "main": "dist/majalengka.css",
+  "style": "dist/majalengka.css",
+  "exports": {
+    ".": "./dist/majalengka.css",
+    "./css": "./dist/majalengka.css",
+    "./min": "./dist/majalengka.min.css",
+    "./src/*": "./src/*"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "bun run build.ts"
+  },
+  "dependencies": {
+    "@majalengka/tokens": "workspace:*"
+  }
+}

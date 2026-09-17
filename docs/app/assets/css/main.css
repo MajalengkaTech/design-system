@@ -1,0 +1,41 @@
+@import "../../../../packages/css/dist/majalengka.css";
+@import "../../../../packages/tokens/dist/tokens-dark.css";
+
+/* 
+ * Biru Majalengka 700 (#0014A8) sebagai Warna Primer Utama
+ */
+:root {
+  --ui-primary: #0014A8;
+}
+
+.dark {
+  --ui-primary: #6B7DFF;
+}
+
+/* Tombol Primer Khusus Majalengka */
+.u-button--solid-primary,
+button[data-color="primary"],
+a[data-color="primary"] {
+  background-color: #0014A8 !important;
+  color: #FFFFFF !important;
+}
+
+button[data-color="primary"]:hover,
+a[data-color="primary"]:hover {
+  background-color: #001086 !important;
+}
+
+/* Demo container styling for documentation component previews */
+.mjl-demo-box {
+  background: var(--ui-bg, #ffffff);
+  border: 1px solid var(--ui-border, #e2e8f0);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark .mjl-demo-box {
+  background: var(--ui-bg-elevated, #0f172a);
+  border-color: var(--ui-border, #1e293b);
+}

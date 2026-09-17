@@ -1,0 +1,23 @@
+/**
+ * Majalengka Design System - Kbd
+ * Visual keyboard key indicators
+ */
+
+.mjl-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  font-family: var(--mjl-font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--mjl-color-text-secondary, #6B7488);
+  background-color: var(--mjl-color-neutral-100, #F7F8FA);
+  border: 1px solid var(--mjl-color-neutral-300, #DFE3EA);
+  border-bottom-width: 2px;
+  border-radius: var(--mjl-radius-sm, 4px);
+  vertical-align: middle;
+}

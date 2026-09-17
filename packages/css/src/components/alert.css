@@ -1,0 +1,102 @@
+/**
+ * Majalengka Design System - Badge & Alert Components
+ */
+
+/* Badge */
+.mjl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-xs-size, 12px);
+  font-weight: 600;
+  border-radius: var(--mjl-radius-sm, 6px);
+  border: 1px solid transparent;
+  line-height: 1.2;
+}
+
+.mjl-badge--success {
+  background-color: var(--mjl-color-status-success-bg, #E6F6ED);
+  color: var(--mjl-color-status-success-fg, #0F7B4A);
+  border-color: var(--mjl-color-status-success-border, #95D5B2);
+}
+
+.mjl-badge--warning {
+  background-color: var(--mjl-color-status-warning-bg, #FEF3E6);
+  color: var(--mjl-color-status-warning-fg, #A65A00);
+  border-color: var(--mjl-color-status-warning-border, #FCD59F);
+}
+
+.mjl-badge--danger {
+  background-color: var(--mjl-color-status-danger-bg, #FDF2F2);
+  color: var(--mjl-color-status-danger-fg, #B3261E);
+  border-color: var(--mjl-color-status-danger-border, #F8B4B4);
+}
+
+.mjl-badge--info {
+  background-color: var(--mjl-color-status-info-bg, #EBF5FB);
+  color: var(--mjl-color-status-info-fg, #0B6FA4);
+  border-color: var(--mjl-color-status-info-border, #A3CEE8);
+}
+
+.mjl-badge--neutral {
+  background-color: var(--mjl-color-neutral-200, #EEF0F4);
+  color: var(--mjl-color-neutral-800, #363D4D);
+  border-color: var(--mjl-color-neutral-300, #DFE3EA);
+}
+
+/* Alert */
+.mjl-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mjl-space-3, 12px);
+  padding: var(--mjl-space-4, 16px);
+  border-radius: var(--mjl-radius-md, 10px);
+  border: 1.5px solid transparent;
+  margin-bottom: var(--mjl-space-4, 16px);
+  font-size: var(--mjl-text-sm-size, 14px);
+  line-height: 1.55;
+}
+
+.mjl-alert__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.mjl-alert__content {
+  flex: 1;
+}
+
+.mjl-alert__title {
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 700;
+  font-size: var(--mjl-text-base-size, 16px);
+  margin-bottom: 4px;
+}
+
+.mjl-alert--info {
+  background-color: var(--mjl-color-status-info-bg, #EBF5FB);
+  color: var(--mjl-color-status-info-fg, #0B6FA4);
+  border-color: var(--mjl-color-status-info-border, #A3CEE8);
+}
+
+.mjl-alert--success {
+  background-color: var(--mjl-color-status-success-bg, #E6F6ED);
+  color: var(--mjl-color-status-success-fg, #0F7B4A);
+  border-color: var(--mjl-color-status-success-border, #95D5B2);
+}
+
+.mjl-alert--warning {
+  background-color: var(--mjl-color-status-warning-bg, #FEF3E6);
+  color: var(--mjl-color-status-warning-fg, #A65A00);
+  border-color: var(--mjl-color-status-warning-border, #FCD59F);
+}
+
+.mjl-alert--danger {
+  background-color: var(--mjl-color-status-danger-bg, #FDF2F2);
+  color: var(--mjl-color-status-danger-fg, #B3261E);
+  border-color: var(--mjl-color-status-danger-border, #F8B4B4);
+}

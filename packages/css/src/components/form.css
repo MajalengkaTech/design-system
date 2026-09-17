@@ -1,0 +1,130 @@
+/**
+ * Majalengka Design System - Form & Input Components
+ * Sesuai spesifikasi form-field.md
+ */
+
+.mjl-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mjl-space-1, 4px);
+  margin-bottom: var(--mjl-space-4, 16px);
+  width: 100%;
+}
+
+.mjl-label {
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-weight: 600;
+  color: var(--mjl-color-text-primary, #222834);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mjl-label__required {
+  color: var(--mjl-color-status-danger-fg, #B3261E);
+  font-weight: bold;
+}
+
+.mjl-label__optional {
+  color: var(--mjl-color-text-muted, #97A0B2);
+  font-weight: normal;
+  font-size: var(--mjl-text-xs-size, 12px);
+}
+
+.mjl-help-text {
+  font-size: var(--mjl-text-sm-size, 14px);
+  color: var(--mjl-color-text-secondary, #6B7488);
+  line-height: 1.5;
+}
+
+.mjl-error-text {
+  font-size: var(--mjl-text-sm-size, 14px);
+  color: var(--mjl-color-status-danger-fg, #B3261E);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.mjl-input,
+.mjl-select,
+.mjl-textarea {
+  width: 100%;
+  padding: 8px 14px;
+  min-height: 40px;
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-family: inherit;
+  color: var(--mjl-color-text-primary, #222834);
+  background-color: var(--mjl-color-surface-card, #FFFFFF);
+  border: 1.5px solid var(--mjl-color-border-input, #C6CCD8);
+  border-radius: var(--mjl-radius-md, 8px);
+  transition: border-color var(--mjl-duration-fast, 150ms) ease,
+              box-shadow var(--mjl-duration-fast, 150ms) ease;
+}
+
+.mjl-input--sm,
+.mjl-select--sm {
+  min-height: 32px;
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.mjl-input--lg,
+.mjl-select--lg {
+  min-height: 48px;
+  font-size: var(--mjl-text-base-size, 16px);
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+.mjl-input:hover,
+.mjl-select:hover,
+.mjl-textarea:hover {
+  border-color: var(--mjl-color-neutral-600, #6B7488);
+}
+
+.mjl-input:focus,
+.mjl-select:focus,
+.mjl-textarea:focus {
+  outline: none;
+  border-color: var(--mjl-color-primary-700, #0014A8);
+  box-shadow: 0 0 0 3px rgba(66, 86, 245, 0.25);
+}
+
+.mjl-input--error,
+.mjl-select--error,
+.mjl-textarea--error {
+  border-color: var(--mjl-color-status-danger-fg, #B3261E) !important;
+}
+
+.mjl-input--error:focus,
+.mjl-select--error:focus,
+.mjl-textarea--error:focus {
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.2) !important;
+}
+
+.mjl-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Checkbox & Radio */
+.mjl-control-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mjl-space-3, 12px);
+  min-height: var(--mjl-touch-min, 44px);
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.mjl-checkbox,
+.mjl-radio {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--mjl-color-primary-700, #0014A8);
+  margin-top: 2px;
+  cursor: pointer;
+}

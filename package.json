@@ -1,0 +1,21 @@
+{
+  "name": "@majalengka/design-system-root",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "docs"
+  ],
+  "scripts": {
+    "dev": "cd docs && bun dev",
+    "build": "bun run build:tokens && bun run build:css && cd docs && bun build",
+    "build:tokens": "cd packages/tokens && bun run build",
+    "build:css": "cd packages/css && bun run build",
+    "build:vue": "cd packages/vue && bun run build",
+    "build:docs": "cd docs && bun build",
+    "generate:docs": "cd docs && bun generate",
+    "preview:docs": "cd docs && bun preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

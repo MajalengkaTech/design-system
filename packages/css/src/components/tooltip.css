@@ -1,0 +1,38 @@
+/**
+ * Majalengka Design System - Tooltip
+ * Pure CSS data-tooltip attribute
+ */
+
+[data-mjl-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-mjl-tooltip]::after {
+  content: attr(data-mjl-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background-color: var(--mjl-color-neutral-900, #151922);
+  color: #FFFFFF;
+  font-family: var(--mjl-font-body, 'Inter', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: var(--mjl-radius-sm, 6px);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: var(--mjl-layer-tooltip, 1600);
+  box-shadow: var(--mjl-shadow-md);
+}
+
+[data-mjl-tooltip]:hover::after,
+[data-mjl-tooltip]:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-2px);
+}

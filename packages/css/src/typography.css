@@ -1,0 +1,98 @@
+/**
+ * Majalengka Design System - Typography
+ */
+
+.mjl-heading,
+.mjl-typography h1,
+.mjl-typography h2,
+.mjl-typography h3,
+.mjl-typography h4,
+.mjl-typography h5,
+.mjl-typography h6 {
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', system-ui, sans-serif);
+  font-weight: 600; /* Kumo: font-semibold for headings */
+  color: var(--mjl-color-text-primary, #222834);
+  text-transform: none; /* Kumo: always sentence case */
+}
+
+.mjl-bold {
+  font-weight: 600; /* Kumo: crisp weight */
+}
+
+.mjl-inline-code {
+  font-family: var(--mjl-font-mono, monospace);
+  font-size: 0.9em; /* Kumo: slightly smaller inline monospace */
+}
+
+.mjl-text-5xl {
+  font-size: var(--mjl-text-5xl-size, 48px);
+  line-height: var(--mjl-text-5xl-line-height, 1.15);
+  margin-bottom: var(--mjl-space-4, 16px);
+}
+
+.mjl-text-4xl {
+  font-size: var(--mjl-text-4xl-size, 36px);
+  line-height: var(--mjl-text-4xl-line-height, 1.22);
+  margin-bottom: var(--mjl-space-3, 12px);
+}
+
+.mjl-text-3xl {
+  font-size: var(--mjl-text-3xl-size, 30px);
+  line-height: var(--mjl-text-3xl-line-height, 1.3);
+  margin-bottom: var(--mjl-space-3, 12px);
+}
+
+.mjl-text-2xl {
+  font-size: var(--mjl-text-2xl-size, 24px);
+  line-height: var(--mjl-text-2xl-line-height, 1.35);
+  margin-bottom: var(--mjl-space-2, 8px);
+}
+
+.mjl-text-xl {
+  font-size: var(--mjl-text-xl-size, 20px);
+  line-height: var(--mjl-text-xl-line-height, 1.5);
+  margin-bottom: var(--mjl-space-2, 8px);
+}
+
+.mjl-text-base {
+  font-size: var(--mjl-text-base-size, 16px);
+  line-height: var(--mjl-text-base-line-height, 1.7);
+  margin-bottom: var(--mjl-space-3, 12px);
+}
+
+.mjl-text-sm {
+  font-size: var(--mjl-text-sm-size, 14px);
+  line-height: var(--mjl-text-sm-line-height, 1.55);
+}
+
+.mjl-text-xs {
+  font-size: var(--mjl-text-xs-size, 12px);
+  line-height: var(--mjl-text-xs-line-height, 1.5);
+}
+
+.mjl-lead {
+  font-size: var(--mjl-text-lg-size, 18px);
+  line-height: var(--mjl-text-lg-line-height, 1.65);
+  color: var(--mjl-color-text-secondary, #6B7488);
+}
+
+.mjl-mono {
+  font-family: var(--mjl-font-mono, 'JetBrains Mono', monospace);
+  font-variant-numeric: tabular-nums;
+}
+
+.mjl-tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+a.mjl-link {
+  color: var(--mjl-color-text-link, #0014A8);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: color var(--mjl-duration-fast, 150ms) ease;
+}
+
+a.mjl-link:hover {
+  color: var(--mjl-color-text-link-hover, #001086);
+}

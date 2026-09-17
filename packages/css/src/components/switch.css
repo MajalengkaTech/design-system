@@ -1,0 +1,62 @@
+/**
+ * Majalengka Design System - Switch / Toggle
+ */
+
+.mjl-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mjl-space-3, 12px);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--mjl-font-body, 'Inter', sans-serif);
+  font-size: var(--mjl-text-sm-size, 14px);
+  color: var(--mjl-color-text-primary, #222834);
+}
+
+.mjl-switch__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.mjl-switch__track {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  background-color: var(--mjl-border-input, #DFE3EA);
+  border-radius: var(--mjl-radius-full, 9999px);
+  transition: background-color 200ms ease;
+  flex-shrink: 0;
+}
+
+.mjl-switch__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 200ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.mjl-switch__input:checked + .mjl-switch__track {
+  background-color: var(--mjl-action-primary-bg, #0014A8);
+}
+
+.mjl-switch__input:checked + .mjl-switch__track .mjl-switch__thumb {
+  transform: translateX(20px);
+}
+
+.mjl-switch__input:focus-visible + .mjl-switch__track {
+  outline: 2px solid var(--mjl-border-focus, #4256F5);
+  outline-offset: 2px;
+}
+
+.mjl-switch--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

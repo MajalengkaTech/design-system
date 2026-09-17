@@ -1,0 +1,42 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "semantic": {
+    "color": {
+      "surface": {
+        "canvas": { "$type": "color", "$value": "{color.neutral.100}" },
+        "card": { "$type": "color", "$value": "{color.neutral.50}" },
+        "sunken": { "$type": "color", "$value": "{color.neutral.200}" },
+        "overlay": { "$type": "color", "$value": "{color.neutral.50}" }
+      },
+      "text": {
+        "primary": { "$type": "color", "$value": "{color.neutral.900}" },
+        "secondary": { "$type": "color", "$value": "{color.neutral.600}" },
+        "muted": { "$type": "color", "$value": "{color.neutral.500}" },
+        "inverse": { "$type": "color", "$value": "{color.neutral.50}" },
+        "link": { "$type": "color", "$value": "{color.primary.700}" },
+        "linkHover": { "$type": "color", "$value": "{color.primary.800}" }
+      },
+      "action": {
+        "primary": {
+          "default": { "$type": "color", "$value": "{color.primary.700}" },
+          "hover": { "$type": "color", "$value": "{color.primary.800}" },
+          "active": { "$type": "color", "$value": "{color.primary.900}" },
+          "fg": { "$type": "color", "$value": "#FFFFFF" }
+        },
+        "secondary": {
+          "default": { "$type": "color", "$value": "{color.neutral.200}" },
+          "hover": { "$type": "color", "$value": "{color.neutral.300}" },
+          "active": { "$type": "color", "$value": "{color.neutral.400}" },
+          "fg": { "$type": "color", "$value": "{color.neutral.900}" }
+        }
+      },
+      "border": {
+        "subtle": { "$type": "color", "$value": "{color.neutral.200}" },
+        "default": { "$type": "color", "$value": "{color.neutral.300}" },
+        "input": { "$type": "color", "$value": "{color.neutral.400}" },
+        "focus": { "$type": "color", "$value": "{color.primary.500}" },
+        "error": { "$type": "color", "$value": "{color.status.danger.fg}" }
+      }
+    }
+  }
+}

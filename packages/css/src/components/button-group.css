@@ -1,0 +1,74 @@
+/**
+ * Majalengka Design System - ButtonGroup & InputGroup
+ * Seamless connected controls
+ */
+
+.mjl-btn-group {
+  display: inline-flex;
+  vertical-align: middle;
+  border-radius: var(--mjl-radius-md, 8px);
+}
+
+.mjl-btn-group > .mjl-btn {
+  position: relative;
+  border-radius: 0;
+  margin-left: -1px;
+}
+
+.mjl-btn-group > .mjl-btn:first-child {
+  margin-left: 0;
+  border-top-left-radius: var(--mjl-radius-md, 8px);
+  border-bottom-left-radius: var(--mjl-radius-md, 8px);
+}
+
+.mjl-btn-group > .mjl-btn:last-child {
+  border-top-right-radius: var(--mjl-radius-md, 8px);
+  border-bottom-right-radius: var(--mjl-radius-md, 8px);
+}
+
+.mjl-btn-group > .mjl-btn:hover,
+.mjl-btn-group > .mjl-btn:focus-visible {
+  z-index: 1;
+}
+
+/* Connected Input Group: Input + Button or Addon */
+.mjl-input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.mjl-input-group > .mjl-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  flex: 1;
+}
+
+.mjl-input-group > .mjl-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+
+.mjl-input-group__addon {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  background-color: var(--mjl-color-neutral-100, #F7F8FA);
+  border: 1px solid var(--mjl-color-border-input, #97A0B2);
+  color: var(--mjl-color-text-secondary, #6B7488);
+  font-size: var(--mjl-text-sm-size, 14px);
+  white-space: nowrap;
+}
+
+.mjl-input-group__addon:first-child {
+  border-right: 0;
+  border-top-left-radius: var(--mjl-radius-md, 8px);
+  border-bottom-left-radius: var(--mjl-radius-md, 8px);
+}
+
+.mjl-input-group__addon:last-child {
+  border-left: 0;
+  border-top-right-radius: var(--mjl-radius-md, 8px);
+  border-bottom-right-radius: var(--mjl-radius-md, 8px);
+}

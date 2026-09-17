@@ -1,0 +1,46 @@
+/**
+ * Majalengka Design System - Layout Utilities
+ */
+
+.mjl-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--mjl-space-4, 16px);
+  padding-right: var(--mjl-space-4, 16px);
+}
+
+@media (min-width: 768px) {
+  .mjl-container {
+    padding-left: var(--mjl-space-6, 24px);
+    padding-right: var(--mjl-space-6, 24px);
+  }
+}
+
+.mjl-grid {
+  display: grid;
+  gap: var(--mjl-space-6, 24px);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.mjl-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mjl-space-4, 16px);
+}
+
+.mjl-stack--sm {
+  gap: var(--mjl-space-2, 8px);
+}
+
+.mjl-stack--lg {
+  gap: var(--mjl-space-6, 24px);
+}
+
+.mjl-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--mjl-space-3, 12px);
+}

@@ -1,0 +1,55 @@
+/**
+ * Majalengka Design System - Card Component
+ * Kartu layanan, kartu berita, kartu statistik
+ */
+
+.mjl-card {
+  background-color: var(--mjl-bg-base, #FFFFFF);
+  border: 1px solid var(--mjl-border-line, rgba(0, 0, 0, 0.08));
+  border-radius: var(--mjl-radius-lg, 12px);
+  padding: var(--mjl-space-6, 24px);
+  box-shadow: var(--mjl-shadow-sm);
+  transition: box-shadow var(--mjl-duration-fast, 150ms) ease,
+              border-color var(--mjl-duration-fast, 150ms) ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.mjl-card--interactive {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.mjl-card--interactive:hover {
+  border-color: var(--mjl-border-focus, #4256F5);
+  box-shadow: var(--mjl-shadow-md);
+}
+
+.mjl-card__header {
+  margin-bottom: var(--mjl-space-3, 12px);
+}
+
+.mjl-card__title {
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-xl-size, 20px);
+  font-weight: 600;
+  color: var(--mjl-text-strong, #0B0E15);
+  margin-bottom: 4px;
+}
+
+.mjl-card__desc {
+  font-size: var(--mjl-text-sm-size, 14px);
+  color: var(--mjl-text-subtle, #6B7488);
+  line-height: 1.6;
+}
+
+.mjl-card__footer {
+  margin-top: auto;
+  padding-top: var(--mjl-space-4, 16px);
+  border-top: 1px solid var(--mjl-border-hairline, rgba(0, 0, 0, 0.05));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,93 @@
+/**
+ * Majalengka Design System - Table Component
+ * Sesuai spesifikasi table.md: tabular-nums, accessible headers, mobile card reflow
+ */
+
+.mjl-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--mjl-radius-md, 10px);
+  border: 1px solid var(--mjl-color-border-default, #DFE3EA);
+  box-shadow: var(--mjl-shadow-sm);
+  background-color: var(--mjl-color-surface-card, #FFFFFF);
+  margin: var(--mjl-space-4, 16px) 0;
+}
+
+.mjl-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--mjl-text-sm-size, 14px);
+}
+
+.mjl-table caption {
+  padding: var(--mjl-space-3, 12px) var(--mjl-space-4, 16px);
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-base-size, 16px);
+  font-weight: 700;
+  color: var(--mjl-color-text-primary, #222834);
+  text-align: left;
+  border-bottom: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+}
+
+.mjl-table th {
+  padding: 12px 16px;
+  background-color: var(--mjl-color-neutral-100, #F7F8FA);
+  color: var(--mjl-color-text-primary, #222834);
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 700;
+  font-size: var(--mjl-text-xs-size, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--mjl-color-border-default, #DFE3EA);
+  white-space: nowrap;
+}
+
+.mjl-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  color: var(--mjl-color-text-primary, #222834);
+  vertical-align: middle;
+}
+
+.mjl-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.mjl-table tbody tr:hover {
+  background-color: var(--mjl-color-primary-50, #EEF1FF);
+}
+
+.mjl-table td.mjl-num,
+.mjl-table th.mjl-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--mjl-font-mono, 'JetBrains Mono', monospace);
+}
+
+/* Mobile responsive reflow (bila memakai .mjl-table--responsive) */
+@media (max-width: 640px) {
+  .mjl-table--responsive thead {
+    display: none;
+  }
+
+  .mjl-table--responsive tr {
+    display: block;
+    margin-bottom: var(--mjl-space-3, 12px);
+    border-bottom: 2px solid var(--mjl-color-border-default, #DFE3EA);
+  }
+
+  .mjl-table--responsive td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  }
+
+  .mjl-table--responsive td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--mjl-color-text-secondary, #6B7488);
+    margin-right: var(--mjl-space-2, 8px);
+  }
+}

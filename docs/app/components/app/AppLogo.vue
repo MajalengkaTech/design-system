@@ -1,0 +1,27 @@
+<script setup lang="ts">
+defineProps<{
+  size?: 'sm' | 'md'
+}>()
+</script>
+
+<template>
+  <NuxtLink
+    to="/"
+    class="flex items-center gap-2.5 select-none"
+    aria-label="Majalengka Design System — Beranda"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      :class="size === 'sm' ? 'w-6 h-6' : 'w-7 h-7'"
+      aria-hidden="true"
+    >
+      <rect width="32" height="32" rx="8" fill="#0014A8" />
+      <path d="M7 23V9l6 7 6-7v14h-3.5v-8.5l-2.5 3-2.5-3V23H7z" fill="#FFFFFF" />
+      <circle cx="24" cy="9" r="3" fill="#F0A202" />
+    </svg>
+    <span class="font-semibold text-sm tracking-tight text-neutral-900 dark:text-white leading-none hidden sm:block">
+      Majalengka <span class="font-normal text-neutral-500 dark:text-neutral-400">DS</span>
+    </span>
+  </NuxtLink>
+</template>

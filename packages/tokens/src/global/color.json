@@ -1,0 +1,56 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "color": {
+    "primary": {
+      "50": { "$type": "color", "$value": "#EEF1FF", "$description": "Latar lembut alert info, baris tabel terpilih" },
+      "100": { "$type": "color", "$value": "#DDE3FF", "$description": "Latar badge" },
+      "200": { "$type": "color", "$value": "#BCC7FF", "$description": "Garis tepi lembut" },
+      "300": { "$type": "color", "$value": "#94A3FF", "$description": "Teks link di mode gelap" },
+      "400": { "$type": "color", "$value": "#6B7DFF", "$description": "Aksen mode gelap" },
+      "500": { "$type": "color", "$value": "#4256F5", "$description": "Focus ring, hover tombol ghost" },
+      "600": { "$type": "color", "$value": "#2434D6", "$description": "Ikon aksen" },
+      "700": { "$type": "color", "$value": "#0014A8", "$description": "Tombol primer, link, header instansi, elemen aktif (13:1)" },
+      "800": { "$type": "color", "$value": "#001086", "$description": "State hover tombol primer" },
+      "900": { "$type": "color", "$value": "#000C63", "$description": "State pressed, footer gelap" },
+      "950": { "$type": "color", "$value": "#00073A", "$description": "Latar mode gelap" }
+    },
+    "neutral": {
+      "50": { "$type": "color", "$value": "#FFFFFF", "$description": "Putih bersih latar konten" },
+      "100": { "$type": "color", "$value": "#F7F8FA", "$description": "Latar halaman / kanvas" },
+      "200": { "$type": "color", "$value": "#EEF0F4", "$description": "Latar kartu sekunder" },
+      "300": { "$type": "color", "$value": "#DFE3EA", "$description": "Garis pembatas halus" },
+      "400": { "$type": "color", "$value": "#C6CCD8", "$description": "Garis border input standar" },
+      "500": { "$type": "color", "$value": "#97A0B2", "$description": "Border fokus tidak aktif" },
+      "600": { "$type": "color", "$value": "#6B7488", "$description": "Teks sekunder / teks bantuan (kontras 4.6:1)" },
+      "700": { "$type": "color", "$value": "#4C5466", "$description": "Teks subjudul / ikon aktif" },
+      "800": { "$type": "color", "$value": "#363D4D", "$description": "Teks judul dan elemen penting" },
+      "900": { "$type": "color", "$value": "#222834", "$description": "Teks utama (kontras 14.5:1)" },
+      "950": { "$type": "color", "$value": "#0B0E15", "$description": "Hitam pekat" }
+    },
+    "status": {
+      "success": {
+        "bg": { "$type": "color", "$value": "#E6F6ED" },
+        "border": { "$type": "color", "$value": "#95D5B2" },
+        "fg": { "$type": "color", "$value": "#0F7B4A", "$description": "Status berhasil / disetujui" }
+      },
+      "warning": {
+        "bg": { "$type": "color", "$value": "#FEF3E6" },
+        "border": { "$type": "color", "$value": "#FCD59F" },
+        "fg": { "$type": "color", "$value": "#A65A00", "$description": "Status perhatian / butuh tindakan" }
+      },
+      "danger": {
+        "bg": { "$type": "color", "$value": "#FDF2F2" },
+        "border": { "$type": "color", "$value": "#F8B4B4" },
+        "fg": { "$type": "color", "$value": "#B3261E", "$description": "Status bahaya / ditolak / error" }
+      },
+      "info": {
+        "bg": { "$type": "color", "$value": "#EBF5FB" },
+        "border": { "$type": "color", "$value": "#A3CEE8" },
+        "fg": { "$type": "color", "$value": "#0B6FA4", "$description": "Status info / pengumuman" }
+      },
+      "mango": {
+        "fg": { "$type": "color", "$value": "#F0A202", "$description": "Aksen khas Majalengka: ilustrasi, penanda baru (~5%)" }
+      }
+    }
+  }
+}

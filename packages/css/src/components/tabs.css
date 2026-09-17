@@ -1,0 +1,99 @@
+/**
+ * Majalengka Design System - Tabs
+ * Minimal underline & pill tab styles
+ */
+
+.mjl-tabs {
+  width: 100%;
+}
+
+.mjl-tab-list {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-2, 8px);
+  border-bottom: 1px solid var(--mjl-border-line, rgba(0, 0, 0, 0.08));
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--mjl-space-4, 16px) 0;
+  overflow-x: auto;
+}
+
+.mjl-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mjl-space-2, 8px);
+  padding: 10px 16px;
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-weight: 600;
+  color: var(--mjl-text-subtle, #6B7488);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: color 150ms ease;
+  min-height: 40px;
+}
+
+.mjl-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 150ms ease;
+}
+
+.mjl-tab:hover {
+  color: var(--mjl-text-strong, #0B0E15);
+}
+
+.mjl-tab:focus-visible {
+  outline: none;
+  ring: 2px solid var(--mjl-border-focus, #4256F5);
+}
+
+.mjl-tab--active {
+  color: var(--mjl-text-brand, #0014A8);
+}
+
+.mjl-tab--active::after {
+  background-color: var(--mjl-text-brand, #0014A8);
+}
+
+/* Pill Tabs Variant */
+.mjl-tabs--pill .mjl-tab-list {
+  border-bottom: none;
+  background-color: var(--mjl-bg-elevated, #F7F8FA);
+  padding: 4px;
+  border-radius: var(--mjl-radius-md, 10px);
+  display: inline-flex;
+}
+
+.mjl-tabs--pill .mjl-tab {
+  border-radius: var(--mjl-radius-sm, 6px);
+  padding: 6px 14px;
+  min-height: 32px;
+}
+
+.mjl-tabs--pill .mjl-tab::after {
+  display: none;
+}
+
+.mjl-tabs--pill .mjl-tab--active {
+  background-color: var(--mjl-bg-base, #FFFFFF);
+  color: var(--mjl-text-brand, #0014A8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.mjl-tab-panel {
+  display: none;
+  padding: var(--mjl-space-2, 8px) 0;
+}
+
+.mjl-tab-panel--active {
+  display: block;
+}

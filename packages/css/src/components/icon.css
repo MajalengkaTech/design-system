@@ -1,0 +1,40 @@
+/**
+ * Majalengka Design System - Icon
+ * Base styling and standard sizes
+ */
+
+.mjl-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+.mjl-icon--xs {
+  width: 14px;
+  height: 14px;
+}
+
+.mjl-icon--sm {
+  width: 16px;
+  height: 16px;
+}
+
+.mjl-icon--md {
+  width: 20px;
+  height: 20px;
+}
+
+.mjl-icon--lg {
+  width: 24px;
+  height: 24px;
+}
+
+.mjl-icon--xl {
+  width: 32px;
+  height: 32px;
+}

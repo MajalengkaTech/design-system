@@ -1,0 +1,42 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "semantic": {
+    "color": {
+      "surface": {
+        "canvas": { "$type": "color", "$value": "#0B0E15" },
+        "card": { "$type": "color", "$value": "#151922" },
+        "sunken": { "$type": "color", "$value": "#07090E" },
+        "overlay": { "$type": "color", "$value": "#1C222E" }
+      },
+      "text": {
+        "primary": { "$type": "color", "$value": "#F7F8FA" },
+        "secondary": { "$type": "color", "$value": "#C6CCD8" },
+        "muted": { "$type": "color", "$value": "#97A0B2" },
+        "inverse": { "$type": "color", "$value": "#0B0E15" },
+        "link": { "$type": "color", "$value": "#94A3FF" },
+        "linkHover": { "$type": "color", "$value": "#BCC7FF" }
+      },
+      "action": {
+        "primary": {
+          "default": { "$type": "color", "$value": "#4256F5" },
+          "hover": { "$type": "color", "$value": "#6B7DFF" },
+          "active": { "$type": "color", "$value": "#94A3FF" },
+          "fg": { "$type": "color", "$value": "#FFFFFF" }
+        },
+        "secondary": {
+          "default": { "$type": "color", "$value": "#222834" },
+          "hover": { "$type": "color", "$value": "#363D4D" },
+          "active": { "$type": "color", "$value": "#4C5466" },
+          "fg": { "$type": "color", "$value": "#F7F8FA" }
+        }
+      },
+      "border": {
+        "subtle": { "$type": "color", "$value": "#1F2633" },
+        "default": { "$type": "color", "$value": "#2D3748" },
+        "input": { "$type": "color", "$value": "#3E4C63" },
+        "focus": { "$type": "color", "$value": "#6B7DFF" },
+        "error": { "$type": "color", "$value": "#F87171" }
+      }
+    }
+  }
+}

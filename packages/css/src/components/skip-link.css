@@ -1,0 +1,27 @@
+/**
+ * Majalengka Design System - Skip Link Component
+ * Komponen pertama dalam urutan aksesibilitas: Langsung ke konten utama
+ */
+
+.mjl-skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--mjl-space-4, 16px);
+  z-index: var(--mjl-layer-tooltip, 1600);
+  padding: var(--mjl-space-3, 12px) var(--mjl-space-4, 16px);
+  background-color: var(--mjl-color-primary-700, #0014A8);
+  color: #FFFFFF;
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--mjl-radius-md, 10px) var(--mjl-radius-md, 10px);
+  box-shadow: var(--mjl-shadow-md);
+  transition: top var(--mjl-duration-fast, 150ms) ease;
+}
+
+.mjl-skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--mjl-color-status-mango, #F0A202);
+  outline-offset: 2px;
+}

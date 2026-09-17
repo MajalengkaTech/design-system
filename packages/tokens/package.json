@@ -1,0 +1,19 @@
+{
+  "name": "@majalengka/tokens",
+  "version": "0.1.0",
+  "description": "W3C DTCG Design Tokens for Majalengka Design System",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./css": "./dist/tokens.css",
+    "./css/dark": "./dist/tokens-dark.css"
+  },
+  "scripts": {
+    "build": "bun run build.ts"
+  }
+}

@@ -1,0 +1,15 @@
+node_modules/
+.nuxt/
+.output/
+.data/
+dist/
+*.log
+
+# Agent & AI workspace files — tidak perlu di repo
+.agents/
+.roo/
+AGENTS.md
+skills-lock.json
+untukagy.md
+link-sumber-penting.md
+okf-base.yaml
