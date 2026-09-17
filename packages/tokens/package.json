@@ -17,6 +17,19 @@
     "./css": "./dist/tokens.css",
     "./css/dark": "./dist/tokens-dark.css"
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MajalengkaTech/design-system.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://github.com/MajalengkaTech/design-system#readme",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "bun run build.ts"
   }

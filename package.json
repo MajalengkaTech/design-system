@@ -11,6 +11,10 @@
     "build:tokens": "cd packages/tokens && bun run build",
     "build:css": "cd packages/css && bun run build",
     "build:vue": "cd packages/vue && bun run build",
+    "test:css": "cd packages/css && bun run build",
+    "publish:tokens": "cd packages/tokens && npm publish",
+    "publish:css": "cd packages/css && npm publish",
+    "publish:vue": "cd packages/vue && npm publish",
     "build:docs": "cd docs && bun run build",
     "generate:docs": "cd docs && bun generate",
     "preview:docs": "cd docs && bun preview"

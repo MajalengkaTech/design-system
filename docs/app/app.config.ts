@@ -8,7 +8,7 @@ export default defineAppConfig({
     },
   },
   navigation: {
-    sub: 'header',
+    sub: false,
   },
   docus: {
     locale: 'id',
@@ -19,19 +19,24 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'brand',
-      neutral: 'gray',
+      neutral: 'slate',
     },
-    // "garis kecil" = ring tipis di dalam (bukan border, biar sudutnya tetap
-    // tajam — prinsip kumo-design shadow-borders), "bagian terang di atas" =
-    // inset shadow putih tipis di tepi atas. Sengaja pakai shadow, bukan
-    // bg-linear-to-b — bg-linear-to-b kepakai slot "background" yang sama
-    // dengan bg-primary di tailwind-merge, jadi malah MENGHAPUS warna solid
-    // tombolnya (itu yang bikin tombol jadi transparan/hilang kemarin).
-    button: {
-      variants: {
-        variant: {
-          solid: 'ring-1 ring-inset ring-white/15 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25)]',
-        },
+    // Docus subcomponent defaults (sesuai docs docus.dev/en/concepts/theme)
+    toc: {
+      title: 'Daftar Isi',
+    },
+    contentToc: {
+      defaultVariants: {
+        highlight: true,
+        highlightColor: 'primary',
+        highlightVariant: 'circuit',
+      },
+    },
+    contentNavigation: {
+      defaultVariants: {
+        variant: 'pill',
+        highlight: true,
+        highlightColor: 'primary',
       },
     },
   },

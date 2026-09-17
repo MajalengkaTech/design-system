@@ -5,13 +5,13 @@ description: Design system open-source untuk ekosistem web Majalengka.tech — b
 
 <u-page-hero>
 <template v-slot:headline>
-  <u-button size="sm" to="/dokumentasi/memulai/pengantar" variant="outline">
+  <u-button size="sm" to="/dokumentasi/memulai/pengantar" variant="outline" class="whitespace-normal text-center leading-snug py-1 px-3 max-w-full">
     Versi 0.1.0 · Open-source, bukan produk resmi Pemkab →
   </u-button>
 </template>
 
 <template v-slot:title>
-  Design System Majalengka.tech
+  Design System <span class="text-(--ui-primary)">Majalengka.tech</span>
 </template>
 
 <template v-slot:description>

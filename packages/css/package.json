@@ -10,14 +10,24 @@
     "./min": "./dist/majalengka.min.css",
     "./src/*": "./src/*"
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MajalengkaTech/design-system.git",
+    "directory": "packages/css"
+  },
+  "homepage": "https://github.com/MajalengkaTech/design-system#readme",
   "files": [
     "dist",
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "bun run build.ts"
   },
-  "dependencies": {
+  "devDependencies": {
     "@majalengka/tokens": "workspace:*"
   }
 }

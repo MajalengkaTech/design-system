@@ -1,27 +1,450 @@
-@import "@majalengka/css";
+@import '@majalengka/css';
 
-/* Brand palette (Biru Majalengka) — dipetakan lewat app.config.ts (ui.colors.primary: 'brand').
-   Nuxt UI yang urus turunan --ui-color-primary-* & penyesuaian dark mode-nya sendiri. */
-@theme {
-  --color-brand-50: oklch(100% 0 none);
-  --color-brand-100: oklch(96.341% 0.0175 279.06);
-  --color-brand-200: oklch(77.793% 0.11301 274.6);
-  --color-brand-300: oklch(61.194% 0.20942 270.46);
-  --color-brand-400: oklch(49.548% 0.28383 265.05);
-  --color-brand-500: oklch(41.79% 0.25771 264.18);
-  --color-brand-600: oklch(35.237% 0.21451 264.16);
-  --color-brand-700: oklch(29.833% 0.1779 264.1);
-  --color-brand-800: oklch(22.71% 0.12703 263.82);
-  --color-brand-900: oklch(13.862% 0.06273 261.7);
-  --color-brand-950: oklch(7.1516% 0.02779 259.05);
+/* Scan semua komponen & halaman lokal — docus.css hanya @source docus/app (node_modules)
+   dan app.config.ts; komponen kita di sini tidak ikut di-scan tanpa baris ini. */
+@source "./components";
+@source "./pages";
+
+/* Brand palette — Biru Majalengka #0014A8
+   Nuxt UI: light mode → brand-500, dark mode → brand-400
+   brand-500 ≈ #0014A8 = oklch(29% 0.19 265)
+   brand-400 = medium blue, visible di dark background */
+@theme static {
+	--color-brand-50:  oklch(97.5% 0.010 264);
+	--color-brand-100: oklch(93.5% 0.025 264);
+	--color-brand-200: oklch(86.0% 0.062 264);
+	--color-brand-300: oklch(74.0% 0.128 264);
+	--color-brand-400: oklch(54.0% 0.210 264);
+	--color-brand-500: oklch(29.0% 0.188 265);
+	--color-brand-600: oklch(23.5% 0.155 265);
+	--color-brand-700: oklch(18.5% 0.118 265);
+	--color-brand-800: oklch(14.0% 0.085 265);
+	--color-brand-900: oklch(9.5%  0.052 265);
+	--color-brand-950: oklch(6.0%  0.028 265);
+
+  /* Dark mode backgrounds — override slate gelap ke near-black blue
+     slate-950 = bg body dark, slate-900 = surface, slate-800 = elevated surface */
+  --color-slate-800: oklch(16.0% 0.042 265);
+  --color-slate-900: oklch(11.5% 0.035 265);
+  --color-slate-950: oklch(7.5%  0.025 265);
 }
 
 /* Custom interactive container (Pure Semantic Functional Architecture) */
 .mjl-demo-box {
-  background: var(--mjl-bg-base, #ffffff);
-  border: 1px solid var(--mjl-border-line, rgba(0, 0, 0, 0.08));
-  border-radius: var(--mjl-radius-lg, 12px);
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	background: var(--mjl-bg-base, #ffffff);
+	border: 1px solid var(--mjl-border-line, rgba(0, 0, 0, 0.08));
+	border-radius: var(--mjl-radius-lg, 12px);
+	padding: 1.5rem;
+	margin: 1.5rem 0;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
+
+/* =========================================================
+   Mobile Layout & Overflow Fixes (Anti-Slop Mobile Standards)
+   ========================================================= */
+html,
+body {
+	overflow-x: clip;
+}
+
+/* Pastikan navbar selalu menempel (sticky/fixed) di atas saat di-scroll */
+header,
+header[data-slot="root"] {
+	position: sticky !important;
+	top: 0 !important;
+	z-index: 50 !important;
+}
+
+/* Set single header height variable */
+:root {
+	--ui-header-height: 56px;
+}
+
+/* Sidebar Navigasi Kiri & TOC Kanan ("Pada halaman ini") Sticky di desktop (tepat di bawah navbar 56px) */
+@media (min-width: 1024px) {
+	main [data-slot="left"],
+	main [data-slot="right"] {
+		align-self: start !important;
+	}
+
+	main aside[data-slot="root"],
+	main aside {
+		position: sticky !important;
+		top: 56px !important;
+		max-height: calc(100vh - 56px) !important;
+		overflow-y: auto !important;
+		overflow-x: hidden !important;
+		align-self: start !important;
+	}
+
+	main [data-slot="right"] {
+		position: sticky !important;
+		top: 56px !important;
+		align-self: start !important;
+		overflow: visible !important;
+		padding-right: 1.5rem !important;
+		box-sizing: border-box !important;
+	}
+
+	/* Hilangkan scrollbar horizontal maupun vertikal pada TOC desktop */
+	main [data-slot="right"],
+	main [data-slot="right"] * {
+		scrollbar-width: none !important;
+		-ms-overflow-style: none !important;
+	}
+	main [data-slot="right"]::-webkit-scrollbar,
+	main [data-slot="right"] *::-webkit-scrollbar {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+}
+
+/* Di mobile (< 1024px), sidebar kiri & kanan diakses lewat Drawer dari sub-bar mobile */
+@media (max-width: 1023px) {
+	main aside,
+	main [data-slot="left"],
+	main [data-slot="right"] {
+		display: none !important;
+	}
+}
+
+/* Hilangkan visual scrollbar di drawer mobile namun tetap bisa di-scroll dengan sentuhan */
+[data-slot="drawer"] [data-slot="body"],
+[data-slot="drawer"] [data-slot="content"],
+[data-slot="drawer"] div {
+	scrollbar-width: none !important;
+	-ms-overflow-style: none !important;
+}
+[data-slot="drawer"] [data-slot="body"]::-webkit-scrollbar,
+[data-slot="drawer"] [data-slot="content"]::-webkit-scrollbar,
+[data-slot="drawer"] div::-webkit-scrollbar {
+	display: none !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
+/* Hero Title: fluid responsive font-size KHUSUS untuk hero di landing page */
+[data-slot="hero"] [data-slot="title"],
+header[data-slot="hero"] [data-slot="title"] {
+	font-size: clamp(1.875rem, 6.5vw, 3.75rem) !important;
+	line-height: 1.12 !important;
+	letter-spacing: -0.02em !important;
+	overflow-wrap: break-word;
+}
+
+/* Penyesuaian khusus layar HP (< 640px) untuk hero section */
+@media (max-width: 640px) {
+	[data-slot="hero"] [data-slot="title"],
+	header[data-slot="hero"] [data-slot="title"] {
+		font-size: 2rem !important;
+		line-height: 1.2 !important;
+		letter-spacing: -0.02em !important;
+	}
+
+	[data-slot="hero"] [data-slot="headline"],
+	header[data-slot="hero"] [data-slot="headline"] {
+		max-width: 100% !important;
+	}
+
+	[data-slot="hero"] [data-slot="headline"] a,
+	[data-slot="hero"] [data-slot="headline"] button {
+		font-size: 0.75rem !important;
+		padding: 0.35rem 0.65rem !important;
+		white-space: normal !important;
+		line-height: 1.3 !important;
+	}
+
+	[data-slot="hero"] [data-slot="description"],
+	header[data-slot="hero"] [data-slot="description"] {
+		font-size: 0.95rem !important;
+		line-height: 1.55 !important;
+	}
+}
+
+/* Judul kartu (Katalog Komponen, Grid, Card) wajib proporsional & rapi (tidak membesar) */
+[data-slot="card"] [data-slot="title"],
+[data-slot="page-card"] [data-slot="title"],
+[data-slot="grid"] [data-slot="title"],
+article [data-slot="title"] {
+	font-size: 0.875rem !important;
+	line-height: 1.35 !important;
+	font-weight: 600 !important;
+	letter-spacing: normal !important;
+	word-break: normal !important;
+	overflow-wrap: normal !important;
+}
+
+/* =========================================================
+   Warna Teks Paragraf Lebih Gelap & Kontras Tinggi (WCAG AAA)
+   ========================================================= */
+p,
+main p,
+article p,
+.prose p,
+[data-slot="description"] {
+	color: #0f172a !important; /* Slate-900 pekat, tajam, dan kontras tinggi */
+	line-height: 1.68;
+}
+
+/* Di Dark Mode, teks paragraf tetap terang, jernih & nyaman di mata */
+.dark p,
+.dark main p,
+.dark article p,
+.dark .prose p,
+.dark [data-slot="description"] {
+	color: #e2e8f0 !important; /* Slate-200 */
+}
+
+/* Variabel CSS teks global */
+:root {
+	--mjl-text-default: #0f172a;
+	--ui-text: #0f172a;
+	--ui-text-muted: #334155;
+}
+
+.dark {
+	--mjl-text-default: #e2e8f0;
+	--ui-text: #e2e8f0;
+	--ui-text-muted: #94a3b8;
+}
+
+/* =========================================================
+   Active State Menu Kiri (Primary Navbar Style: Biru Majalengka #0014A8, Teks Putih)
+   & TOC Kanan (Teks Kontras & Terbaca Jelas di Light & Dark Mode)
+   ========================================================= */
+
+/* 1. Menu Navigasi Kiri (Desktop Aside & Mobile Drawer) saat Aktif */
+/* Teks dan icon pada link aktif berwarna putih */
+.docs-aside-left-nav a[data-slot="link"].text-primary,
+.docs-aside-left-nav [data-slot="link"].text-primary,
+[data-slot="drawer"] .docs-aside-left-nav a[data-slot="link"].text-primary {
+	color: #ffffff !important;
+	font-weight: 600 !important;
+	border-radius: 6px !important;
+}
+
+.docs-aside-left-nav a[data-slot="link"].text-primary *,
+.docs-aside-left-nav [data-slot="link"].text-primary *,
+[data-slot="drawer"] .docs-aside-left-nav a[data-slot="link"].text-primary * {
+	color: #ffffff !important;
+}
+
+/* Fallback solid background jika indicator belum aktif atau pada drawer mobile */
+.docs-aside-left-nav a[data-slot="link"].text-primary {
+	background-color: #0014A8 !important;
+}
+
+/* Jika container memiliki .docs-aside-indicator yang visible, transparan-kan background link agar background meluncur terlihat */
+.docs-aside-left-nav:has(.docs-aside-indicator[style*="opacity: 1"]) a[data-slot="link"].text-primary {
+	background-color: transparent !important;
+}
+
+[data-slot="drawer"] .docs-aside-left-nav a[data-slot="link"].text-primary {
+	background-color: #0014A8 !important;
+	box-shadow: 0 1px 2px rgba(0, 20, 168, 0.25) !important;
+}
+
+/* Link Non-Aktif di Menu Kiri: Slate-600 di light mode, Slate-400 di dark mode */
+.docs-aside-left-nav a[data-slot="link"]:not(.text-primary),
+[data-slot="drawer"] .docs-aside-left-nav a[data-slot="link"]:not(.text-primary) {
+	background-color: transparent !important;
+	color: #475569 !important;
+	font-weight: 500 !important;
+	box-shadow: none !important;
+}
+
+.docs-aside-left-nav a[data-slot="link"]:not(.text-primary) *,
+[data-slot="drawer"] .docs-aside-left-nav a[data-slot="link"]:not(.text-primary) * {
+	color: #475569 !important;
+}
+
+.dark .docs-aside-left-nav a[data-slot="link"]:not(.text-primary),
+.dark [data-slot="drawer"] .docs-aside-left-nav a[data-slot="link"]:not(.text-primary) {
+	background-color: transparent !important;
+	color: #94a3b8 !important;
+	box-shadow: none !important;
+}
+
+.dark .docs-aside-left-nav a[data-slot="link"]:not(.text-primary) *,
+.dark [data-slot="drawer"] .docs-aside-left-nav a[data-slot="link"]:not(.text-primary) * {
+	color: #94a3b8 !important;
+}
+
+/* Hilangkan garis aksen samping bawaan pada menu kiri agar tidak menabrak tombol */
+.docs-aside-left-nav a[data-slot="link"]::after,
+.docs-aside-left-nav a[data-slot="link"]::before {
+	display: none !important;
+}
+
+/* 2. TOC Kanan: Pastikan Judul tidak terpotong menjadi "Pada halama..." */
+main [data-slot="right"] [data-slot="title"],
+.docs-aside-right-wrapper [data-slot="title"] {
+	overflow: visible !important;
+	white-space: normal !important;
+	text-overflow: clip !important;
+	font-weight: 700 !important;
+}
+
+/* 3. TOC Kanan: Link Teks Minimalis dengan Circuit Indicator */
+/* Link Non-Aktif (Light Mode): Slate-600 jelas dan terbaca */
+main [data-slot="right"] a[data-slot="link"]:not(.text-primary):not([data-active="true"]),
+.docs-aside-right-wrapper a[data-slot="link"]:not(.text-primary):not([data-active="true"]),
+main [data-slot="right"] a[data-slot="link"]:not(.text-primary):not([data-active="true"]) *,
+.docs-aside-right-wrapper a[data-slot="link"]:not(.text-primary):not([data-active="true"]) * {
+	color: #475569 !important;
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+
+/* Link Non-Aktif (Dark Mode): Slate-400 */
+.dark main [data-slot="right"] a[data-slot="link"]:not(.text-primary):not([data-active="true"]),
+.dark .docs-aside-right-wrapper a[data-slot="link"]:not(.text-primary):not([data-active="true"]),
+.dark main [data-slot="right"] a[data-slot="link"]:not(.text-primary):not([data-active="true"]) *,
+.dark .docs-aside-right-wrapper a[data-slot="link"]:not(.text-primary):not([data-active="true"]) * {
+	color: #94a3b8 !important;
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+
+/* Link AKTIF (Light Mode): Biru Majalengka #0014A8 Bold — TERLIHAT SANGAT JELAS */
+main [data-slot="right"] a[data-slot="link"].text-primary,
+main [data-slot="right"] a[data-slot="link"][data-active="true"],
+.docs-aside-right-wrapper a[data-slot="link"].text-primary,
+.docs-aside-right-wrapper a[data-slot="link"][data-active="true"],
+main [data-slot="right"] a[data-slot="link"].text-primary *,
+main [data-slot="right"] a[data-slot="link"][data-active="true"] *,
+.docs-aside-right-wrapper a[data-slot="link"].text-primary *,
+.docs-aside-right-wrapper a[data-slot="link"][data-active="true"] * {
+	color: #0014A8 !important;
+	font-weight: 700 !important;
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+
+/* Link AKTIF (Dark Mode): Teks Putih Bold #ffffff — KONTRAST TINGGI */
+.dark main [data-slot="right"] a[data-slot="link"].text-primary,
+.dark main [data-slot="right"] a[data-slot="link"][data-active="true"],
+.dark .docs-aside-right-wrapper a[data-slot="link"].text-primary,
+.dark .docs-aside-right-wrapper a[data-slot="link"][data-active="true"],
+.dark main [data-slot="right"] a[data-slot="link"].text-primary *,
+.dark main [data-slot="right"] a[data-slot="link"][data-active="true"] *,
+.dark .docs-aside-right-wrapper a[data-slot="link"].text-primary *,
+.dark .docs-aside-right-wrapper a[data-slot="link"][data-active="true"] * {
+	color: #ffffff !important;
+	font-weight: 700 !important;
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+
+/* =========================================================
+   Custom Scrollbar Sesuai Majalengka Design System
+   (Ramping, Kapsul Rounded-Full, Track Transparan, Aksen Biru Majalengka)
+   ========================================================= */
+
+/* Standar W3C (Firefox & browser modern) */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(100, 116, 139, 0.28) transparent;
+}
+
+.dark * {
+	scrollbar-color: rgba(148, 163, 184, 0.22) transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari, Opera, dsb.) */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+/* Hilangkan tombol panah atas & bawah bawaan Windows */
+::-webkit-scrollbar-button {
+	display: none !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
+/* Track latar belakang dibuat transparan bersih tanpa kotak kaku */
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Thumb (batang penggeser) berbentuk kapsul ramping rounded-full */
+::-webkit-scrollbar-thumb {
+	background-color: rgba(100, 116, 139, 0.25);
+	border-radius: 9999px;
+	transition: background-color 0.2s ease;
+}
+
+/* Efek Hover: Menampilkan aksen Biru Majalengka (#0014A8) */
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(0, 20, 168, 0.55);
+}
+
+/* Efek Active (saat ditekan/digeser) */
+::-webkit-scrollbar-thumb:active {
+	background-color: #0014A8;
+}
+
+/* Scrollbar pada Dark Mode */
+.dark ::-webkit-scrollbar-thumb {
+	background-color: rgba(148, 163, 184, 0.2);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(96, 165, 250, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb:active {
+	background-color: #3b82f6;
+}
+
+/* Sudut pertemuan scrollbar horizontal & vertikal */
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+/* =========================================================
+   Custom Text Selection Sesuai Majalengka Design System
+   (Biru Majalengka #0014A8 & Kontras Tinggi WCAG AAA)
+   ========================================================= */
+
+/* Light Mode: Seleksi teks dengan Biru Majalengka #0014A8 dan teks putih */
+::selection {
+	background-color: #0014A8 !important;
+	color: #ffffff !important;
+}
+
+::-moz-selection {
+	background-color: #0014A8 !important;
+	color: #ffffff !important;
+}
+
+/* Dark Mode: Seleksi teks dengan Biru Royal Kontras #1d4ed8 dan teks putih */
+.dark ::selection {
+	background-color: #1d4ed8 !important;
+	color: #ffffff !important;
+}
+
+.dark ::-moz-selection {
+	background-color: #1d4ed8 !important;
+	color: #ffffff !important;
+}
+
+/* Khusus untuk input dan textarea agar tetap konsisten saat memilih teks */
+input::selection,
+textarea::selection {
+	background-color: #0014A8 !important;
+	color: #ffffff !important;
+}
+
+.dark input::selection,
+.dark textarea::selection {
+	background-color: #1d4ed8 !important;
+	color: #ffffff !important;
+}
+
+
+
+

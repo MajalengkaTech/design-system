@@ -12,6 +12,19 @@
       "types": "./src/index.ts"
     }
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MajalengkaTech/design-system.git",
+    "directory": "packages/vue"
+  },
+  "homepage": "https://github.com/MajalengkaTech/design-system#readme",
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "vue-tsc --noEmit -p tsconfig.json"
   },
@@ -19,8 +32,8 @@
     "vue": "^3.5.0"
   },
   "dependencies": {
-    "@majalengka/tokens": "workspace:*",
-    "@majalengka/css": "workspace:*"
+    "@majalengka/tokens": "^0.1.0",
+    "@majalengka/css": "^0.1.0"
   },
   "devDependencies": {
     "vue": "^3.5.13",

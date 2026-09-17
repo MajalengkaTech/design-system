@@ -78,8 +78,21 @@ const minifiedCss = fullCss
   .replace(/;}/g, "}")
   .trim();
 
+import { gzipSync } from "node:zlib";
+
 writeFileSync(resolve(distDir, "majalengka.min.css"), `/*! @majalengka/css v0.1.0 | MIT */\n` + minifiedCss);
 
-console.log(`CSS build completed:`);
-console.log(`- dist/majalengka.css (${(Buffer.byteLength(fullCss) / 1024).toFixed(2)} kB)`);
-console.log(`- dist/majalengka.min.css (${(Buffer.byteLength(minifiedCss) / 1024).toFixed(2)} kB)`);
+const rawKb = (Buffer.byteLength(fullCss) / 1024).toFixed(2);
+const minKb = (Buffer.byteLength(minifiedCss) / 1024).toFixed(2);
+const gzippedBuffer = gzipSync(Buffer.from(minifiedCss));
+const gzipKb = (Buffer.byteLength(gzippedBuffer) / 1024).toFixed(2);
+
+// Performance budget: Minified < 35 kB ATAU Gzipped < 12 kB
+const passedBudget = Number(minKb) < 35 || Number(gzipKb) < 12;
+
+console.log(`\n================ CSS BUILD & BUDGET ================`);
+console.log(`- dist/majalengka.css      : ${rawKb} kB`);
+console.log(`- dist/majalengka.min.css  : ${minKb} kB (target < 35 kB)`);
+console.log(`- dist/majalengka (gzipped): ${gzipKb} kB (target < 12 kB)`);
+console.log(`- Performance Budget       : ${passedBudget ? "✅ PASSED" : "❌ FAILED"}`);
+console.log(`====================================================\n`);
