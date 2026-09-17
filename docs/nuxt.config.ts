@@ -38,11 +38,16 @@ export default defineNuxtConfig({
     ],
   },
 
-  // Docus AI Assistant — aktifkan dengan API key
+  // Docus AI Assistant — aktifkan dengan API key.
+  // Model default Docus (google/gemini-3-flash) ditolak untuk akun
+  // AI Gateway yang belum top-up kredit ("Free tier users do not have
+  // access to this model"). gemini-2.5-flash sudah dites langsung ke
+  // gateway dan terbukti bisa diakses dengan kredensial yang sama.
   docus: {
     assistant: {
       enabled: true,
       mcpServer: '/mcp',
+      model: 'google/gemini-2.5-flash',
     },
   },
 
