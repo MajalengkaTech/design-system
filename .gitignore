@@ -14,7 +14,7 @@ dist/
 .agents/
 .roo/
 .claude/
-majalengka-design-system/
+/majalengka-design-system/
 AGENTS.md
 CLAUDE.md
 skills-lock.json
