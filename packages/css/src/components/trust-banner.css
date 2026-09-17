@@ -1,9 +1,10 @@
 /**
- * Majalengka Design System - GovBanner (Pita Pemerintah Resmi)
- * Menandakan legitimasi domain resmi Kabupaten Majalengka
+ * Majalengka Design System - TrustBanner
+ * Pita identitas pengelola situs, isinya diisi sendiri oleh pemakai
+ * (instansi, komunitas, atau bisnis) — bukan klaim resmi bawaan.
  */
 
-.mjl-gov-banner {
+.mjl-trust-banner {
   background-color: var(--mjl-color-neutral-200, #EEF0F4);
   color: var(--mjl-color-text-primary, #222834);
   font-size: var(--mjl-text-xs-size, 12px);
@@ -12,7 +13,7 @@
   z-index: var(--mjl-layer-sticky, 1100);
 }
 
-.mjl-gov-banner__inner {
+.mjl-trust-banner__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,29 +22,16 @@
   flex-wrap: wrap;
 }
 
-.mjl-gov-banner__content {
-  display: flex;
-  align-items: center;
-  gap: var(--mjl-space-2, 8px);
-}
-
-.mjl-gov-banner__flag {
-  width: 18px;
-  height: 12px;
-  border-radius: 2px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
-}
-
-.mjl-gov-banner__text {
+.mjl-trust-banner__text {
   color: var(--mjl-color-text-secondary, #6B7488);
 }
 
-.mjl-gov-banner__text strong {
+.mjl-trust-banner__text strong {
   color: var(--mjl-color-text-primary, #222834);
   font-weight: 600;
 }
 
-.mjl-gov-banner__toggle {
+.mjl-trust-banner__toggle {
   background: transparent;
   border: none;
   color: var(--mjl-color-primary-700, #0014A8);
@@ -56,23 +44,15 @@
   padding: 4px 8px;
   border-radius: var(--mjl-radius-sm, 6px);
   min-height: var(--mjl-touch-min, 44px);
+  text-decoration: none;
 }
 
-.mjl-gov-banner__toggle:hover {
+.mjl-trust-banner__toggle:hover {
   text-decoration: underline;
 }
 
-.mjl-gov-banner__details {
+.mjl-trust-banner__details {
   background-color: var(--mjl-color-surface-card, #FFFFFF);
   border-top: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
   padding: var(--mjl-space-4, 16px);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--mjl-space-4, 16px);
-}
-
-@media (min-width: 640px) {
-  .mjl-gov-banner__details {
-    grid-template-columns: 1fr 1fr;
-  }
 }

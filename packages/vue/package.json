@@ -12,6 +12,9 @@
       "types": "./src/index.ts"
     }
   },
+  "scripts": {
+    "build": "vue-tsc --noEmit -p tsconfig.json"
+  },
   "peerDependencies": {
     "vue": "^3.5.0"
   },
@@ -20,6 +23,7 @@
     "@majalengka/css": "workspace:*"
   },
   "devDependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.0"
   }
 }

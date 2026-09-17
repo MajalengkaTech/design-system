@@ -1,21 +1,21 @@
 ---
 title: Majalengka Design System
-description: Sistem Desain Resmi Pemerintah Kabupaten Majalengka. Standar antarmuka digital yang aksesibel, kredibel, dan mudah dipakai oleh seluruh instansi, pengembang, dan warga di Kabupaten Majalengka.
+description: Design system open-source untuk ekosistem web Majalengka.tech — bukan produk resmi Pemkab Majalengka. Standar antarmuka digital yang aksesibel, kredibel, dan mudah dipakai oleh instansi, komunitas, dan pengembang di Majalengka.
 ---
 
 <u-page-hero>
 <template v-slot:headline>
   <u-button size="sm" to="/dokumentasi/memulai/pengantar" variant="outline">
-    Versi 0.1.0 · Standar Desain Resmi →
+    Versi 0.1.0 · Open-source, bukan produk resmi Pemkab →
   </u-button>
 </template>
 
 <template v-slot:title>
-  Sistem Desain Pemerintah Kabupaten Majalengka
+  Design System Majalengka.tech
 </template>
 
 <template v-slot:description>
-  Standar antarmuka digital yang aksesibel, kredibel, dan mudah dipakai oleh seluruh instansi, pengembang, dan warga di Kabupaten Majalengka.
+  Standar antarmuka digital yang aksesibel, kredibel, dan mudah dipakai oleh instansi, komunitas, dan pengembang di Majalengka.
 </template>
 
 <template v-slot:links>
@@ -57,12 +57,12 @@ description: Sistem Desain Resmi Pemerintah Kabupaten Majalengka. Standar antarm
     </template>
   </u-page-card>
 
-  <u-page-card :spotlight="true" to="/dokumentasi/prinsip/kredibel-resmi" icon="i-lucide-shield-check">
+  <u-page-card :spotlight="true" to="/dokumentasi/prinsip/kredibel-tepercaya" icon="i-lucide-shield-check">
     <template v-slot:title>
-      Kredibel & Resmi
+      Kredibel & Tepercaya
     </template>
     <template v-slot:description>
-      Menghadirkan rasa percaya warga melalui Pita Resmi Pemerintah (GovBanner), warna khas Biru Majalengka (#0014A8), dan identitas yang konsisten antar instansi.
+      Menghadirkan rasa percaya lewat pita identitas pengelola (TrustBanner) yang diisi sendiri oleh pemakainya, warna khas Biru Majalengka (#0014A8), dan tampilan yang konsisten — tanpa mengklaim afiliasi resmi.
     </template>
   </u-page-card>
 </u-page-grid>

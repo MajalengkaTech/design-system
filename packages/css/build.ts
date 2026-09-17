@@ -12,7 +12,7 @@ const filesToBundle = [
   resolve(__dirname, "src/typography.css"),
   resolve(__dirname, "src/layout.css"),
   resolve(__dirname, "src/components/skip-link.css"),
-  resolve(__dirname, "src/components/gov-banner.css"),
+  resolve(__dirname, "src/components/trust-banner.css"),
   resolve(__dirname, "src/components/banner.css"),
   resolve(__dirname, "src/components/icon.css"),
   resolve(__dirname, "src/components/button.css"),
@@ -44,7 +44,7 @@ const filesToBundle = [
 let fullCss = `/*!
  * @majalengka/css v0.1.0
  * Pure standalone CSS distribution for Majalengka Design System
- * (c) 2026 Pemerintah Kabupaten Majalengka / Majalengka.tech
+ * (c) 2026 Komunitas Majalengka.tech
  * Released under MIT License
  */\n\n`;
 

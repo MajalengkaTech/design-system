@@ -1,11 +1,11 @@
 ---
 title: Katalog Komponen
-description: Direktori komponen antarmuka resmi Pemerintah Kabupaten Majalengka yang lengkap, teruji, aksesibel, dan framework-agnostic.
+description: Direktori komponen antarmuka open-source Majalengka Design System — lengkap, teruji, aksesibel, dan framework-agnostic.
 ---
 
 # Katalog Komponen Majalengka
 
-Selamat datang di direktori komponen resmi **Majalengka Design System**. Seluruh komponen di bawah ini dirancang mematuhi standar aksesibilitas **WCAG 2.1 Level AA**, prinsip ergonomi **Kumo UI**, serta kaidah **Hukum UX & Psikologi Kognitif**.
+Selamat datang di direktori komponen **Majalengka Design System**, proyek open-source untuk ekosistem web Majalengka.tech. Seluruh komponen di bawah ini dirancang mematuhi standar aksesibilitas **WCAG 2.1 Level AA**, prinsip ergonomi **Kumo UI**, serta kaidah **Hukum UX & Psikologi Kognitif**.
 
 Dapat digunakan langsung di framework apa pun melalui **CSS Murni** (`@majalengka/css`), **UnoCSS** (`presetMajalengka`), **Tailwind CSS**, maupun **Vue 3** (`@majalengka/vue`).
 
@@ -55,7 +55,7 @@ Wadah pengumpulan data permohonan warga yang toleran terhadap kesalahan input:
 Penunjuk arah dan struktur hierarki informasi:
 
 ::u-page-grid
-:u-page-card{to="/komponen/navigasi/gov-banner" icon="i-lucide-flag" title="GovBanner" description="Pita resmi Pemkab Majalengka untuk verifikasi keabsahan situs."}
+:u-page-card{to="/komponen/navigasi/trust-banner" icon="i-lucide-shield-check" title="TrustBanner" description="Pita identitas pengelola situs, teksnya diisi sendiri oleh pemakai."}
 :u-page-card{to="/komponen/navigasi/skip-link" icon="i-lucide-corner-down-right" title="SkipLink" description="Tautan pintas langsung ke konten untuk pengguna keyboard."}
 :u-page-card{to="/komponen/navigasi/stepper" icon="i-lucide-list-ordered" title="Stepper" description="Penunjuk tahapan alur permohonan layanan multi-langkah."}
 :u-page-card{to="/komponen/navigasi/tabs" icon="i-lucide-folder" title="Tabs" description="Navigasi panel tab bergaya underline dan pil kapsul."}

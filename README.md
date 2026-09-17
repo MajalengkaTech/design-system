@@ -1,8 +1,8 @@
 # Majalengka Design System
 
-> Sistem Desain Resmi Pemerintah & Instansi Kabupaten Majalengka (`MajalengkaTech/design-system`).
+> Design system open-source untuk ekosistem web Majalengka.tech (`MajalengkaTech/design-system`) — bukan produk resmi Pemkab Majalengka.
 
-Repositori ini adalah sumber kebenaran tunggal (*single source of truth*) untuk seluruh aset antarmuka digital, standar aksesibilitas, token desain, dan pustaka komponen bagi aplikasi dan portal layanan publik di Kabupaten Majalengka.
+Repositori ini adalah sumber kebenaran tunggal (*single source of truth*) untuk seluruh aset antarmuka digital, standar aksesibilitas, token desain, dan pustaka komponen bagi instansi, komunitas, media lokal, dan UMKM digital yang ingin membangun portal layanan di Majalengka.
 
 ---
 
@@ -41,12 +41,12 @@ bun add @majalengka/vue @majalengka/css
 
 ```vue
 <script setup lang="ts">
-import { MjlGovBanner, MjlButton, MjlFormField, MjlInput } from '@majalengka/vue';
+import { MjlTrustBanner, MjlButton, MjlFormField, MjlInput } from '@majalengka/vue';
 import '@majalengka/css/dist/majalengka.css';
 </script>
 
 <template>
-  <MjlGovBanner />
+  <MjlTrustBanner owner="Dinas Komunikasi dan Informatika Kab. Majalengka" />
   <MjlFormField id="nik" label="NIK Warga" required>
     <MjlInput id="nik" placeholder="16 digit sesuai KTP" />
   </MjlFormField>
@@ -76,9 +76,9 @@ bun run dev
 ## Prinsip Desain
 1. **Aksesibel Sejak Awal**: Kepatuhan penuh WCAG 2.1 Level AA (kontras minimal 4.5:1, target sentuh 44×44px, navigasi keyboard penuh).
 2. **Framework-Agnostic**: Mudah dipakai di aplikasi warisan (PHP polos) hingga framework frontend mutakhir.
-3. **Kredibel & Resmi**: Menggunakan warna primer Biru Majalengka (`#0014A8`), aksen Kuning Mangga (`#F0A202`), dan pita pengenal resmi `GovBanner`.
+3. **Kredibel & Tepercaya**: Menggunakan warna primer Biru Majalengka (`#0014A8`), aksen Kuning Mangga (`#F0A202`), dan pita identitas pengelola `TrustBanner` yang diisi sendiri oleh pemakainya — bukan klaim afiliasi bawaan.
 
 ---
 
 ## Lisensi
-Didistribusikan di bawah lisensi [MIT](LICENSE) oleh Pemerintah Kabupaten Majalengka & Komunitas Majalengka.tech.
+Didistribusikan di bawah lisensi [MIT](LICENSE) oleh Komunitas Majalengka.tech.

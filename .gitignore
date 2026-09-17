@@ -5,10 +5,17 @@ node_modules/
 dist/
 *.log
 
+# Environment variables — jangan di-push, berisi API key
+.env
+.env.*
+!.env.example
+
 # Agent & AI workspace files — tidak perlu di repo
 .agents/
 .roo/
+.claude/
 AGENTS.md
+CLAUDE.md
 skills-lock.json
 untukagy.md
 link-sumber-penting.md

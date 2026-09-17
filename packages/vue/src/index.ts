@@ -4,7 +4,7 @@
  */
 
 export { default as MjlButton } from './components/MjlButton.vue';
-export { default as MjlGovBanner } from './components/MjlGovBanner.vue';
+export { default as MjlTrustBanner } from './components/MjlTrustBanner.vue';
 export { default as MjlSkipLink } from './components/MjlSkipLink.vue';
 export { default as MjlFormField } from './components/MjlFormField.vue';
 export { default as MjlInput } from './components/MjlInput.vue';
