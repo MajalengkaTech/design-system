@@ -1,0 +1,47 @@
+/**
+ * Majalengka Design System - Header
+ */
+
+.mjl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mjl-space-4, 16px);
+  padding: var(--mjl-space-3, 12px) var(--mjl-space-4, 16px);
+  background-color: var(--mjl-color-surface-card, #FFFFFF);
+  border-bottom: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  position: sticky;
+  top: 0;
+  z-index: var(--mjl-layer-sticky, 1100);
+}
+
+.mjl-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-2, 8px);
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 700;
+  color: var(--mjl-color-text-primary, #222834);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.mjl-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-4, 16px);
+  flex: 1;
+}
+
+.mjl-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-2, 8px);
+  flex-shrink: 0;
+}
+
+@media (max-width: 767px) {
+  .mjl-header__nav {
+    display: none;
+  }
+}

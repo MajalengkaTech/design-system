@@ -96,3 +96,10 @@ a.mjl-link {
 a.mjl-link:hover {
   color: var(--mjl-color-text-link-hover, #001086);
 }
+
+a.mjl-link--standalone {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}

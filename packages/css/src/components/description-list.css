@@ -1,0 +1,33 @@
+/**
+ * Majalengka Design System - DescriptionList
+ */
+
+.mjl-description-list {
+  display: grid;
+  grid-template-columns: minmax(140px, 240px) 1fr;
+  gap: var(--mjl-space-3, 12px) var(--mjl-space-4, 16px);
+  margin: 0;
+}
+
+.mjl-description-list dt {
+  color: var(--mjl-color-text-secondary, #6B7488);
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-weight: 600;
+}
+
+.mjl-description-list dd {
+  margin: 0;
+  color: var(--mjl-color-text-primary, #222834);
+  font-size: var(--mjl-text-sm-size, 14px);
+}
+
+@media (max-width: 640px) {
+  .mjl-description-list {
+    grid-template-columns: 1fr;
+    gap: 2px var(--mjl-space-4, 16px);
+  }
+
+  .mjl-description-list dd {
+    margin-bottom: var(--mjl-space-3, 12px);
+  }
+}

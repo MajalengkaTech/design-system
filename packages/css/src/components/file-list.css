@@ -1,0 +1,48 @@
+/**
+ * Majalengka Design System - FileList
+ */
+
+.mjl-file-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  border-radius: var(--mjl-radius-md, 10px);
+  overflow: hidden;
+}
+
+.mjl-file-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-3, 12px);
+  padding: var(--mjl-space-3, 12px) var(--mjl-space-4, 16px);
+  border-bottom: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+}
+
+.mjl-file-list__item:last-child {
+  border-bottom: none;
+}
+
+.mjl-file-list__icon {
+  flex-shrink: 0;
+  color: var(--mjl-color-text-muted, #97A0B2);
+}
+
+.mjl-file-list__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mjl-file-list__name {
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-weight: 600;
+  color: var(--mjl-color-text-primary, #222834);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mjl-file-list__meta {
+  font-size: var(--mjl-text-xs-size, 12px);
+  color: var(--mjl-color-text-muted, #97A0B2);
+}

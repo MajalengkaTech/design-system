@@ -24,6 +24,13 @@
   padding: var(--mjl-space-6, 24px);
   position: relative;
   border: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  margin: auto;
+}
+
+/* Dipakai saat <dialog class="mjl-modal"> dibuka lewat showModal() (lihat MjlModal.vue) */
+.mjl-modal::backdrop {
+  background-color: rgba(11, 14, 21, 0.6);
+  backdrop-filter: blur(2px);
 }
 
 .mjl-modal__header {

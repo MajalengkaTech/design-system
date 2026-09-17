@@ -1,0 +1,18 @@
+/**
+ * Majalengka Design System - Fieldset
+ */
+
+.mjl-fieldset {
+  border: 1px solid var(--mjl-color-border-subtle, #DFE3EA);
+  border-radius: var(--mjl-radius-md, 10px);
+  padding: var(--mjl-space-4, 16px);
+  margin: 0 0 var(--mjl-space-4, 16px);
+}
+
+.mjl-fieldset__legend {
+  padding: 0 6px;
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 600;
+  font-size: var(--mjl-text-sm-size, 14px);
+  color: var(--mjl-color-text-primary, #222834);
+}

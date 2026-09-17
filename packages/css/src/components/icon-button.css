@@ -1,0 +1,38 @@
+/**
+ * Majalengka Design System - IconButton
+ */
+
+.mjl-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--mjl-touch-min, 44px);
+  height: var(--mjl-touch-min, 44px);
+  border-radius: var(--mjl-radius-md, 10px);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--mjl-color-text-secondary, #6B7488);
+  cursor: pointer;
+  transition: background-color var(--mjl-duration-fast, 150ms) ease,
+              color var(--mjl-duration-fast, 150ms) ease;
+}
+
+.mjl-icon-btn:hover:not(:disabled) {
+  background-color: var(--mjl-color-neutral-200, #EEF0F4);
+  color: var(--mjl-color-text-primary, #222834);
+}
+
+.mjl-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 86, 245, 0.35);
+}
+
+.mjl-icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mjl-icon-btn--sm {
+  width: 36px;
+  height: 36px;
+}

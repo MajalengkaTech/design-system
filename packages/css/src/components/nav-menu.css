@@ -1,0 +1,65 @@
+/**
+ * Majalengka Design System - NavMenu
+ */
+
+.mjl-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-1, 4px);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mjl-nav-menu__link {
+  display: flex;
+  align-items: center;
+  min-height: var(--mjl-touch-min, 44px);
+  padding: 8px 12px;
+  border-radius: var(--mjl-radius-sm, 6px);
+  color: var(--mjl-color-text-secondary, #6B7488);
+  font-size: var(--mjl-text-sm-size, 14px);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mjl-nav-menu__link:hover {
+  background-color: var(--mjl-color-neutral-200, #EEF0F4);
+  color: var(--mjl-color-text-primary, #222834);
+}
+
+.mjl-nav-menu__link--active {
+  color: var(--mjl-color-primary-700, #0014A8);
+}
+
+.mjl-nav-menu--mobile {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--mjl-space-1, 4px);
+}
+
+.mjl-nav-menu--mobile .mjl-nav-menu__link {
+  min-height: var(--mjl-touch-min, 44px);
+}
+
+/* Drawer mobile: <dialog class="mjl-nav-drawer"> dibuka lewat showModal() */
+dialog.mjl-nav-drawer {
+  margin: 0 0 0 auto;
+  height: 100vh;
+  max-height: 100vh;
+  width: min(320px, 85vw);
+  border: none;
+  border-radius: 0;
+  padding: var(--mjl-space-4, 16px);
+}
+
+dialog.mjl-nav-drawer::backdrop {
+  background-color: rgba(11, 14, 21, 0.5);
+}
+
+.mjl-nav-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--mjl-space-4, 16px);
+}

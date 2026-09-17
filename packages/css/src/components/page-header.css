@@ -1,0 +1,32 @@
+/**
+ * Majalengka Design System - PageHeader
+ */
+
+.mjl-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--mjl-space-4, 16px);
+  margin-bottom: var(--mjl-space-6, 24px);
+}
+
+.mjl-page-header__title {
+  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
+  font-size: var(--mjl-text-3xl-size, 30px);
+  font-weight: 700;
+  color: var(--mjl-color-text-primary, #222834);
+}
+
+.mjl-page-header__desc {
+  color: var(--mjl-color-text-secondary, #6B7488);
+  margin-top: var(--mjl-space-1, 4px);
+  max-width: 640px;
+}
+
+.mjl-page-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--mjl-space-2, 8px);
+  flex-shrink: 0;
+}

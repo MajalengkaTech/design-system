@@ -39,6 +39,16 @@ const filesToBundle = [
   resolve(__dirname, "src/components/kbd.css"),
   resolve(__dirname, "src/components/tooltip.css"),
   resolve(__dirname, "src/components/misc.css"),
+  resolve(__dirname, "src/components/icon-button.css"),
+  resolve(__dirname, "src/components/fieldset.css"),
+  resolve(__dirname, "src/components/form-summary.css"),
+  resolve(__dirname, "src/components/header.css"),
+  resolve(__dirname, "src/components/nav-menu.css"),
+  resolve(__dirname, "src/components/footer.css"),
+  resolve(__dirname, "src/components/error-page.css"),
+  resolve(__dirname, "src/components/description-list.css"),
+  resolve(__dirname, "src/components/file-list.css"),
+  resolve(__dirname, "src/components/page-header.css"),
 ];
 
 let fullCss = `/*!
