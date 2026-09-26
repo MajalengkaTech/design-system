@@ -12,6 +12,7 @@
       "name": "majalengka-design-system-docs",
       "dependencies": {
         "@majalengka/css": "workspace:*",
+        "@majalengka/js": "workspace:*",
         "@majalengka/tokens": "workspace:*",
         "@majalengka/vue": "workspace:*",
         "agents": "^0.20.1",
@@ -26,7 +27,14 @@
       "devDependencies": {
         "@majalengka/tokens": "workspace:*",
         "known-css-properties": "^0.37.0",
-        "lightningcss": "^1",
+        "lightningcss": "^1.33.0",
+      },
+    },
+    "packages/js": {
+      "name": "@majalengka/js",
+      "version": "0.1.0",
+      "devDependencies": {
+        "typescript": "^5.8.0",
       },
     },
     "packages/tokens": {
@@ -37,8 +45,8 @@
       "name": "@majalengka/vue",
       "version": "0.1.0",
       "dependencies": {
-        "@majalengka/css": "workspace:*",
-        "@majalengka/tokens": "workspace:*",
+        "@majalengka/css": "^0.1.0",
+        "@majalengka/tokens": "^0.1.0",
       },
       "devDependencies": {
         "vue": "^3.5.13",
@@ -365,6 +373,8 @@
     "@kwsites/promise-deferred": ["@kwsites/promise-deferred@1.1.1", "", {}, "sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw=="],
 
     "@majalengka/css": ["@majalengka/css@workspace:packages/css"],
+
+    "@majalengka/js": ["@majalengka/js@workspace:packages/js"],
 
     "@majalengka/tokens": ["@majalengka/tokens@workspace:packages/tokens"],
 

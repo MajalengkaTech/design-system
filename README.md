@@ -12,7 +12,8 @@ Repositori ini adalah sumber kebenaran tunggal (*single source of truth*) untuk 
 majalengka-tech/design-system
 ├── packages/
 │   ├── tokens/      # Sumber token W3C DTCG JSON + build pipeline CSS/TS
-│   ├── css/         # Paket CSS murni (@majalengka/css), 8.5 kB gzip
+│   ├── css/         # Paket CSS murni (@majalengka/css), di bawah 9.5 kB gzip
+│   ├── js/          # Perilaku opsional tanpa dependensi (@majalengka/js), di bawah 3 kB gzip
 │   └── vue/         # Komponen referensi Vue 3 + TypeScript (@majalengka/vue)
 ├── docs/            # Website dokumentasi resmi berbasis Docus (Nuxt 4 + Nuxt Content)
 └── majalengka-design-system/ # Bundle pengetahuan terbuka OKF (Open Knowledge Format) v0.2
@@ -27,6 +28,8 @@ Gunakan langsung via link CDN tanpa instalasi Node.js apa pun:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@majalengka/css@latest/dist/majalengka.min.css">
+<!-- Opsional: tabs, toast, tooltip, OTP -->
+<script src="https://cdn.jsdelivr.net/npm/@majalengka/js@latest/dist/majalengka.iife.js" defer></script>
 
 <a href="#konten" class="mjl-skip-link">Langsung ke konten</a>
 <button type="button" class="mjl-btn mjl-btn--primary mjl-btn--md">

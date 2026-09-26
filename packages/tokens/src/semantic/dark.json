@@ -10,7 +10,8 @@
     "tint": { "$value": "rgba(255, 255, 255, 0.06)" },
     "brand-subtle": { "$value": "{color.primary.950}" },
     "inverse": { "$value": "{color.neutral.100}" },
-    "backdrop": { "$value": "rgba(0, 0, 0, 0.7)" }
+    "backdrop": { "$value": "rgba(0, 0, 0, 0.7)" },
+    "shimmer": { "$value": "rgba(255, 255, 255, 0.06)" }
   },
   "text": {
     "$type": "color",

@@ -2,7 +2,7 @@
 
 Komponen Majalengka Design System dalam CSS murni. Tanpa JavaScript dan tanpa build step. Bisa dipasang di HTML, PHP, WordPress, Laravel, atau berdampingan dengan Tailwind.
 
-Ukuran bundel lengkap: **8.5 kB gzip** (54 kB minified).
+Ukuran bundel lengkap dijaga build: maksimal **9.5 kB gzip** dan 58 kB minified.
 
 ## Pilih cara pakai
 

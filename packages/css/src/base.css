@@ -18,6 +18,12 @@
   outline-offset: 2px;
 }
 
+/* Halaman di belakang modal/drawer tidak ikut ter-scroll. Browser tanpa :has()
+   mengabaikan aturan ini dan tetap berfungsi normal. */
+:root:has(.mjl-modal:modal, .mjl-drawer:modal, .mjl-nav-drawer:modal) {
+  overflow: hidden;
+}
+
 .mjl-sr-only,
 .sr-only {
   position: absolute;

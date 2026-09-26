@@ -1,0 +1,38 @@
+{
+  "name": "@majalengka/js",
+  "version": "0.1.0",
+  "description": "Perilaku kecil tanpa dependensi untuk komponen @majalengka/css: tabs, toast, tooltip, dialog, OTP",
+  "type": "module",
+  "main": "./dist/majalengka.js",
+  "module": "./dist/majalengka.js",
+  "types": "./dist/index.d.ts",
+  "jsdelivr": "./dist/majalengka.iife.js",
+  "unpkg": "./dist/majalengka.iife.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/majalengka.js"
+    },
+    "./auto": "./dist/majalengka.iife.js"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MajalengkaTech/design-system.git",
+    "directory": "packages/js"
+  },
+  "homepage": "https://github.com/MajalengkaTech/design-system#readme",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "bun run build.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

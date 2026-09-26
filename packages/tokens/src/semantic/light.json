@@ -10,7 +10,8 @@
     "tint": { "$value": "rgba(11, 14, 21, 0.04)", "$description": "Lapisan hover transparan" },
     "brand-subtle": { "$value": "{color.primary.50}", "$description": "Latar biru lembut: baris terpilih, badge primer, banner info" },
     "inverse": { "$value": "{color.neutral.900}", "$description": "Latar kontras terbalik: tooltip. Pakai dengan text.inverse" },
-    "backdrop": { "$value": "rgba(11, 14, 21, 0.6)", "$description": "Lapisan gelap di belakang modal dan drawer" }
+    "backdrop": { "$value": "rgba(11, 14, 21, 0.6)", "$description": "Lapisan gelap di belakang modal dan drawer" },
+    "shimmer": { "$value": "rgba(255, 255, 255, 0.5)", "$description": "Kilau animasi skeleton" }
   },
   "text": {
     "$type": "color",

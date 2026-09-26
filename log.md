@@ -4,6 +4,43 @@ Catatan keputusan dan progres Majalengka Design System. Entri terbaru di atas.
 
 ## 2026-09-27
 
+### Fase 3 selesai — perilaku tanpa framework
+- **Prinsip: fitur native dulu, JS hanya pelengkap.** Modal, drawer, dan menu mobile memakai `<dialog>` dengan atribut standar `commandfor`/`command="show-modal"` dan `closedby="any"`, yang di browser modern jalan tanpa JavaScript.
+- **Paket baru `@majalengka/js`** (2.53 kB gzip, batas build 3 kB, tanpa dependensi). Tersedia versi ESM (`import { init, toast }`) dan versi `<script>` (`Mjl.toast(...)`) untuk WordPress/PHP. Isinya:
+  - polyfill `commandfor`/`command` dan `closedby` untuk browser lama (tidak dipasang kalau browser sudah mendukung),
+  - tabs dengan pola WAI-ARIA: role, `aria-selected`, `aria-controls`, roving tabindex, `←` `→` `Home` `End`, event `mjl:tabchange`,
+  - toast: live region `polite`, `danger` memakai `role="alert"` dan tidak hilang sendiri, timer berhenti saat hover/fokus (WCAG 2.2.1),
+  - tooltip `data-mjl-tooltip`: teks disambungkan lewat `aria-describedby`, `Esc` menutup (WCAG 1.4.13),
+  - tombol buka/tutup `data-mjl-toggle` + `aria-controls`,
+  - kotak OTP `data-mjl-pin`: pindah otomatis, `Backspace`, panah, tempel kode utuh, `autocomplete="one-time-code"`,
+  - `MutationObserver`, sehingga konten dari navigasi SPA atau AJAX ikut aktif. Aman di-import saat SSR.
+- **CSS disesuaikan**:
+  - drawer ditulis ulang untuk `<dialog>` + `::backdrop` (markup lama `.mjl-drawer-backdrop` tetap didukung),
+  - modal dan nav drawer mendapat warna teks, latar, dan batas tinggi,
+  - panel tab tampil semua tanpa JS (`[hidden]` diatur JS), jadi konten tidak pernah hilang,
+  - tombol tutup toast 32×32px (sebelumnya `padding: 2px`, gagal WCAG 2.5.8), toast punya varian status, deskripsi 14px,
+  - scroll halaman terkunci saat modal/drawer terbuka (`:root:has(:modal)`, tanpa JS),
+  - token baru `bg.shimmer`, sehingga kilau skeleton tidak lagi putih 40% di mode gelap.
+- **Docs**:
+  - plugin `majalengka.client.ts` menjalankan `init()`, jadi semua demo interaktif,
+  - halaman Modal, Drawer, Toast (komponen `ToastDemo.vue`), Tabs, TrustBanner, dan PinInput ditulis ulang dengan markup baru. `maxlength="1"` di contoh OTP dihapus karena menghalangi kotak ditimpa,
+  - instalasi dan README menyebut `@majalengka/js`,
+  - klaim ukuran diganti batas yang dijaga build ("di bawah 9.5 kB gzip"), supaya tidak basi tiap ada perubahan kecil.
+- **Build**: `build:js` di root; build docs ikut membangun paket JS (penting untuk deploy Cloudflare Pages).
+- **Verifikasi (Edge + puppeteer-core, klik dan keyboard sungguhan)**:
+  - 33 uji perilaku lolos di mode native **dan** 33 lagi di mode polyfill (dukungan `command`/`closedBy` dihapus dari browser untuk meniru browser lama),
+  - 13 uji di situs docs lolos: atribut MDC lolos utuh, modal/drawer/tabs/toggle/toast/OTP interaktif, tabs aktif setelah navigasi SPA, tanpa error JS,
+  - screenshot modal (terang) dan drawer (gelap) di docs tampil rapi,
+  - build token, CSS, JS, dan `vue-tsc` hijau. CSS 55.2 kB / 8.7 kB gzip.
+- **Insiden kecil**: helper patch sempat menulis dengan encoding cp1252 dan mengosongkan `tabs.md`. File dipulihkan dari git, dan helper diperbaiki (UTF-8, tulis ke file sementara lalu ganti).
+- **Status**: selesai, belum di-commit.
+
+#### Catatan untuk fase berikutnya
+- Komponen Vue belum memakai pola baru. `MjlModal` masih memakai `watch` tanpa `immediate`, dan belum ada `MjlTabs` atau `MjlToast`. Masuk Fase 4.
+- Select kustom, file upload, dan accordion belum punya state error/disabled lengkap.
+- Label bawaan JS berbahasa Indonesia ("Tutup notifikasi", "Digit 1 dari 6"). Toast sudah bisa diganti lewat `closeLabel`, label OTP bisa lewat `aria-label` di markup.
+- Di docs, judul demo modal/drawer memakai `<div>` karena Docus mengubah `<h3>` jadi heading ber-anchor. Contoh kode untuk pengguna tetap `<h3>`.
+
 ### Fase 2 selesai — CSS inti
 - **Keputusan: tidak memasang `@layer` di dalam file CSS** (berbeda dari rencana awal). Gaya berlayer selalu kalah dari CSS tak berlayer, jadi aturan tema WordPress seperti `button { background: gray }` akan menimpa komponen. Sebagai gantinya:
   - setiap selektor dibuat rata: satu kelas plus pseudo-state, tanpa `button.mjl-btn`, tanpa `!important`,
@@ -100,8 +137,8 @@ Catatan keputusan dan progres Majalengka Design System. Entri terbaru di atas.
 | 0 | Kontrak token publik, aturan mode gelap, buang alias lama | Digabung ke Fase 1 |
 | 1 | Pipeline token: JSON satu sumber, resolver alias, varian gelap status, cek kontras di build, output CSS/JSON/Tailwind/UnoCSS/TS dari satu sumber | **Selesai** |
 | 2 | CSS inti: selektor rata tanpa `!important` (`@layer` diganti `layer(components)` saat import), hapus fallback hex, focus-visible dan reduced-motion global, target 44px, paket CSS dipecah, Lightning CSS, budget jujur | **Selesai** |
-| 3 | Perilaku tanpa framework: `<dialog>`, `popover`, `<details>`, modul JS opsional < 3 kB untuk tabs dan toast | Berikutnya |
-| 4 | Paket Vue: build ke `dist`, `useId()`, perbaikan Modal/Button/Stepper/FormField, label ARIA bisa diganti | Belum |
+| 3 | Perilaku tanpa framework: `<dialog>` + `commandfor`, `<details>`, paket `@majalengka/js` < 3 kB (tabs, toast, tooltip, toggle, OTP, polyfill dialog) | **Selesai** |
+| 4 | Paket Vue: build ke `dist`, `useId()`, perbaikan Modal/Button/Stepper/FormField, label ARIA bisa diganti | Berikutnya |
 | 5 | Docs memakai token sendiri, halaman untuk semua komponen, CI (build, kontras, vue-tsc, axe), Changesets, rilis v0.2.0-beta | Belum |
 
 ### Temuan audit yang jadi dasar rencana

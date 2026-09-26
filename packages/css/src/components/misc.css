@@ -23,11 +23,14 @@
   width: 100%;
   padding: var(--mjl-space-6);
   position: relative;
-  border: 1px solid var(--mjl-border-hairline);
+  max-height: calc(100vh - 2 * var(--mjl-space-4));
   margin: auto;
+  overflow-y: auto;
+  color: var(--mjl-text-default);
+  border: 1px solid var(--mjl-border-hairline);
 }
 
-/* Dipakai saat <dialog class="mjl-modal"> dibuka lewat showModal() (lihat MjlModal.vue) */
+/* <dialog class="mjl-modal">, dibuka dengan <button commandfor="id" command="show-modal"> atau showModal() */
 .mjl-modal::backdrop {
   background-color: var(--mjl-bg-backdrop);
   backdrop-filter: blur(2px);
@@ -41,6 +44,7 @@
 }
 
 .mjl-modal__title {
+  margin: 0;
   font-family: var(--mjl-font-title);
   font-size: var(--mjl-text-2xl-size);
   font-weight: 700;
@@ -59,6 +63,10 @@
   justify-content: center;
   border-radius: var(--mjl-radius-sm);
   color: var(--mjl-text-subtle);
+}
+
+.mjl-modal__close:hover {
+  background-color: var(--mjl-bg-tint);
 }
 
 .mjl-modal__footer {

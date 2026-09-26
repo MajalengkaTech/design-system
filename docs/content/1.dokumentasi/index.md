@@ -17,5 +17,5 @@ Dokumentasi ini merangkum seluruh prinsip desain, token warna & tipografi, arsit
 :u-page-card{to="/dokumentasi/pola/alur-pengajuan" icon="i-lucide-workflow" title="3. Pola Layanan" description="Alur pengajuan berkas, pengecekan status resi, dan direktori layanan publik."}
 :u-page-card{to="/dokumentasi/standar/wcag-aa-checklist" icon="i-lucide-check-circle-2" title="4. Standar & Kualitas" description="Checklist kepatuhan WCAG 2.1 Level AA dan panduan microcopy anti-kaku."}
 :u-page-card{to="/dokumentasi/prinsip/aksesibel" icon="i-lucide-compass" title="5. Prinsip Desain" description="Aksesibel sejak awal, framework-agnostic, dan kredibel & tepercaya."}
-:u-page-card{to="/dokumentasi/komputasi/rasio-kontras" icon="i-lucide-calculator" title="6. Komputasi Tersanksi" description="Alat hitung rasio kontras warna dan audit anggaran performa CSS (8.5 kB gzip)."}
+:u-page-card{to="/dokumentasi/komputasi/rasio-kontras" icon="i-lucide-calculator" title="6. Komputasi Tersanksi" description="Alat hitung rasio kontras warna dan audit anggaran performa CSS (di bawah 9.5 kB gzip)."}
 ::

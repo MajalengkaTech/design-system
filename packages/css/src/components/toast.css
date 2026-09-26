@@ -1,58 +1,90 @@
 /**
- * Majalengka Design System - Toast Notification
+ * Majalengka Design System - Toast
+ *
+ * Buat lewat Mjl.toast({ title, description, variant }) dari @majalengka/js.
+ * Wadah .mjl-toast-container sudah menjadi live region, jadi pembaca layar
+ * membacakan toast baru tanpa memindahkan fokus.
  */
 
 .mjl-toast-container {
   position: fixed;
-  bottom: var(--mjl-space-6);
   right: var(--mjl-space-6);
+  bottom: var(--mjl-space-6);
   z-index: var(--mjl-layer-toast);
   display: flex;
   flex-direction: column;
   gap: var(--mjl-space-3);
+  width: calc(100vw - 2 * var(--mjl-space-4));
   max-width: 400px;
-  width: calc(100vw - 32px);
   pointer-events: none;
 }
 
 .mjl-toast {
-  pointer-events: auto;
-  background-color: var(--mjl-bg-base);
-  border: 1px solid var(--mjl-border-hairline);
-  border-radius: var(--mjl-radius-md);
-  box-shadow: var(--mjl-shadow-lg);
-  padding: var(--mjl-space-4);
   display: flex;
   align-items: flex-start;
   gap: var(--mjl-space-3);
+  padding: var(--mjl-space-4);
+  color: var(--mjl-text-default);
+  background-color: var(--mjl-bg-elevated);
+  border: 1px solid var(--mjl-border-line);
+  border-left-width: 4px;
+  border-radius: var(--mjl-radius-md);
+  box-shadow: var(--mjl-shadow-lg);
+  pointer-events: auto;
   animation: mjl-toast-slide var(--mjl-duration-normal) var(--mjl-ease-enter);
 }
 
+.mjl-toast--success { border-left-color: var(--mjl-status-success-fg); }
+.mjl-toast--warning { border-left-color: var(--mjl-status-warning-fg); }
+.mjl-toast--danger { border-left-color: var(--mjl-status-danger-fg); }
+.mjl-toast--info { border-left-color: var(--mjl-status-info-fg); }
+
 .mjl-toast__content {
   flex: 1;
+  min-width: 0;
 }
 
 .mjl-toast__title {
+  margin-bottom: 2px;
   font-family: var(--mjl-font-title);
   font-size: var(--mjl-text-sm-size);
   font-weight: 700;
   color: var(--mjl-text-strong);
-  margin-bottom: 2px;
 }
 
 .mjl-toast__desc {
-  font-size: var(--mjl-text-xs-size);
+  font-size: var(--mjl-text-sm-size);
+  line-height: var(--mjl-text-sm-line-height);
   color: var(--mjl-text-subtle);
-  line-height: 1.4;
 }
 
+/* 32px: di atas batas WCAG 2.5.8 (24px) tanpa membuat toast terlalu tinggi */
 .mjl-toast__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin: calc(-1 * var(--mjl-space-1));
+  padding: 0;
+  font-size: var(--mjl-text-base-size);
+  color: var(--mjl-text-subtle);
   background: transparent;
   border: none;
-  color: var(--mjl-text-muted);
-  cursor: pointer;
-  padding: 2px;
   border-radius: var(--mjl-radius-sm);
+  cursor: pointer;
+}
+
+.mjl-toast__close:hover {
+  background-color: var(--mjl-bg-tint);
+}
+
+@media (max-width: 640px) {
+  .mjl-toast-container {
+    right: var(--mjl-space-4);
+    bottom: var(--mjl-space-4);
+  }
 }
 
 @keyframes mjl-toast-slide {

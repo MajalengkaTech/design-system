@@ -89,11 +89,12 @@
   box-shadow: var(--mjl-shadow-sm);
 }
 
+/* Tanpa JS semua panel tampil, jadi konten tidak pernah hilang.
+   @majalengka/js menyembunyikan panel yang tidak aktif lewat atribut hidden. */
 .mjl-tab-panel {
-  display: none;
   padding: var(--mjl-space-2) 0;
 }
 
-.mjl-tab-panel--active {
-  display: block;
+.mjl-tab-panel[hidden] {
+  display: none;
 }

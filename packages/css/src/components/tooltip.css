@@ -31,8 +31,9 @@
   box-shadow: var(--mjl-shadow-md);
 }
 
-[data-mjl-tooltip]:hover::after,
-[data-mjl-tooltip]:focus-visible::after {
+/* Tanpa :not(), tooltip muncul lagi walau pengguna sudah menutupnya dengan Esc (WCAG 1.4.13) */
+[data-mjl-tooltip]:not([data-mjl-tooltip-dismissed]):hover::after,
+[data-mjl-tooltip]:not([data-mjl-tooltip-dismissed]):focus-visible::after {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(-2px);

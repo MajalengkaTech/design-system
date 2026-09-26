@@ -1,50 +1,54 @@
 /**
  * Majalengka Design System - Drawer / Slideover
+ *
+ * Pakai <dialog class="mjl-drawer mjl-drawer--right">, dibuka dengan
+ * <button commandfor="id" command="show-modal">. Browser mengurus fokus,
+ * tombol Esc, dan latar belakang (::backdrop).
  */
 
-.mjl-drawer-backdrop {
-  position: fixed;
-  inset: 0;
-  background-color: var(--mjl-bg-backdrop);
-  z-index: var(--mjl-layer-modal);
-  display: flex;
-  backdrop-filter: blur(2px);
-}
-
 .mjl-drawer {
-  background-color: var(--mjl-bg-base);
-  box-shadow: var(--mjl-shadow-lg);
   display: flex;
   flex-direction: column;
-  position: relative;
-  z-index: 1;
-  max-width: 100%;
-}
-
-.mjl-drawer--right {
-  margin-left: auto;
   width: 420px;
+  max-width: 100%;
   height: 100%;
+  max-height: 100%;
+  margin: 0 0 0 auto;
+  padding: 0;
+  color: var(--mjl-text-default);
+  background-color: var(--mjl-bg-base);
+  border: none;
   border-left: 1px solid var(--mjl-border-hairline);
+  box-shadow: var(--mjl-shadow-lg);
   animation: mjl-slide-in-right var(--mjl-duration-normal) var(--mjl-ease-enter);
 }
 
+/* <dialog> tertutup harus tetap tersembunyi walau .mjl-drawer memberi display:flex */
+.mjl-drawer:not([open]) {
+  display: none;
+}
+
+.mjl-drawer::backdrop {
+  background-color: var(--mjl-bg-backdrop);
+}
+
 .mjl-drawer--left {
-  margin-right: auto;
   width: 320px;
-  height: 100%;
+  margin: 0 auto 0 0;
+  border-left: none;
   border-right: 1px solid var(--mjl-border-hairline);
-  animation: mjl-slide-in-left var(--mjl-duration-normal) var(--mjl-ease-enter);
+  animation-name: mjl-slide-in-left;
 }
 
 .mjl-drawer--bottom {
-  margin-top: auto;
   width: 100%;
+  height: auto;
   max-height: 80vh;
-  border-top-left-radius: var(--mjl-radius-lg);
-  border-top-right-radius: var(--mjl-radius-lg);
+  margin: auto 0 0;
+  border-left: none;
   border-top: 1px solid var(--mjl-border-hairline);
-  animation: mjl-slide-in-bottom var(--mjl-duration-normal) var(--mjl-ease-enter);
+  border-radius: var(--mjl-radius-lg) var(--mjl-radius-lg) 0 0;
+  animation-name: mjl-slide-in-bottom;
 }
 
 .mjl-drawer__header {
@@ -56,6 +60,7 @@
 }
 
 .mjl-drawer__title {
+  margin: 0;
   font-family: var(--mjl-font-title);
   font-size: var(--mjl-text-lg-size);
   font-weight: 700;
@@ -63,17 +68,26 @@
 }
 
 .mjl-drawer__body {
+  flex: 1;
   padding: var(--mjl-space-5);
   overflow-y: auto;
-  flex: 1;
 }
 
 .mjl-drawer__footer {
-  padding: var(--mjl-space-4) var(--mjl-space-5);
-  border-top: 1px solid var(--mjl-border-hairline);
   display: flex;
   justify-content: flex-end;
   gap: var(--mjl-space-3);
+  padding: var(--mjl-space-4) var(--mjl-space-5);
+  border-top: 1px solid var(--mjl-border-hairline);
+}
+
+/* Markup lama: <div class="mjl-drawer-backdrop"> membungkus drawer */
+.mjl-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--mjl-layer-modal);
+  display: flex;
+  background-color: var(--mjl-bg-backdrop);
 }
 
 @keyframes mjl-slide-in-right {

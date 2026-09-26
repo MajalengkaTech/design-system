@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "cd docs && bun dev",
-    "build": "bun run build:tokens && bun run build:css && cd docs && bun run build",
+    "build": "bun run build:tokens && bun run build:css && bun run build:js && cd docs && bun run build",
     "build:tokens": "cd packages/tokens && bun run build",
     "build:css": "cd packages/css && bun run build",
     "build:vue": "cd packages/vue && bun run build",
@@ -17,7 +17,9 @@
     "publish:vue": "cd packages/vue && npm publish",
     "build:docs": "cd docs && bun run build",
     "generate:docs": "cd docs && bun generate",
-    "preview:docs": "cd docs && bun preview"
+    "preview:docs": "cd docs && bun preview",
+    "build:js": "cd packages/js && bun run build",
+    "publish:js": "cd packages/js && npm publish"
   },
   "devDependencies": {
     "typescript": "^5.8.0"
