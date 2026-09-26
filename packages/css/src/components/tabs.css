@@ -10,30 +10,30 @@
 .mjl-tab-list {
   display: flex;
   align-items: center;
-  gap: var(--mjl-space-2, 8px);
-  border-bottom: 1px solid var(--mjl-border-line, rgba(0, 0, 0, 0.08));
+  gap: var(--mjl-space-2);
+  border-bottom: 1px solid var(--mjl-border-line);
   list-style: none;
   padding: 0;
-  margin: 0 0 var(--mjl-space-4, 16px) 0;
+  margin: 0 0 var(--mjl-space-4) 0;
   overflow-x: auto;
 }
 
 .mjl-tab {
   display: inline-flex;
   align-items: center;
-  gap: var(--mjl-space-2, 8px);
-  padding: 10px 16px;
-  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
-  font-size: var(--mjl-text-sm-size, 14px);
+  gap: var(--mjl-space-2);
+  padding: var(--mjl-space-2) var(--mjl-space-4);
+  font-family: var(--mjl-font-title);
+  font-size: var(--mjl-text-sm-size);
   font-weight: 600;
-  color: var(--mjl-text-subtle, #6B7488);
+  color: var(--mjl-text-subtle);
   border: none;
   background: transparent;
   cursor: pointer;
   white-space: nowrap;
   position: relative;
-  transition: color 150ms ease;
-  min-height: 40px;
+  transition: color var(--mjl-duration-fast) var(--mjl-ease-standard);
+  min-height: var(--mjl-touch-min);
 }
 
 .mjl-tab::after {
@@ -44,39 +44,39 @@
   right: 0;
   height: 2px;
   background-color: transparent;
-  transition: background-color 150ms ease;
+  transition: background-color var(--mjl-duration-fast) var(--mjl-ease-standard);
 }
 
 .mjl-tab:hover {
-  color: var(--mjl-text-strong, #0B0E15);
+  color: var(--mjl-text-strong);
 }
 
+/* Fokus digambar ke dalam: daftar tab bisa di-scroll (overflow-x) dan akan memotong outline di luar */
 .mjl-tab:focus-visible {
-  outline: none;
-  ring: 2px solid var(--mjl-border-focus, #4256F5);
+  outline-offset: -2px;
 }
 
 .mjl-tab--active {
-  color: var(--mjl-text-brand, #0014A8);
+  color: var(--mjl-text-brand);
 }
 
 .mjl-tab--active::after {
-  background-color: var(--mjl-text-brand, #0014A8);
+  background-color: var(--mjl-text-brand);
 }
 
 /* Pill Tabs Variant */
 .mjl-tabs--pill .mjl-tab-list {
   border-bottom: none;
-  background-color: var(--mjl-bg-elevated, #F7F8FA);
-  padding: 4px;
-  border-radius: var(--mjl-radius-md, 10px);
+  background-color: var(--mjl-bg-sunken);
+  padding: var(--mjl-space-1);
+  border-radius: var(--mjl-radius-md);
   display: inline-flex;
 }
 
 .mjl-tabs--pill .mjl-tab {
-  border-radius: var(--mjl-radius-sm, 6px);
-  padding: 6px 14px;
-  min-height: 32px;
+  border-radius: var(--mjl-radius-sm);
+  padding: var(--mjl-space-1) var(--mjl-space-3);
+  min-height: 36px;
 }
 
 .mjl-tabs--pill .mjl-tab::after {
@@ -84,14 +84,14 @@
 }
 
 .mjl-tabs--pill .mjl-tab--active {
-  background-color: var(--mjl-bg-base, #FFFFFF);
-  color: var(--mjl-text-brand, #0014A8);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  background-color: var(--mjl-bg-base);
+  color: var(--mjl-text-brand);
+  box-shadow: var(--mjl-shadow-sm);
 }
 
 .mjl-tab-panel {
   display: none;
-  padding: var(--mjl-space-2, 8px) 0;
+  padding: var(--mjl-space-2) 0;
 }
 
 .mjl-tab-panel--active {

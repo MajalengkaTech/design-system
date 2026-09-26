@@ -12,7 +12,7 @@ Repositori ini adalah sumber kebenaran tunggal (*single source of truth*) untuk 
 majalengka-tech/design-system
 ├── packages/
 │   ├── tokens/      # Sumber token W3C DTCG JSON + build pipeline CSS/TS
-│   ├── css/         # Paket CSS murni (@majalengka/css) tanpa proses build (< 35kB)
+│   ├── css/         # Paket CSS murni (@majalengka/css), 8.5 kB gzip
 │   └── vue/         # Komponen referensi Vue 3 + TypeScript (@majalengka/vue)
 ├── docs/            # Website dokumentasi resmi berbasis Docus (Nuxt 4 + Nuxt Content)
 └── majalengka-design-system/ # Bundle pengetahuan terbuka OKF (Open Knowledge Format) v0.2

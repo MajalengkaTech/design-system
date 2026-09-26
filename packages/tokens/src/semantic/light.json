@@ -1,42 +1,86 @@
 {
   "$schema": "https://tr.designtokens.org/format/",
-  "semantic": {
-    "color": {
-      "surface": {
-        "canvas": { "$type": "color", "$value": "{color.neutral.100}" },
-        "card": { "$type": "color", "$value": "{color.neutral.50}" },
-        "sunken": { "$type": "color", "$value": "{color.neutral.200}" },
-        "overlay": { "$type": "color", "$value": "{color.neutral.50}" }
-      },
-      "text": {
-        "primary": { "$type": "color", "$value": "{color.neutral.900}" },
-        "secondary": { "$type": "color", "$value": "{color.neutral.600}" },
-        "muted": { "$type": "color", "$value": "{color.neutral.500}" },
-        "inverse": { "$type": "color", "$value": "{color.neutral.50}" },
-        "link": { "$type": "color", "$value": "{color.primary.700}" },
-        "linkHover": { "$type": "color", "$value": "{color.primary.800}" }
-      },
-      "action": {
-        "primary": {
-          "default": { "$type": "color", "$value": "{color.primary.700}" },
-          "hover": { "$type": "color", "$value": "{color.primary.800}" },
-          "active": { "$type": "color", "$value": "{color.primary.900}" },
-          "fg": { "$type": "color", "$value": "#FFFFFF" }
-        },
-        "secondary": {
-          "default": { "$type": "color", "$value": "{color.neutral.200}" },
-          "hover": { "$type": "color", "$value": "{color.neutral.300}" },
-          "active": { "$type": "color", "$value": "{color.neutral.400}" },
-          "fg": { "$type": "color", "$value": "{color.neutral.900}" }
-        }
-      },
-      "border": {
-        "subtle": { "$type": "color", "$value": "{color.neutral.200}" },
-        "default": { "$type": "color", "$value": "{color.neutral.300}" },
-        "input": { "$type": "color", "$value": "{color.neutral.400}" },
-        "focus": { "$type": "color", "$value": "{color.primary.500}" },
-        "error": { "$type": "color", "$value": "{color.status.danger.fg}" }
-      }
+  "$description": "Token semantik mode terang. Kunci harus identik dengan dark.json.",
+  "bg": {
+    "$type": "color",
+    "canvas": { "$value": "{color.neutral.100}", "$description": "Latar halaman" },
+    "base": { "$value": "{color.neutral.50}", "$description": "Latar kartu, input, panel" },
+    "elevated": { "$value": "{color.neutral.50}", "$description": "Dropdown, modal, popover (dibedakan dengan bayangan)" },
+    "sunken": { "$value": "{color.neutral.200}", "$description": "Area cekung: kode, header tabel" },
+    "tint": { "$value": "rgba(11, 14, 21, 0.04)", "$description": "Lapisan hover transparan" },
+    "brand-subtle": { "$value": "{color.primary.50}", "$description": "Latar biru lembut: baris terpilih, badge primer, banner info" },
+    "inverse": { "$value": "{color.neutral.900}", "$description": "Latar kontras terbalik: tooltip. Pakai dengan text.inverse" },
+    "backdrop": { "$value": "rgba(11, 14, 21, 0.6)", "$description": "Lapisan gelap di belakang modal dan drawer" }
+  },
+  "text": {
+    "$type": "color",
+    "strong": { "$value": "{color.neutral.950}", "$description": "Judul" },
+    "default": { "$value": "{color.neutral.900}", "$description": "Teks isi" },
+    "subtle": { "$value": "{color.neutral.600}", "$description": "Teks bantuan, metadata, placeholder" },
+    "muted": { "$value": "{color.neutral.500}", "$description": "Hanya untuk teks nonaktif (dikecualikan WCAG 1.4.3). Minimal 3:1." },
+    "inverse": { "$value": "{color.neutral.50}" },
+    "brand": { "$value": "{color.primary.700}", "$description": "Link dan teks brand" },
+    "brand-hover": { "$value": "{color.primary.600}" }
+  },
+  "border": {
+    "$type": "color",
+    "line": { "$value": "rgba(11, 14, 21, 0.10)", "$description": "Garis pemisah dekoratif" },
+    "hairline": { "$value": "rgba(11, 14, 21, 0.06)" },
+    "input": { "$value": "{color.neutral.500}", "$description": "Batas kontrol formulir (WCAG 1.4.11, minimal 3:1)" },
+    "input-hover": { "$value": "{color.neutral.600}" },
+    "brand-subtle": { "$value": "{color.primary.200}", "$description": "Garis dekoratif pasangan bg.brand-subtle" },
+    "focus": { "$value": "{color.primary.500}" },
+    "brand": { "$value": "{color.primary.700}" },
+    "danger": { "$value": "{color.danger.700}" }
+  },
+  "action": {
+    "$type": "color",
+    "primary": {
+      "bg": { "$value": "{color.primary.700}" },
+      "hover": { "$value": "{color.primary.600}" },
+      "active": { "$value": "{color.primary.800}" },
+      "fg": { "$value": "{color.neutral.50}" },
+      "ring": { "$value": "rgba(66, 86, 245, 0.35)" }
+    },
+    "secondary": {
+      "bg": { "$value": "{bg.base}" },
+      "hover": { "$value": "{bg.tint}" },
+      "active": { "$value": "{color.neutral.300}" },
+      "fg": { "$value": "{text.default}" },
+      "border": { "$value": "{border.input}" }
+    },
+    "danger": {
+      "bg": { "$value": "{color.danger.700}" },
+      "hover": { "$value": "{color.danger.800}" },
+      "active": { "$value": "{color.danger.800}" },
+      "fg": { "$value": "{color.neutral.50}" }
     }
+  },
+  "status": {
+    "$type": "color",
+    "success": {
+      "bg": { "$value": "{color.success.50}" },
+      "border": { "$value": "{color.success.200}" },
+      "fg": { "$value": "{color.success.700}" }
+    },
+    "warning": {
+      "bg": { "$value": "{color.warning.50}" },
+      "border": { "$value": "{color.warning.200}" },
+      "fg": { "$value": "{color.warning.700}" }
+    },
+    "danger": {
+      "bg": { "$value": "{color.danger.50}" },
+      "border": { "$value": "{color.danger.200}" },
+      "fg": { "$value": "{color.danger.700}" }
+    },
+    "info": {
+      "bg": { "$value": "{color.info.50}" },
+      "border": { "$value": "{color.info.200}" },
+      "fg": { "$value": "{color.info.700}" }
+    }
+  },
+  "accent": {
+    "$type": "color",
+    "mango": { "$value": "{color.mango.500}", "$description": "Dekoratif saja, bukan untuk teks" }
   }
 }

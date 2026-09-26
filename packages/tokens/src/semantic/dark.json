@@ -1,42 +1,86 @@
 {
   "$schema": "https://tr.designtokens.org/format/",
-  "semantic": {
-    "color": {
-      "surface": {
-        "canvas": { "$type": "color", "$value": "#0B0E15" },
-        "card": { "$type": "color", "$value": "#151922" },
-        "sunken": { "$type": "color", "$value": "#07090E" },
-        "overlay": { "$type": "color", "$value": "#1C222E" }
-      },
-      "text": {
-        "primary": { "$type": "color", "$value": "#F7F8FA" },
-        "secondary": { "$type": "color", "$value": "#C6CCD8" },
-        "muted": { "$type": "color", "$value": "#97A0B2" },
-        "inverse": { "$type": "color", "$value": "#0B0E15" },
-        "link": { "$type": "color", "$value": "#94A3FF" },
-        "linkHover": { "$type": "color", "$value": "#BCC7FF" }
-      },
-      "action": {
-        "primary": {
-          "default": { "$type": "color", "$value": "#4256F5" },
-          "hover": { "$type": "color", "$value": "#6B7DFF" },
-          "active": { "$type": "color", "$value": "#94A3FF" },
-          "fg": { "$type": "color", "$value": "#FFFFFF" }
-        },
-        "secondary": {
-          "default": { "$type": "color", "$value": "#222834" },
-          "hover": { "$type": "color", "$value": "#363D4D" },
-          "active": { "$type": "color", "$value": "#4C5466" },
-          "fg": { "$type": "color", "$value": "#F7F8FA" }
-        }
-      },
-      "border": {
-        "subtle": { "$type": "color", "$value": "#1F2633" },
-        "default": { "$type": "color", "$value": "#2D3748" },
-        "input": { "$type": "color", "$value": "#3E4C63" },
-        "focus": { "$type": "color", "$value": "#6B7DFF" },
-        "error": { "$type": "color", "$value": "#F87171" }
-      }
+  "$description": "Token semantik mode gelap. Kunci harus identik dengan light.json.",
+  "bg": {
+    "$type": "color",
+    "canvas": { "$value": "{color.night.900}" },
+    "base": { "$value": "{color.night.800}" },
+    "elevated": { "$value": "{color.night.700}" },
+    "sunken": { "$value": "{color.night.950}" },
+    "tint": { "$value": "rgba(255, 255, 255, 0.06)" },
+    "brand-subtle": { "$value": "{color.primary.950}" },
+    "inverse": { "$value": "{color.neutral.100}" },
+    "backdrop": { "$value": "rgba(0, 0, 0, 0.7)" }
+  },
+  "text": {
+    "$type": "color",
+    "strong": { "$value": "{color.neutral.100}" },
+    "default": { "$value": "{color.neutral.300}" },
+    "subtle": { "$value": "{color.neutral.500}" },
+    "muted": { "$value": "{color.neutral.600}" },
+    "inverse": { "$value": "{color.neutral.950}" },
+    "brand": { "$value": "{color.primary.300}" },
+    "brand-hover": { "$value": "{color.primary.200}" }
+  },
+  "border": {
+    "$type": "color",
+    "line": { "$value": "rgba(255, 255, 255, 0.12)" },
+    "hairline": { "$value": "rgba(255, 255, 255, 0.06)" },
+    "input": { "$value": "{color.neutral.600}" },
+    "input-hover": { "$value": "{color.neutral.500}" },
+    "brand-subtle": { "$value": "{color.primary.700}" },
+    "focus": { "$value": "{color.primary.300}" },
+    "brand": { "$value": "{color.primary.300}" },
+    "danger": { "$value": "{color.danger.300}" }
+  },
+  "action": {
+    "$type": "color",
+    "primary": {
+      "bg": { "$value": "{color.primary.300}" },
+      "hover": { "$value": "{color.primary.200}" },
+      "active": { "$value": "{color.primary.100}" },
+      "fg": { "$value": "{color.primary.950}" },
+      "ring": { "$value": "rgba(148, 163, 255, 0.40)" }
+    },
+    "secondary": {
+      "bg": { "$value": "{bg.base}" },
+      "hover": { "$value": "{bg.tint}" },
+      "active": { "$value": "{color.night.700}" },
+      "fg": { "$value": "{text.default}" },
+      "border": { "$value": "{border.input}" }
+    },
+    "danger": {
+      "bg": { "$value": "{color.danger.300}" },
+      "hover": { "$value": "{color.danger.200}" },
+      "active": { "$value": "{color.danger.50}" },
+      "fg": { "$value": "{color.danger.950}" }
     }
+  },
+  "status": {
+    "$type": "color",
+    "success": {
+      "bg": { "$value": "{color.success.950}" },
+      "border": { "$value": "{color.success.800}" },
+      "fg": { "$value": "{color.success.300}" }
+    },
+    "warning": {
+      "bg": { "$value": "{color.warning.950}" },
+      "border": { "$value": "{color.warning.800}" },
+      "fg": { "$value": "{color.warning.300}" }
+    },
+    "danger": {
+      "bg": { "$value": "{color.danger.950}" },
+      "border": { "$value": "{color.danger.800}" },
+      "fg": { "$value": "{color.danger.300}" }
+    },
+    "info": {
+      "bg": { "$value": "{color.info.950}" },
+      "border": { "$value": "{color.info.800}" },
+      "fg": { "$value": "{color.info.300}" }
+    }
+  },
+  "accent": {
+    "$type": "color",
+    "mango": { "$value": "{color.mango.500}" }
   }
 }

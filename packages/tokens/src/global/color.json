@@ -1,56 +1,75 @@
 {
   "$schema": "https://tr.designtokens.org/format/",
   "color": {
+    "$type": "color",
     "primary": {
-      "50": { "$type": "color", "$value": "#EEF1FF", "$description": "Latar lembut alert info, baris tabel terpilih" },
-      "100": { "$type": "color", "$value": "#DDE3FF", "$description": "Latar badge" },
-      "200": { "$type": "color", "$value": "#BCC7FF", "$description": "Garis tepi lembut" },
-      "300": { "$type": "color", "$value": "#94A3FF", "$description": "Teks link di mode gelap" },
-      "400": { "$type": "color", "$value": "#6B7DFF", "$description": "Aksen mode gelap" },
-      "500": { "$type": "color", "$value": "#4256F5", "$description": "Focus ring, hover tombol ghost" },
-      "600": { "$type": "color", "$value": "#2434D6", "$description": "Ikon aksen" },
-      "700": { "$type": "color", "$value": "#0014A8", "$description": "Tombol primer, link, header instansi, elemen aktif (13:1)" },
-      "800": { "$type": "color", "$value": "#001086", "$description": "State hover tombol primer" },
-      "900": { "$type": "color", "$value": "#000C63", "$description": "State pressed, footer gelap" },
-      "950": { "$type": "color", "$value": "#00073A", "$description": "Latar mode gelap" }
+      "$description": "Biru Majalengka. 700 dikunci di #0014A8 dan menjadi jangkar skala.",
+      "50": { "$value": "#EEF1FF" },
+      "100": { "$value": "#DDE3FF", "$description": "Active tombol primer di mode gelap" },
+      "200": { "$value": "#BCC7FF", "$description": "Hover tombol primer di mode gelap" },
+      "300": { "$value": "#94A3FF", "$description": "Tombol primer, link, dan fokus di mode gelap" },
+      "400": { "$value": "#6B7DFF" },
+      "500": { "$value": "#4256F5", "$description": "Cincin fokus di mode terang" },
+      "600": { "$value": "#2434D6", "$description": "Hover tombol primer di mode terang" },
+      "700": { "$value": "#0014A8", "$description": "Warna brand: tombol primer, link, elemen aktif (12.6:1 di putih)" },
+      "800": { "$value": "#001086", "$description": "Active tombol primer di mode terang" },
+      "900": { "$value": "#000C63" },
+      "950": { "$value": "#00073A", "$description": "Teks di atas tombol primer mode gelap" }
     },
     "neutral": {
-      "50": { "$type": "color", "$value": "#FFFFFF", "$description": "Putih bersih latar konten" },
-      "100": { "$type": "color", "$value": "#F7F8FA", "$description": "Latar halaman / kanvas" },
-      "200": { "$type": "color", "$value": "#EEF0F4", "$description": "Latar kartu sekunder" },
-      "300": { "$type": "color", "$value": "#DFE3EA", "$description": "Garis pembatas halus" },
-      "400": { "$type": "color", "$value": "#C6CCD8", "$description": "Garis border input standar" },
-      "500": { "$type": "color", "$value": "#97A0B2", "$description": "Border fokus tidak aktif" },
-      "600": { "$type": "color", "$value": "#6B7488", "$description": "Teks sekunder / teks bantuan (kontras 4.6:1)" },
-      "700": { "$type": "color", "$value": "#4C5466", "$description": "Teks subjudul / ikon aktif" },
-      "800": { "$type": "color", "$value": "#363D4D", "$description": "Teks judul dan elemen penting" },
-      "900": { "$type": "color", "$value": "#222834", "$description": "Teks utama (kontras 14.5:1)" },
-      "950": { "$type": "color", "$value": "#0B0E15", "$description": "Hitam pekat" }
+      "50": { "$value": "#FFFFFF" },
+      "100": { "$value": "#F7F8FA" },
+      "200": { "$value": "#EEF0F4" },
+      "300": { "$value": "#DFE3EA" },
+      "400": { "$value": "#C6CCD8" },
+      "500": { "$value": "#80899C", "$description": "Border input terang (3.5:1), teks sekunder gelap" },
+      "600": { "$value": "#636C80", "$description": "Teks sekunder terang (4.6:1 di sunken), border input gelap" },
+      "700": { "$value": "#4C5466" },
+      "800": { "$value": "#363D4D" },
+      "900": { "$value": "#222834", "$description": "Teks utama (14.5:1)" },
+      "950": { "$value": "#0B0E15" }
     },
-    "status": {
-      "success": {
-        "bg": { "$type": "color", "$value": "#E6F6ED" },
-        "border": { "$type": "color", "$value": "#95D5B2" },
-        "fg": { "$type": "color", "$value": "#0F7B4A", "$description": "Status berhasil / disetujui" }
-      },
-      "warning": {
-        "bg": { "$type": "color", "$value": "#FEF3E6" },
-        "border": { "$type": "color", "$value": "#FCD59F" },
-        "fg": { "$type": "color", "$value": "#A65A00", "$description": "Status perhatian / butuh tindakan" }
-      },
-      "danger": {
-        "bg": { "$type": "color", "$value": "#FDF2F2" },
-        "border": { "$type": "color", "$value": "#F8B4B4" },
-        "fg": { "$type": "color", "$value": "#B3261E", "$description": "Status bahaya / ditolak / error" }
-      },
-      "info": {
-        "bg": { "$type": "color", "$value": "#EBF5FB" },
-        "border": { "$type": "color", "$value": "#A3CEE8" },
-        "fg": { "$type": "color", "$value": "#0B6FA4", "$description": "Status info / pengumuman" }
-      },
-      "mango": {
-        "fg": { "$type": "color", "$value": "#F0A202", "$description": "Aksen khas Majalengka: ilustrasi, penanda baru (~5%)" }
-      }
+    "night": {
+      "$description": "Permukaan mode gelap. Tidak dipakai di mode terang.",
+      "700": { "$value": "#1C222E" },
+      "800": { "$value": "#151922" },
+      "900": { "$value": "#0B0E15" },
+      "950": { "$value": "#07090E" }
+    },
+    "success": {
+      "50": { "$value": "#E6F6ED" },
+      "200": { "$value": "#95D5B2" },
+      "300": { "$value": "#6FD3A0" },
+      "700": { "$value": "#0F7B4A" },
+      "800": { "$value": "#17613F" },
+      "950": { "$value": "#0C2519" }
+    },
+    "warning": {
+      "50": { "$value": "#FEF3E6" },
+      "200": { "$value": "#FCD59F" },
+      "300": { "$value": "#F5B754" },
+      "700": { "$value": "#A65A00" },
+      "800": { "$value": "#7A4A0A" },
+      "950": { "$value": "#2A1C07" }
+    },
+    "danger": {
+      "50": { "$value": "#FDF2F2" },
+      "200": { "$value": "#F8B4B4" },
+      "300": { "$value": "#FF8A80" },
+      "700": { "$value": "#B3261E" },
+      "800": { "$value": "#8C1D18" },
+      "950": { "$value": "#2C1113" }
+    },
+    "info": {
+      "50": { "$value": "#EBF5FB" },
+      "200": { "$value": "#A3CEE8" },
+      "300": { "$value": "#7CC4EE" },
+      "700": { "$value": "#0B6FA4" },
+      "800": { "$value": "#1D5F85" },
+      "950": { "$value": "#0B2233" }
+    },
+    "mango": {
+      "500": { "$value": "#F0A202", "$description": "Aksen khas Majalengka untuk ilustrasi dan penanda. Jangan untuk teks (2.1:1 di putih)." }
     }
   }
 }

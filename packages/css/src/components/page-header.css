@@ -7,26 +7,26 @@
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--mjl-space-4, 16px);
-  margin-bottom: var(--mjl-space-6, 24px);
+  gap: var(--mjl-space-4);
+  margin-bottom: var(--mjl-space-6);
 }
 
 .mjl-page-header__title {
-  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
-  font-size: var(--mjl-text-3xl-size, 30px);
+  font-family: var(--mjl-font-title);
+  font-size: var(--mjl-text-3xl-size);
   font-weight: 700;
-  color: var(--mjl-color-text-primary, #222834);
+  color: var(--mjl-text-strong);
 }
 
 .mjl-page-header__desc {
-  color: var(--mjl-color-text-secondary, #6B7488);
-  margin-top: var(--mjl-space-1, 4px);
+  color: var(--mjl-text-subtle);
+  margin-top: var(--mjl-space-1);
   max-width: 640px;
 }
 
 .mjl-page-header__actions {
   display: flex;
   align-items: center;
-  gap: var(--mjl-space-2, 8px);
+  gap: var(--mjl-space-2);
   flex-shrink: 0;
 }

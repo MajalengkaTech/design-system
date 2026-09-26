@@ -1,81 +1,72 @@
 /**
  * Majalengka Design System - Badge
- * Minimal, proportional, status-driven
+ *
+ * Tanpa kelas warna, badge tampil netral. Status jangan hanya lewat warna:
+ * selalu sertakan teks ("Disetujui", "Ditolak"), boleh ditambah ikon atau titik.
  */
 
 .mjl-badge {
   display: inline-flex;
   align-items: center;
-  gap: var(--mjl-space-1, 4px);
-  font-family: var(--mjl-font-body, 'Inter', sans-serif);
+  gap: var(--mjl-space-1);
+  padding: var(--mjl-space-1) var(--mjl-space-2);
+  font-family: var(--mjl-font-title);
+  font-size: var(--mjl-text-xs-size);
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.2;
   white-space: nowrap;
   vertical-align: middle;
-  border-radius: var(--mjl-radius-sm, 6px);
-  border: 1px solid transparent;
-  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  color: var(--mjl-text-default);
+  background-color: var(--mjl-bg-sunken);
+  border: 1px solid var(--mjl-border-line);
+  border-radius: var(--mjl-radius-sm);
 }
 
-/* Sizes */
+/* Ukuran (md = default) */
 .mjl-badge--sm {
-  font-size: 11px;
-  padding: 3px 6px;
-}
-
-.mjl-badge--md {
-  font-size: 12px;
-  padding: 4px 8px;
+  padding: 2px var(--mjl-space-1);
 }
 
 .mjl-badge--lg {
-  font-size: 13px;
-  padding: 6px 12px;
+  padding: var(--mjl-space-1) var(--mjl-space-3);
+  font-size: var(--mjl-text-sm-size);
 }
 
-/* Pill variant */
 .mjl-badge--pill {
-  border-radius: var(--mjl-radius-full, 9999px);
+  border-radius: var(--mjl-radius-full);
 }
 
-/* Color Variants */
+/* Warna */
 .mjl-badge--primary {
-  background-color: var(--mjl-color-primary-50, #F0F3FF);
-  color: var(--mjl-color-primary-700, #0014A8);
-  border-color: var(--mjl-color-primary-200, #BCC7FF);
-}
-
-.mjl-badge--neutral {
-  background-color: var(--mjl-color-neutral-200, #EEF0F4);
-  color: var(--mjl-color-neutral-800, #363D4D);
-  border-color: var(--mjl-color-neutral-300, #DFE3EA);
+  color: var(--mjl-text-brand);
+  background-color: var(--mjl-bg-brand-subtle);
+  border-color: var(--mjl-border-brand-subtle);
 }
 
 .mjl-badge--success {
-  background-color: var(--mjl-color-status-success-bg, #ECFDF5);
-  color: var(--mjl-color-status-success-fg, #065F46);
-  border-color: var(--mjl-color-status-success-border, #A7F3D0);
+  color: var(--mjl-status-success-fg);
+  background-color: var(--mjl-status-success-bg);
+  border-color: var(--mjl-status-success-border);
 }
 
 .mjl-badge--warning {
-  background-color: var(--mjl-color-status-warning-bg, #FFFBEB);
-  color: var(--mjl-color-status-warning-fg, #92400E);
-  border-color: var(--mjl-color-status-warning-border, #FDE68A);
+  color: var(--mjl-status-warning-fg);
+  background-color: var(--mjl-status-warning-bg);
+  border-color: var(--mjl-status-warning-border);
 }
 
 .mjl-badge--danger {
-  background-color: var(--mjl-color-status-danger-bg, #FEF2F2);
-  color: var(--mjl-color-status-danger-fg, #991B1B);
-  border-color: var(--mjl-color-status-danger-border, #FECACA);
+  color: var(--mjl-status-danger-fg);
+  background-color: var(--mjl-status-danger-bg);
+  border-color: var(--mjl-status-danger-border);
 }
 
 .mjl-badge--info {
-  background-color: var(--mjl-color-status-info-bg, #F0F9FF);
-  color: var(--mjl-color-status-info-fg, #075985);
-  border-color: var(--mjl-color-status-info-border, #BAE6FD);
+  color: var(--mjl-status-info-fg);
+  background-color: var(--mjl-status-info-bg);
+  border-color: var(--mjl-status-info-border);
 }
 
-/* Dot indicator */
 .mjl-badge__dot {
   width: 6px;
   height: 6px;

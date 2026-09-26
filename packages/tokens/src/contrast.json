@@ -1,0 +1,30 @@
+{
+  "$description": "Pasangan warna yang wajib lolos kontras di KEDUA mode. Build gagal kalau ada yang di bawah min. 4.5 = teks (WCAG 1.4.3), 3 = elemen UI (WCAG 1.4.11).",
+  "pairs": [
+    { "fg": "text.strong", "bg": ["bg.base", "bg.canvas", "bg.elevated", "bg.sunken"], "min": 4.5 },
+    { "fg": "text.default", "bg": ["bg.base", "bg.canvas", "bg.elevated", "bg.sunken"], "min": 4.5 },
+    { "fg": "text.subtle", "bg": ["bg.base", "bg.canvas", "bg.elevated", "bg.sunken"], "min": 4.5 },
+    { "fg": "text.brand", "bg": ["bg.base", "bg.canvas", "bg.elevated"], "min": 4.5 },
+    { "fg": "text.brand-hover", "bg": ["bg.base", "bg.canvas"], "min": 4.5 },
+    { "fg": "text.muted", "bg": ["bg.base", "bg.canvas"], "min": 3 },
+    { "fg": "text.brand", "bg": ["bg.brand-subtle"], "min": 4.5 },
+    { "fg": "text.default", "bg": ["bg.brand-subtle"], "min": 4.5 },
+    { "fg": "text.inverse", "bg": ["bg.inverse"], "min": 4.5 },
+    { "fg": "border.input-hover", "bg": ["bg.base", "bg.canvas"], "min": 3 },
+
+    { "fg": "action.primary.fg", "bg": ["action.primary.bg", "action.primary.hover", "action.primary.active"], "min": 4.5 },
+    { "fg": "action.secondary.fg", "bg": ["action.secondary.bg", "action.secondary.active"], "min": 4.5 },
+    { "fg": "action.danger.fg", "bg": ["action.danger.bg", "action.danger.hover", "action.danger.active"], "min": 4.5 },
+    { "fg": "action.primary.bg", "bg": ["bg.base", "bg.canvas"], "min": 3 },
+    { "fg": "action.secondary.border", "bg": ["bg.base", "bg.canvas"], "min": 3 },
+
+    { "fg": "border.input", "bg": ["bg.base", "bg.canvas"], "min": 3 },
+    { "fg": "border.focus", "bg": ["bg.base", "bg.canvas", "bg.elevated"], "min": 3 },
+    { "fg": "border.danger", "bg": ["bg.base", "bg.canvas"], "min": 3 },
+
+    { "fg": "status.success.fg", "bg": ["status.success.bg", "bg.base"], "min": 4.5 },
+    { "fg": "status.warning.fg", "bg": ["status.warning.bg", "bg.base"], "min": 4.5 },
+    { "fg": "status.danger.fg", "bg": ["status.danger.bg", "bg.base"], "min": 4.5 },
+    { "fg": "status.info.fg", "bg": ["status.info.bg", "bg.base"], "min": 4.5 }
+  ]
+}

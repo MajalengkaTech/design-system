@@ -1,5 +1,9 @@
 /**
- * Majalengka Design System - Reset & Base
+ * Majalengka Design System - Reset (opsional)
+ *
+ * Mengubah elemen global (body, img, form). Cocok untuk situs baru.
+ * Untuk situs yang sudah punya tema sendiri (WordPress, dsb.), lewati file ini:
+ * komponen tetap berfungsi tanpa reset.
  */
 
 *,
@@ -8,7 +12,16 @@
   box-sizing: border-box;
 }
 
-/* Responsive media */
+body {
+  margin: 0;
+  font-family: var(--mjl-font-body);
+  font-size: var(--mjl-text-base-size);
+  line-height: var(--mjl-text-base-line-height);
+  color: var(--mjl-text-default);
+  background-color: var(--mjl-bg-canvas);
+  -webkit-text-size-adjust: 100%;
+}
+
 img,
 video,
 canvas,
@@ -33,16 +46,4 @@ textarea {
   font-size: 100%;
   line-height: inherit;
   color: inherit;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }

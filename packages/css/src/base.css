@@ -1,0 +1,45 @@
+/**
+ * Majalengka Design System - Base
+ *
+ * Aman dipasang di situs mana pun: semua aturan di sini hanya berlaku untuk
+ * elemen yang memakai kelas mjl-*. Reset global (reset.css) terpisah dan opsional.
+ */
+
+:where([class*="mjl-"]),
+:where([class*="mjl-"])::before,
+:where([class*="mjl-"])::after {
+  box-sizing: border-box;
+}
+
+/* Cincin fokus seragam untuk semua komponen. Pakai outline, bukan box-shadow,
+   supaya tetap terlihat di mode kontras tinggi Windows (forced-colors). */
+:where([class*="mjl-"]):focus-visible {
+  outline: 2px solid var(--mjl-border-focus);
+  outline-offset: 2px;
+}
+
+.mjl-sr-only,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* !important di sini disengaja: preferensi pengguna harus menang atas
+   animasi komponen mana pun. */
+@media (prefers-reduced-motion: reduce) {
+  :where([class*="mjl-"]),
+  :where([class*="mjl-"])::before,
+  :where([class*="mjl-"])::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

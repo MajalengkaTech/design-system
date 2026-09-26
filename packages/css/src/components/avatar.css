@@ -10,15 +10,15 @@
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  background-color: var(--mjl-color-neutral-200, #EEF0F4);
-  color: var(--mjl-color-neutral-700, #4C5466);
+  background-color: var(--mjl-bg-sunken);
+  color: var(--mjl-text-subtle);
   font-weight: 600;
-  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
-  border-radius: var(--mjl-radius-md, 10px);
+  font-family: var(--mjl-font-title);
+  border-radius: var(--mjl-radius-md);
 }
 
 .mjl-avatar--circle {
-  border-radius: var(--mjl-radius-full, 9999px);
+  border-radius: var(--mjl-radius-full);
 }
 
 /* Avatar Sizes */
@@ -31,25 +31,25 @@
 .mjl-avatar--sm {
   width: 32px;
   height: 32px;
-  font-size: 12px;
+  font-size: var(--mjl-text-xs-size);
 }
 
 .mjl-avatar--md {
   width: 40px;
   height: 40px;
-  font-size: 14px;
+  font-size: var(--mjl-text-sm-size);
 }
 
 .mjl-avatar--lg {
   width: 48px;
   height: 48px;
-  font-size: 16px;
+  font-size: var(--mjl-text-base-size);
 }
 
 .mjl-avatar--xl {
   width: 64px;
   height: 64px;
-  font-size: 20px;
+  font-size: var(--mjl-text-xl-size);
 }
 
 .mjl-avatar__image {
@@ -70,9 +70,9 @@
 }
 
 .mjl-avatar-group .mjl-avatar {
-  border: 2px solid var(--mjl-color-surface-card, #FFFFFF);
+  border: 2px solid var(--mjl-bg-base);
   margin-left: -8px;
-  transition: transform 150ms ease, z-index 150ms ease;
+  transition: transform var(--mjl-duration-fast) var(--mjl-ease-standard);
 }
 
 .mjl-avatar-group .mjl-avatar:first-child {

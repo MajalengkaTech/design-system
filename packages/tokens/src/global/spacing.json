@@ -18,6 +18,7 @@
       "32": { "$type": "dimension", "$value": "128px" }
     },
     "radius": {
+      "none": { "$type": "dimension", "$value": "0px" },
       "sm": { "$type": "dimension", "$value": "6px", "$description": "Badge, tag, checkbox" },
       "md": { "$type": "dimension", "$value": "10px", "$description": "Tombol, input, dropdown" },
       "lg": { "$type": "dimension", "$value": "16px", "$description": "Kartu, modal, panel" },

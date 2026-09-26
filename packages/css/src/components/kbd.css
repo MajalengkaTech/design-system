@@ -10,14 +10,14 @@
   min-width: 20px;
   height: 20px;
   padding: 0 4px;
-  font-family: var(--mjl-font-mono, monospace);
+  font-family: var(--mjl-font-mono);
   font-size: 11px;
   font-weight: 600;
   line-height: 1;
-  color: var(--mjl-color-text-secondary, #6B7488);
-  background-color: var(--mjl-color-neutral-100, #F7F8FA);
-  border: 1px solid var(--mjl-color-neutral-300, #DFE3EA);
+  color: var(--mjl-text-subtle);
+  background-color: var(--mjl-bg-canvas);
+  border: 1px solid var(--mjl-border-line);
   border-bottom-width: 2px;
-  border-radius: var(--mjl-radius-sm, 4px);
+  border-radius: var(--mjl-radius-sm);
   vertical-align: middle;
 }

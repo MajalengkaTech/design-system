@@ -1,410 +1,253 @@
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import colorData from "./src/global/color.json";
-import typographyData from "./src/global/typography.json";
-import spacingData from "./src/global/spacing.json";
-import elevationData from "./src/global/elevation.json";
-import lightSemantic from "./src/semantic/light.json";
-import darkSemantic from "./src/semantic/dark.json";
+import { PREFIX, primitives, primitiveName, light, dark, raw, type SemanticToken } from "./src/model";
+import contrastSpec from "./src/contrast.json";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = resolve(__dirname, "dist");
+rmSync(distDir, { recursive: true, force: true });
 mkdirSync(distDir, { recursive: true });
 
-// 1. Generate Light & Global CSS
-let css = `/**
- * @majalengka/tokens
- * Majalengka Design System - Core Design Tokens
- * Generated automatically from W3C DTCG Token definitions
+const v = (name: string) => `--${PREFIX}-${name}`;
+const fail = (msg: string): never => {
+  console.error(`\n❌ ${msg}\n`);
+  process.exit(1);
+};
+
+// ---------------------------------------------------------------------------
+// 1. Validasi: terang dan gelap wajib punya kunci yang sama
+// ---------------------------------------------------------------------------
+{
+  const l = new Set(light.map((t) => t.path));
+  const d = new Set(dark.map((t) => t.path));
+  const missing = [...l].filter((p) => !d.has(p)).map((p) => `dark.json kurang: ${p}`);
+  const extra = [...d].filter((p) => !l.has(p)).map((p) => `light.json kurang: ${p}`);
+  if (missing.length || extra.length) fail(`Kunci semantik tidak sama:\n  ${[...missing, ...extra].join("\n  ")}`);
+}
+
+// ---------------------------------------------------------------------------
+// 2. Cek kontras WCAG di kedua mode
+// ---------------------------------------------------------------------------
+function luminance(hex: string): number {
+  const m = hex.match(/^#([0-9a-f]{6})$/i);
+  if (!m) throw new Error(`bukan hex 6 digit: ${hex}`);
+  const [r, g, b] = [0, 2, 4].map((i) => {
+    const c = parseInt(m[1].slice(i, i + 2), 16) / 255;
+    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+const ratio = (a: string, b: string) => {
+  const [x, y] = [luminance(a), luminance(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+};
+
+{
+  const failures: string[] = [];
+  let checked = 0;
+  for (const [mode, tokens] of [["terang", light], ["gelap", dark]] as const) {
+    const byPath = new Map(tokens.map((t) => [t.path, t.resolved]));
+    for (const pair of contrastSpec.pairs) {
+      for (const bg of pair.bg) {
+        const fgVal = byPath.get(pair.fg);
+        const bgVal = byPath.get(bg);
+        if (!fgVal || !bgVal) fail(`contrast.json merujuk token yang tidak ada: ${pair.fg} / ${bg}`);
+        let r: number;
+        try {
+          r = ratio(fgVal!, bgVal!);
+        } catch (e) {
+          fail(`contrast.json: ${pair.fg} di ${bg} (${mode}) harus warna solid — ${(e as Error).message}`);
+        }
+        checked++;
+        if (r! < pair.min) {
+          failures.push(`[${mode}] ${pair.fg} ${fgVal} di ${bg} ${bgVal}: ${r!.toFixed(2)}:1 (min ${pair.min})`);
+        }
+      }
+    }
+  }
+  if (failures.length) fail(`Kontras gagal (${failures.length}/${checked}):\n  ${failures.join("\n  ")}`);
+  console.log(`✅ Kontras: ${checked} pasangan lolos di mode terang dan gelap`);
+}
+
+// ---------------------------------------------------------------------------
+// 3. tokens.css
+// ---------------------------------------------------------------------------
+
+const themeBody = (tokens: SemanticToken[], indent: string) =>
+  tokens.map((t) => `${indent}${v(t.name)}: ${t.css};`).join("\n");
+
+const primitiveDecls = primitives
+  .map((t) => {
+    const name = primitiveName(t.path);
+    return name ? `  ${v(name)}: ${t.value};` : null;
+  })
+  .filter(Boolean)
+  .join("\n");
+
+const header = `/**
+ * @majalengka/tokens — dibuat otomatis dari src/*.json. Jangan disunting manual.
+ *
+ * Mode gelap:
+ *   <html data-theme="dark">   atau class="dark"  → selalu gelap
+ *   <html data-theme="auto">                      → ikut pengaturan sistem
+ *   <div data-theme="light">   atau class="light" → paksa terang di dalam area gelap
  */
-
-:root {
-  /* Global Color: Primary (Biru Majalengka) */
 `;
 
-for (const [step, obj] of Object.entries(colorData.color.primary)) {
-  css += `  --mjl-color-primary-${step}: ${obj.$value};\n`;
-}
-
-css += `\n  /* Global Color: Neutral */\n`;
-for (const [step, obj] of Object.entries(colorData.color.neutral)) {
-  css += `  --mjl-color-neutral-${step}: ${obj.$value};\n`;
-}
-
-css += `\n  /* Global Color: Status */\n`;
-css += `  --mjl-color-status-success-bg: ${colorData.color.status.success.bg.$value};\n`;
-css += `  --mjl-color-status-success-border: ${colorData.color.status.success.border.$value};\n`;
-css += `  --mjl-color-status-success-fg: ${colorData.color.status.success.fg.$value};\n`;
-css += `  --mjl-color-status-warning-bg: ${colorData.color.status.warning.bg.$value};\n`;
-css += `  --mjl-color-status-warning-border: ${colorData.color.status.warning.border.$value};\n`;
-css += `  --mjl-color-status-warning-fg: ${colorData.color.status.warning.fg.$value};\n`;
-css += `  --mjl-color-status-danger-bg: ${colorData.color.status.danger.bg.$value};\n`;
-css += `  --mjl-color-status-danger-border: ${colorData.color.status.danger.border.$value};\n`;
-css += `  --mjl-color-status-danger-fg: ${colorData.color.status.danger.fg.$value};\n`;
-css += `  --mjl-color-status-info-bg: ${colorData.color.status.info.bg.$value};\n`;
-css += `  --mjl-color-status-info-border: ${colorData.color.status.info.border.$value};\n`;
-css += `  --mjl-color-status-info-fg: ${colorData.color.status.info.fg.$value};\n`;
-css += `  --mjl-color-status-mango: ${colorData.color.status.mango.fg.$value};\n`;
-
-css += `\n  /* Typography */\n`;
-css += `  --mjl-font-title: ${typographyData.typography.fontFamily.title.$value};\n`;
-css += `  --mjl-font-body: ${typographyData.typography.fontFamily.body.$value};\n`;
-css += `  --mjl-font-mono: ${typographyData.typography.fontFamily.mono.$value};\n`;
-
-for (const [step, obj] of Object.entries(typographyData.typography.scale)) {
-  css += `  --mjl-text-${step}-size: ${obj.fontSize.$value};\n`;
-  css += `  --mjl-text-${step}-line-height: ${obj.lineHeight.$value};\n`;
-}
-
-css += `\n  /* Spacing Grid (4px base) */\n`;
-for (const [step, obj] of Object.entries(spacingData.spacing.grid)) {
-  css += `  --mjl-space-${step}: ${obj.$value};\n`;
-}
-
-css += `\n  /* Radii */\n`;
-for (const [step, obj] of Object.entries(spacingData.spacing.radius)) {
-  css += `  --mjl-radius-${step}: ${obj.$value};\n`;
-}
-
-css += `\n  /* Touch Targets */\n`;
-css += `  --mjl-touch-min: ${spacingData.spacing.touchTarget.min.$value};\n`;
-css += `  --mjl-touch-large: ${spacingData.spacing.touchTarget.large.$value};\n`;
-
-css += `\n  /* Elevation: Shadows */\n`;
-for (const [step, obj] of Object.entries(elevationData.elevation.shadow)) {
-  css += `  --mjl-shadow-${step}: ${obj.$value};\n`;
-}
-
-css += `\n  /* Elevation: Layers (Z-Index) */\n`;
-for (const [step, obj] of Object.entries(elevationData.elevation.layer)) {
-  css += `  --mjl-layer-${step}: ${obj.$value};\n`;
-}
-
-css += `\n  /* Motion */\n`;
-for (const [step, obj] of Object.entries(elevationData.elevation.motion.duration)) {
-  css += `  --mjl-duration-${step}: ${obj.$value};\n`;
-}
-for (const [step, obj] of Object.entries(elevationData.elevation.motion.easing)) {
-  css += `  --mjl-ease-${step}: ${obj.$value};\n`;
-}
-
-css += `\n  /* ==========================================================================
-     Semantic Functional Tokens (Kumo-Style Architecture) - Light Mode
-     ========================================================================== */
-  /* Surfaces */
-  --mjl-bg-canvas: var(--mjl-color-neutral-100);
-  --mjl-bg-base: #FFFFFF;
-  --mjl-bg-elevated: #F7F8FA;
-  --mjl-bg-tint: rgba(0, 0, 0, 0.04);
-  --mjl-bg-sunken: #EEF0F4;
-
-  /* Typography */
-  --mjl-text-strong: #0B0E15;
-  --mjl-text-default: #222834;
-  --mjl-text-subtle: #6B7488;
-  --mjl-text-muted: #97A0B2;
-  --mjl-text-inverse: #FFFFFF;
-  --mjl-text-brand: var(--mjl-color-primary-700); /* #0014A8 Hero Biru Majalengka */
-
-  /* Borders & Hairlines */
-  --mjl-border-line: rgba(0, 0, 0, 0.08);
-  --mjl-border-hairline: rgba(0, 0, 0, 0.05);
-  --mjl-border-input: #DFE3EA;
-  --mjl-border-focus: var(--mjl-color-primary-500);
-  --mjl-border-brand: var(--mjl-color-primary-700);
-
-  /* Actions */
-  --mjl-action-primary-bg: var(--mjl-color-primary-700); /* #0014A8 di mode terang */
-  --mjl-action-primary-hover: var(--mjl-color-primary-800); /* #001086 */
-  --mjl-action-primary-active: var(--mjl-color-primary-900); /* #000C63 */
-  --mjl-action-primary-fg: #FFFFFF;
-  --mjl-action-primary-ring: rgba(0, 20, 168, 0.25);
-
-  --mjl-action-secondary-bg: var(--mjl-bg-base);
-  --mjl-action-secondary-hover: var(--mjl-bg-tint);
-  --mjl-action-secondary-fg: var(--mjl-text-default);
-  --mjl-action-secondary-border: var(--mjl-border-line);
-
-  --mjl-action-danger-bg: var(--mjl-color-status-danger-fg);
-  --mjl-action-danger-hover: #931d17;
-  --mjl-action-danger-fg: #FFFFFF;
-
-  /* Backward Compatibility Aliases */
-  --mjl-color-surface-canvas: var(--mjl-bg-canvas);
-  --mjl-color-surface-card: var(--mjl-bg-base);
-  --mjl-color-surface-sunken: var(--mjl-bg-sunken);
-  --mjl-color-surface-overlay: var(--mjl-bg-elevated);
-  --mjl-color-text-primary: var(--mjl-text-strong);
-  --mjl-color-text-secondary: var(--mjl-text-subtle);
-  --mjl-color-text-muted: var(--mjl-text-muted);
-  --mjl-color-text-inverse: var(--mjl-text-inverse);
-  --mjl-color-text-link: var(--mjl-text-brand);
-  --mjl-color-text-link-hover: var(--mjl-color-primary-800);
-  --mjl-color-action-primary-default: var(--mjl-action-primary-bg);
-  --mjl-color-action-primary-hover: var(--mjl-action-primary-hover);
-  --mjl-color-action-primary-active: var(--mjl-action-primary-active);
-  --mjl-color-action-primary-fg: var(--mjl-action-primary-fg);
-  --mjl-color-action-secondary-default: var(--mjl-action-secondary-bg);
-  --mjl-color-action-secondary-hover: var(--mjl-action-secondary-hover);
-  --mjl-color-action-secondary-active: var(--mjl-color-neutral-400);
-  --mjl-color-action-secondary-fg: var(--mjl-action-secondary-fg);
-  --mjl-color-border-subtle: var(--mjl-border-hairline);
-  --mjl-color-border-default: var(--mjl-border-line);
-  --mjl-color-border-input: var(--mjl-border-input);
-  --mjl-color-border-focus: var(--mjl-border-focus);
-  --mjl-color-border-error: var(--mjl-color-status-danger-fg);
-}
-
-/* ==========================================================================
-   Semantic Functional Tokens - Dark Mode (Automatic High Contrast)
-   ========================================================================== */
-[data-theme="dark"],
-[data-mode="dark"],
+const darkBlocks = `[data-theme="dark"],
 .dark {
-  /* Surfaces */
-  --mjl-bg-canvas: #0B0E15;
-  --mjl-bg-base: #151922;
-  --mjl-bg-elevated: #1C222E;
-  --mjl-bg-tint: rgba(255, 255, 255, 0.06);
-  --mjl-bg-sunken: #07090E;
+  color-scheme: dark;
+${themeBody(dark, "  ")}
+}
 
-  /* Typography */
-  --mjl-text-strong: #F7F8FA;
-  --mjl-text-default: #DFE3EA;
-  --mjl-text-subtle: #97A0B2;
-  --mjl-text-muted: #6B7488;
-  --mjl-text-inverse: #0B0E15;
-  --mjl-text-brand: #94A3FF; /* Luminous Majalengka Blue (WCAG AAA kontras di latar gelap) */
-
-  /* Borders & Hairlines */
-  --mjl-border-line: rgba(255, 255, 255, 0.12);
-  --mjl-border-hairline: rgba(255, 255, 255, 0.06);
-  --mjl-border-input: #2D3748;
-  --mjl-border-focus: #6B7DFF;
-  --mjl-border-brand: #6B7DFF;
-
-  /* Actions */
-  --mjl-action-primary-bg: #4256F5; /* Luminous Blue Majalengka agar kontras & menyala di latar gelap */
-  --mjl-action-primary-hover: #6B7DFF;
-  --mjl-action-primary-active: #94A3FF;
-  --mjl-action-primary-fg: #FFFFFF;
-  --mjl-action-primary-ring: rgba(107, 125, 255, 0.35);
-
-  --mjl-action-secondary-bg: var(--mjl-bg-base);
-  --mjl-action-secondary-hover: var(--mjl-bg-tint);
-  --mjl-action-secondary-fg: var(--mjl-text-default);
-  --mjl-action-secondary-border: var(--mjl-border-line);
-
-  --mjl-action-danger-bg: #E03131;
-  --mjl-action-danger-hover: #F03E3E;
-  --mjl-action-danger-fg: #FFFFFF;
-
-  /* Backward Compatibility Aliases */
-  --mjl-color-surface-canvas: var(--mjl-bg-canvas);
-  --mjl-color-surface-card: var(--mjl-bg-base);
-  --mjl-color-surface-sunken: var(--mjl-bg-sunken);
-  --mjl-color-surface-overlay: var(--mjl-bg-elevated);
-  --mjl-color-text-primary: var(--mjl-text-strong);
-  --mjl-color-text-secondary: var(--mjl-text-subtle);
-  --mjl-color-text-muted: var(--mjl-text-muted);
-  --mjl-color-text-inverse: var(--mjl-text-inverse);
-  --mjl-color-text-link: var(--mjl-text-brand);
-  --mjl-color-text-link-hover: #BCC7FF;
-  --mjl-color-action-primary-default: var(--mjl-action-primary-bg);
-  --mjl-color-action-primary-hover: var(--mjl-action-primary-hover);
-  --mjl-color-action-primary-active: var(--mjl-action-primary-active);
-  --mjl-color-action-primary-fg: var(--mjl-action-primary-fg);
-  --mjl-color-action-secondary-default: var(--mjl-action-secondary-bg);
-  --mjl-color-action-secondary-hover: var(--mjl-action-secondary-hover);
-  --mjl-color-action-secondary-active: #4C5466;
-  --mjl-color-action-secondary-fg: var(--mjl-action-secondary-fg);
-  --mjl-color-border-subtle: var(--mjl-border-hairline);
-  --mjl-color-border-default: var(--mjl-border-line);
-  --mjl-color-border-input: var(--mjl-border-input);
-  --mjl-color-border-focus: var(--mjl-border-focus);
-  --mjl-color-border-error: #F87171;
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] {
+    color-scheme: dark;
+${themeBody(dark, "    ")}
+  }
 }
 `;
+
+const css = `${header}
+:root {
+${primitiveDecls}
+}
+
+:root,
+[data-theme="light"],
+.light {
+${themeBody(light, "  ")}
+}
+
+${darkBlocks}`;
 
 writeFileSync(resolve(distDir, "tokens.css"), css);
-writeFileSync(resolve(distDir, "tokens-dark.css"), css.slice(css.indexOf('[data-theme="dark"]')));
+writeFileSync(resolve(distDir, "tokens-dark.css"), `${header}\n${darkBlocks}`);
 
-// 3. Generate TypeScript Export
-const tsContent = `/**
- * @majalengka/tokens TypeScript exports
- */
+// ---------------------------------------------------------------------------
+// 4. tokens.json — nilai final per mode, untuk alat apa pun (Figma, PHP, dsb.)
+// ---------------------------------------------------------------------------
+const flat = (tokens: SemanticToken[]) => Object.fromEntries(tokens.map((t) => [t.name, t.resolved]));
+const primitiveFlat = Object.fromEntries(
+  primitives.flatMap((t) => {
+    const name = primitiveName(t.path);
+    return name ? [[name, t.value]] : [];
+  }),
+);
+const jsonOut = { prefix: `--${PREFIX}-`, primitives: primitiveFlat, light: flat(light), dark: flat(dark) };
+writeFileSync(resolve(distDir, "tokens.json"), JSON.stringify(jsonOut, null, 2) + "\n");
 
-export const colors = ${JSON.stringify(colorData.color, null, 2)} as const;
-export const typography = ${JSON.stringify(typographyData.typography, null, 2)} as const;
-export const spacing = ${JSON.stringify(spacingData.spacing, null, 2)} as const;
-export const elevation = ${JSON.stringify(elevationData.elevation, null, 2)} as const;
-
-export const brand = {
-  primary: "#0014A8",
-  mango: "#F0A202",
-  name: "Majalengka Design System",
-  tagline: "Design system open-source untuk ekosistem web Majalengka.tech"
-} as const;
-`;
-
-// index.js is executed as plain JS at runtime — "as const" is TS-only syntax
-// and would throw a SyntaxError there, so strip it. index.d.ts is read by the
-// TypeScript compiler only, so it keeps "as const" for literal-type inference.
-writeFileSync(resolve(distDir, "index.js"), tsContent.replaceAll(" as const", ""));
-writeFileSync(resolve(distDir, "index.d.ts"), tsContent);
-
-// 4. Generate UnoCSS Preset & Tailwind Config helper
-const presetContent = `/**
- * @majalengka/tokens - UnoCSS Preset & Tailwind Theme Config
- */
-
-export function presetMajalengka(options = {}) {
-  const primaryColors = ${JSON.stringify(
-    Object.fromEntries(Object.entries(colorData.color.primary).map(([k, v]) => [k, v.$value])),
-    null,
-    2
-  )};
-
-  const neutralColors = ${JSON.stringify(
-    Object.fromEntries(Object.entries(colorData.color.neutral).map(([k, v]) => [k, v.$value])),
-    null,
-    2
-  )};
-
-  const spacingGrid = ${JSON.stringify(
-    Object.fromEntries([
-      ...Object.entries(spacingData.spacing.grid).map(([k, v]) => [`mjl-${k}`, v.$value]),
-      ["mjl-touch", spacingData.spacing.touchTarget.min.$value],
-      ["mjl-touch-lg", spacingData.spacing.touchTarget.large.$value],
-    ]),
-    null,
-    2
-  )};
-
-  const fontSizeScale = ${JSON.stringify(
-    Object.fromEntries(
-      Object.entries(typographyData.typography.scale).map(([k, v]) => [
-        `mjl-${k}`,
-        [v.fontSize.$value, String(v.lineHeight.$value)]
-      ])
-    ),
-    null,
-    2
-  )};
-
-  const breakpoints = ${JSON.stringify(
-    Object.fromEntries(
-      Object.entries(spacingData.spacing.breakpoint).map(([k, v]) => [`mjl-${k}`, v.$value])
-    ),
-    null,
-    2
-  )};
-
-  return {
-    name: "unocss-preset-majalengka",
-    theme: {
-      colors: {
-        "mjl-primary": primaryColors,
-        "mjl-neutral": neutralColors,
-        "mjl-mango": "${colorData.color.status.mango.fg.$value}",
-        "mjl-status": {
-          "success-bg": "${colorData.color.status.success.bg.$value}",
-          "success-border": "${colorData.color.status.success.border.$value}",
-          "success-fg": "${colorData.color.status.success.fg.$value}",
-          "warning-bg": "${colorData.color.status.warning.bg.$value}",
-          "warning-border": "${colorData.color.status.warning.border.$value}",
-          "warning-fg": "${colorData.color.status.warning.fg.$value}",
-          "danger-bg": "${colorData.color.status.danger.bg.$value}",
-          "danger-border": "${colorData.color.status.danger.border.$value}",
-          "danger-fg": "${colorData.color.status.danger.fg.$value}",
-          "info-bg": "${colorData.color.status.info.bg.$value}",
-          "info-border": "${colorData.color.status.info.border.$value}",
-          "info-fg": "${colorData.color.status.info.fg.$value}"
-        }
-      },
-      fontFamily: {
-        "mjl-title": ["${typographyData.typography.fontFamily.title.$value}", "sans-serif"],
-        "mjl-body": ["${typographyData.typography.fontFamily.body.$value}", "sans-serif"],
-        "mjl-mono": ["${typographyData.typography.fontFamily.mono.$value}", "monospace"]
-      },
-      fontSize: fontSizeScale,
-      spacing: spacingGrid,
-      breakpoints: breakpoints,
-      borderRadius: {
-        "mjl-none": "${spacingData.spacing.radius.none?.$value || "0px"}",
-        "mjl-sm": "${spacingData.spacing.radius.sm.$value}",
-        "mjl-md": "${spacingData.spacing.radius.md.$value}",
-        "mjl-lg": "${spacingData.spacing.radius.lg.$value}",
-        "mjl-full": "${spacingData.spacing.radius.full.$value}"
-      },
-      boxShadow: {
-        "mjl-sm": "${elevationData.elevation.shadow.sm.$value}",
-        "mjl-md": "${elevationData.elevation.shadow.md.$value}",
-        "mjl-lg": "${elevationData.elevation.shadow.lg.$value}",
-        "mjl-xl": "${elevationData.elevation.shadow.xl?.$value || "0 20px 25px -5px rgba(0, 0, 0, 0.1)"}"
-      }
-    },
-    shortcuts: {
-      // Container
-      "mjl-container": "w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
-
-      // Skip link
-      "mjl-skip-link": "sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-mjl-primary-700 focus:text-white focus:rounded-mjl-md focus:shadow-mjl-md",
-
-      // Button Shortcuts
-      "mjl-btn-base": "inline-flex items-center justify-center font-medium transition-colors cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-      "mjl-btn-sm": "h-8 px-3 text-xs rounded-mjl-sm gap-1.5",
-      "mjl-btn-md": "h-10 px-4 text-sm rounded-mjl-md gap-2",
-      "mjl-btn-lg": "h-12 px-6 text-base rounded-mjl-md gap-2.5",
-      "mjl-btn-primary": "bg-mjl-primary-700 text-white hover:bg-mjl-primary-800 active:bg-mjl-primary-900 focus-visible:ring-mjl-primary-500",
-      "mjl-btn-secondary": "bg-mjl-neutral-200 text-mjl-neutral-900 hover:bg-mjl-neutral-300 active:bg-mjl-neutral-400 focus-visible:ring-mjl-neutral-400",
-      "mjl-btn-outline": "border border-mjl-primary-700 text-mjl-primary-700 hover:bg-mjl-primary-50 active:bg-mjl-primary-100 focus-visible:ring-mjl-primary-500",
-
-      // Form Controls
-      "mjl-input": "w-full h-10 px-3 py-2 text-sm bg-white dark:bg-mjl-neutral-900 border border-mjl-neutral-300 dark:border-mjl-neutral-700 rounded-mjl-md focus:outline-none focus:ring-2 focus:ring-mjl-primary-500 focus:border-mjl-primary-500 transition-colors",
-      "mjl-label": "block text-sm font-medium text-mjl-neutral-700 dark:text-mjl-neutral-200 mb-1.5",
-
-      // Badges
-      "mjl-badge": "inline-flex items-center font-medium px-2.5 py-0.5 rounded-mjl-full text-xs gap-1",
-      "mjl-badge-success": "bg-mjl-status-success-bg text-mjl-status-success-fg border border-mjl-status-success-border",
-      "mjl-badge-warning": "bg-mjl-status-warning-bg text-mjl-status-warning-fg border border-mjl-status-warning-border",
-      "mjl-badge-danger": "bg-mjl-status-danger-bg text-mjl-status-danger-fg border border-mjl-status-danger-border",
-      "mjl-badge-info": "bg-mjl-status-info-bg text-mjl-status-info-fg border border-mjl-status-info-border",
-
-      // Cards
-      "mjl-card-base": "bg-white dark:bg-mjl-neutral-900 border border-mjl-neutral-200 dark:border-mjl-neutral-800 rounded-mjl-lg p-6 shadow-mjl-sm"
+// ---------------------------------------------------------------------------
+// 5. tailwind.css — Tailwind v4. `inline` supaya utilitas memakai var() dan
+//    ikut mode gelap. Wajib dimuat bersama tokens.css.
+// ---------------------------------------------------------------------------
+{
+  const lines: string[] = [];
+  for (const t of primitives) {
+    const name = primitiveName(t.path);
+    if (!name) {
+      const bp = t.path.match(/^spacing\.breakpoint\.(.+)$/);
+      if (bp) lines.push(`  --breakpoint-mjl-${bp[1]}: ${t.value};`);
+      continue;
     }
-  };
+    const map: [RegExp, string][] = [
+      [/^color-(.+)$/, "--color-mjl-$1"],
+      [/^font-(.+)$/, "--font-mjl-$1"],
+      [/^text-(.+)-size$/, "--text-mjl-$1"],
+      [/^text-(.+)-line-height$/, "--text-mjl-$1--line-height"],
+      [/^space-(.+)$/, "--spacing-mjl-$1"],
+      [/^touch-min$/, "--spacing-mjl-touch"],
+      [/^touch-large$/, "--spacing-mjl-touch-lg"],
+      [/^radius-(.+)$/, "--radius-mjl-$1"],
+      [/^shadow-(.+)$/, "--shadow-mjl-$1"],
+      [/^ease-(.+)$/, "--ease-mjl-$1"],
+    ];
+    const hit = map.find(([re]) => re.test(name));
+    if (hit) lines.push(`  ${name.replace(hit[0], hit[1])}: var(${v(name)});`);
+  }
+  lines.push("", "  /* Semantik — ikut mode gelap */");
+  for (const t of light) lines.push(`  --color-mjl-${t.name}: var(${v(t.name)});`);
+
+  writeFileSync(
+    resolve(distDir, "tailwind.css"),
+    `/**
+ * @majalengka/tokens — tema Tailwind CSS v4. Dibuat otomatis.
+ *
+ *   @import "tailwindcss";
+ *   @import "@majalengka/tokens/css";
+ *   @import "@majalengka/tokens/tailwind";
+ *
+ * Contoh: bg-mjl-action-primary-bg text-mjl-text-default p-mjl-4 rounded-mjl-md
+ */
+@theme inline {
+${lines.join("\n")}
+}
+`,
+  );
 }
 
-export default presetMajalengka;
+// ---------------------------------------------------------------------------
+// 6. index.js / index.d.ts
+// ---------------------------------------------------------------------------
+{
+  const ts = `/**
+ * @majalengka/tokens — dibuat otomatis dari src/*.json.
+ */
+
+export const colors = ${JSON.stringify(raw.color, null, 2)} as const;
+export const typography = ${JSON.stringify(raw.typography, null, 2)} as const;
+export const spacing = ${JSON.stringify(raw.spacing, null, 2)} as const;
+export const elevation = ${JSON.stringify(raw.elevation, null, 2)} as const;
+
+/** Nilai final token semantik per mode, kunci = nama variabel tanpa "--mjl-". */
+export const semantic = ${JSON.stringify({ light: flat(light), dark: flat(dark) }, null, 2)} as const;
+
+export const brand = {
+  primary: ${JSON.stringify(raw.color.primary["700"].$value)},
+  mango: ${JSON.stringify(raw.color.mango["500"].$value)},
+  name: "Majalengka Design System",
+} as const;
 `;
+  // index.js dijalankan sebagai JS biasa, jadi "as const" dibuang di sana.
+  writeFileSync(resolve(distDir, "index.js"), ts.replaceAll(" as const", ""));
+  writeFileSync(resolve(distDir, "index.d.ts"), ts);
+}
 
-const presetDts = `export interface PresetMajalengkaOptions {}
+// ---------------------------------------------------------------------------
+// 7. preset.js — dibundel dari src/unocss-preset.ts (satu sumber logika)
+// ---------------------------------------------------------------------------
+{
+  const result = await Bun.build({
+    entrypoints: [resolve(__dirname, "src/unocss-preset.ts")],
+    outdir: distDir,
+    naming: "preset.js",
+    target: "node",
+    format: "esm",
+    define: { __MJL_TOKENS_CSS__: JSON.stringify(css) },
+  });
+  if (!result.success) fail(`Bundling preset gagal:\n${result.logs.join("\n")}`);
 
-export interface MajalengkaTheme {
-  colors: Record<string, any>;
-  fontFamily: Record<string, string[]>;
-  fontSize: Record<string, [string, string]>;
-  spacing: Record<string, string>;
-  breakpoints: Record<string, string>;
-  borderRadius: Record<string, string>;
-  boxShadow: Record<string, string>;
+  writeFileSync(
+    resolve(distDir, "preset.d.ts"),
+    `export interface PresetMajalengkaOptions {
+  /** Suntikkan variabel CSS token (termasuk mode gelap). Default: true. */
+  preflight?: boolean;
 }
 
 export declare function presetMajalengka(options?: PresetMajalengkaOptions): {
   name: "unocss-preset-majalengka";
-  theme: MajalengkaTheme;
+  theme: Record<string, any>;
+  preflights: { getCSS: () => string }[];
   shortcuts: Record<string, string>;
 };
 
 export default presetMajalengka;
-`;
+`,
+  );
+}
 
-writeFileSync(resolve(distDir, "preset.js"), presetContent);
-writeFileSync(resolve(distDir, "preset.d.ts"), presetDts);
-
-console.log("Tokens and UnoCSS preset compiled successfully to dist/");
-
+console.log(`✅ Token: ${primitives.length} primitive, ${light.length} semantik × 2 mode`);
+console.log("✅ dist/: tokens.css, tokens-dark.css, tokens.json, tailwind.css, index.js, preset.js");

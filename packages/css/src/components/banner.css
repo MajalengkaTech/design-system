@@ -5,13 +5,13 @@
 
 .mjl-banner {
   width: 100%;
-  padding: var(--mjl-space-3, 12px) var(--mjl-space-4, 16px);
+  padding: var(--mjl-space-3) var(--mjl-space-4);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--mjl-space-4, 16px);
-  font-family: var(--mjl-font-body, 'Inter', sans-serif);
-  font-size: var(--mjl-text-sm-size, 14px);
+  gap: var(--mjl-space-4);
+  font-family: var(--mjl-font-body);
+  font-size: var(--mjl-text-sm-size);
   line-height: 1.4;
   border-bottom: 1px solid transparent;
 }
@@ -19,26 +19,26 @@
 .mjl-banner__content {
   display: flex;
   align-items: center;
-  gap: var(--mjl-space-3, 12px);
+  gap: var(--mjl-space-3);
   margin: 0 auto;
   max-width: 1280px;
   width: 100%;
 }
 
 .mjl-banner--info {
-  background-color: var(--mjl-color-primary-50, #F0F3FF);
-  color: var(--mjl-color-primary-900, #000C65);
-  border-color: var(--mjl-color-primary-200, #BCC7FF);
+  background-color: var(--mjl-bg-brand-subtle);
+  color: var(--mjl-text-brand);
+  border-color: var(--mjl-border-brand-subtle);
 }
 
 .mjl-banner--warning {
-  background-color: var(--mjl-color-status-warning-bg, #FFFBEB);
-  color: var(--mjl-color-status-warning-fg, #92400E);
-  border-color: var(--mjl-color-status-warning-border, #FDE68A);
+  background-color: var(--mjl-status-warning-bg);
+  color: var(--mjl-status-warning-fg);
+  border-color: var(--mjl-status-warning-border);
 }
 
 .mjl-banner--danger {
-  background-color: var(--mjl-color-status-danger-bg, #FEF2F2);
-  color: var(--mjl-color-status-danger-fg, #991B1B);
-  border-color: var(--mjl-color-status-danger-border, #FECACA);
+  background-color: var(--mjl-status-danger-bg);
+  color: var(--mjl-status-danger-fg);
+  border-color: var(--mjl-status-danger-border);
 }

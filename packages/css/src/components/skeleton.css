@@ -4,8 +4,8 @@
  */
 
 .mjl-skeleton {
-  background-color: var(--mjl-color-neutral-200, #EEF0F4);
-  border-radius: var(--mjl-radius-sm, 6px);
+  background-color: var(--mjl-bg-sunken);
+  border-radius: var(--mjl-radius-sm);
   position: relative;
   overflow: hidden;
   display: block;
@@ -26,7 +26,7 @@
 }
 
 .mjl-skeleton--circle {
-  border-radius: var(--mjl-radius-full, 9999px);
+  border-radius: var(--mjl-radius-full);
 }
 
 .mjl-skeleton--text {

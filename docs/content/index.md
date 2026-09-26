@@ -83,7 +83,7 @@ description: Design system open-source untuk ekosistem web Majalengka.tech — b
       @majalengka/css
     </template>
     <template v-slot:description>
-      Berkas CSS mandiri tanpa dependensi (&lt; 35kB). Langsung pasang lewat tautan CDN di template WordPress, Laravel, atau PHP jadul tanpa build step.
+      Berkas CSS mandiri tanpa dependensi (8.5 kB gzip). Langsung pasang lewat tautan CDN di template WordPress, Laravel, atau PHP jadul tanpa build step.
     </template>
   </u-page-card>
 

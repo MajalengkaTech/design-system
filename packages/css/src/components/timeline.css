@@ -6,14 +6,14 @@
 .mjl-timeline {
   list-style: none;
   padding: 0;
-  margin: var(--mjl-space-4, 16px) 0;
+  margin: var(--mjl-space-4) 0;
   position: relative;
 }
 
 .mjl-timeline__item {
   position: relative;
-  padding-left: var(--mjl-space-8, 32px);
-  padding-bottom: var(--mjl-space-6, 24px);
+  padding-left: var(--mjl-space-8);
+  padding-bottom: var(--mjl-space-6);
 }
 
 .mjl-timeline__item:last-child {
@@ -28,7 +28,7 @@
   top: 18px;
   bottom: 0;
   width: 2px;
-  background-color: var(--mjl-color-border-subtle, #DFE3EA);
+  background-color: var(--mjl-border-hairline);
 }
 
 .mjl-timeline__item:last-child::before {
@@ -43,32 +43,32 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: var(--mjl-color-neutral-200, #EEF0F4);
-  border: 3px solid var(--mjl-color-surface-card, #FFFFFF);
-  box-shadow: 0 0 0 1px var(--mjl-color-border-default, #DFE3EA);
+  background-color: var(--mjl-bg-sunken);
+  border: 3px solid var(--mjl-bg-base);
+  box-shadow: 0 0 0 1px var(--mjl-border-line);
 }
 
 .mjl-timeline__item--active .mjl-timeline__marker {
-  background-color: var(--mjl-color-primary-700, #0014A8);
-  box-shadow: 0 0 0 2px var(--mjl-color-primary-200, #BCC7FF);
+  background-color: var(--mjl-action-primary-bg);
+  box-shadow: 0 0 0 2px var(--mjl-border-brand-subtle);
 }
 
 .mjl-timeline__title {
-  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
-  font-size: var(--mjl-text-sm-size, 14px);
+  font-family: var(--mjl-font-title);
+  font-size: var(--mjl-text-sm-size);
   font-weight: 700;
-  color: var(--mjl-color-text-primary, #222834);
+  color: var(--mjl-text-strong);
   margin-bottom: 2px;
 }
 
 .mjl-timeline__time {
-  font-size: var(--mjl-text-xs-size, 12px);
-  color: var(--mjl-color-text-muted, #97A0B2);
+  font-size: var(--mjl-text-xs-size);
+  color: var(--mjl-text-muted);
   margin-bottom: 4px;
 }
 
 .mjl-timeline__desc {
-  font-size: var(--mjl-text-sm-size, 14px);
-  color: var(--mjl-color-text-secondary, #6B7488);
+  font-size: var(--mjl-text-sm-size);
+  color: var(--mjl-text-subtle);
   line-height: 1.5;
 }

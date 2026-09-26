@@ -1,175 +1,125 @@
 /**
- * Majalengka Design System - Button Component
- * Mematuhi spesifikasi button.md:
- * - 5 varian: primary, secondary, outline, ghost, danger
- * - 3 ukuran: sm, md, lg
- * - Minimal target sentuh 44x44px
- * - Radius 10px (radius-md) - dilarang pill shape
+ * Majalengka Design System - Button
+ *
+ * Varian: primary (default), secondary, outline, ghost, danger
+ * Ukuran: md (default, 44px), lg (52px), sm (32px, hanya untuk area padat
+ * seperti tabel; masih di atas batas WCAG 2.5.8 yaitu 24px)
+ *
+ * Varian hanya mengisi variabel lokal --_*. State hover, active, dan loading
+ * memakai variabel yang sama sehingga tidak perlu ditulis ulang per varian.
  */
 
-.mjl-btn,
-button.mjl-btn,
-a.mjl-btn {
+.mjl-btn {
+  --_bg: var(--mjl-action-primary-bg);
+  --_fg: var(--mjl-action-primary-fg);
+  --_border: transparent;
+  --_hover: var(--mjl-action-primary-hover);
+  --_active: var(--mjl-action-primary-active);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--mjl-space-2, 8px);
-  min-height: 40px;
-  padding: 8px 18px;
-  font-family: var(--mjl-font-title, 'Plus Jakarta Sans', sans-serif);
-  font-size: var(--mjl-text-sm-size, 14px);
+  gap: var(--mjl-space-2);
+  min-height: var(--mjl-touch-min);
+  padding: var(--mjl-space-2) var(--mjl-space-4);
+  font-family: var(--mjl-font-title);
+  font-size: var(--mjl-text-sm-size);
   font-weight: 600;
-  text-decoration: none;
-  border-radius: var(--mjl-radius-md, 8px);
-  border: 1.5px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-  user-select: none;
-  vertical-align: middle;
   line-height: 1.25;
-  transition: background-color var(--mjl-duration-fast, 150ms) ease,
-              border-color var(--mjl-duration-fast, 150ms) ease,
-              color var(--mjl-duration-fast, 150ms) ease,
-              box-shadow var(--mjl-duration-fast, 150ms) ease,
-              transform var(--mjl-duration-fast, 150ms) ease;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: var(--_fg);
+  background-color: var(--_bg);
+  border: 1.5px solid var(--_border);
+  border-radius: var(--mjl-radius-md);
+  cursor: pointer;
+  user-select: none;
+  transition-property: background-color, border-color, color, transform;
+  transition-duration: var(--mjl-duration-fast);
+  transition-timing-function: var(--mjl-ease-standard);
 }
 
-.mjl-btn:active:not(:disabled) {
+.mjl-btn:hover {
+  background-color: var(--_hover);
+}
+
+.mjl-btn:active {
+  background-color: var(--_active);
   transform: scale(0.98);
 }
 
 .mjl-btn:disabled,
 .mjl-btn[aria-disabled="true"] {
   opacity: 0.5;
-  cursor: not-allowed;
   pointer-events: none;
 }
 
 /* Ukuran */
-.mjl-btn--sm,
-button.mjl-btn--sm {
+.mjl-btn--sm {
   min-height: 32px;
-  padding: 5px 12px;
-  font-size: 13px;
-  border-radius: 6px;
+  padding: var(--mjl-space-1) var(--mjl-space-3);
+  border-radius: var(--mjl-radius-sm);
 }
 
-.mjl-btn--md,
-button.mjl-btn--md {
-  min-height: 40px;
-  padding: 8px 18px;
-  font-size: var(--mjl-text-sm-size, 14px);
-  border-radius: 8px;
+.mjl-btn--lg {
+  min-height: var(--mjl-touch-large);
+  padding: var(--mjl-space-3) var(--mjl-space-6);
+  font-size: var(--mjl-text-base-size);
 }
 
-.mjl-btn--lg,
-button.mjl-btn--lg {
-  min-height: 48px;
-  padding: 12px 24px;
-  font-size: var(--mjl-text-base-size, 16px);
-  border-radius: 10px;
+/* Varian */
+.mjl-btn--secondary {
+  --_bg: var(--mjl-action-secondary-bg);
+  --_fg: var(--mjl-action-secondary-fg);
+  --_border: var(--mjl-action-secondary-border);
+  --_hover: var(--mjl-action-secondary-hover);
+  --_active: var(--mjl-action-secondary-active);
 }
 
-/* Varian: Primary */
-.mjl-btn--primary,
-button.mjl-btn--primary,
-a.mjl-btn--primary {
-  background-color: var(--mjl-action-primary-bg, #0014A8);
-  color: var(--mjl-action-primary-fg, #FFFFFF) !important;
-  border-color: var(--mjl-action-primary-bg, #0014A8);
+.mjl-btn--outline {
+  --_bg: transparent;
+  --_fg: var(--mjl-text-brand);
+  --_border: var(--mjl-border-brand);
+  --_hover: var(--mjl-bg-tint);
+  --_active: var(--mjl-bg-brand-subtle);
 }
 
-.mjl-btn--primary:hover:not(:disabled),
-button.mjl-btn--primary:hover:not(:disabled) {
-  background-color: var(--mjl-action-primary-hover, #001086);
-  border-color: var(--mjl-action-primary-hover, #001086);
+.mjl-btn--ghost {
+  --_bg: transparent;
+  --_fg: var(--mjl-text-brand);
+  --_hover: var(--mjl-bg-tint);
+  --_active: var(--mjl-bg-brand-subtle);
 }
 
-.mjl-btn--primary:active:not(:disabled) {
-  background-color: var(--mjl-action-primary-active, #000C63);
+.mjl-btn--danger {
+  --_bg: var(--mjl-action-danger-bg);
+  --_fg: var(--mjl-action-danger-fg);
+  --_hover: var(--mjl-action-danger-hover);
+  --_active: var(--mjl-action-danger-active);
 }
 
-/* Varian: Secondary (Kumo Surface Base + Hairline + Tint Hover) */
-.mjl-btn--secondary,
-button.mjl-btn--secondary,
-a.mjl-btn--secondary {
-  background-color: var(--mjl-action-secondary-bg, var(--mjl-bg-base, #FFFFFF));
-  color: var(--mjl-action-secondary-fg, var(--mjl-text-default, #222834)) !important;
-  border-color: var(--mjl-action-secondary-border, var(--mjl-border-line, rgba(0, 0, 0, 0.08)));
-}
-
-.mjl-btn--secondary:hover:not(:disabled),
-button.mjl-btn--secondary:hover:not(:disabled) {
-  background-color: var(--mjl-action-secondary-hover, var(--mjl-bg-tint, rgba(0, 0, 0, 0.04)));
-}
-
-/* Varian: Outline */
-.mjl-btn--outline,
-button.mjl-btn--outline,
-a.mjl-btn--outline {
-  background-color: transparent;
-  color: var(--mjl-text-brand, #0014A8) !important;
-  border-color: var(--mjl-border-line, rgba(0, 0, 0, 0.15));
-}
-
-.mjl-btn--outline:hover:not(:disabled),
-button.mjl-btn--outline:hover:not(:disabled) {
-  background-color: var(--mjl-bg-tint, rgba(0, 0, 0, 0.04));
-  border-color: var(--mjl-border-focus, #4256F5);
-}
-
-/* Varian: Ghost */
-.mjl-btn--ghost,
-button.mjl-btn--ghost,
-a.mjl-btn--ghost {
-  background-color: transparent;
-  color: var(--mjl-text-brand, #0014A8) !important;
-  border-color: transparent;
-}
-
-.mjl-btn--ghost:hover:not(:disabled),
-button.mjl-btn--ghost:hover:not(:disabled) {
-  background-color: var(--mjl-bg-tint, rgba(0, 0, 0, 0.04));
-}
-
-/* Varian: Danger */
-.mjl-btn--danger,
-button.mjl-btn--danger,
-a.mjl-btn--danger {
-  background-color: var(--mjl-color-status-danger-fg, #B3261E);
-  color: #FFFFFF !important;
-  border-color: var(--mjl-color-status-danger-fg, #B3261E);
-}
-
-.mjl-btn--danger:hover:not(:disabled),
-button.mjl-btn--danger:hover:not(:disabled) {
-  background-color: #8C1D18;
-  border-color: #8C1D18;
-}
-
-/* Full Width */
 .mjl-btn--block {
   width: 100%;
 }
 
-/* Loading State */
+/* Loading: teks disembunyikan, spinner memakai warna teks varian */
 .mjl-btn--loading {
   position: relative;
-  color: transparent !important;
+  color: transparent;
+  pointer-events: none;
 }
 
 .mjl-btn--loading::after {
   content: "";
   position: absolute;
+  inset: 0;
   width: 18px;
   height: 18px;
-  top: 50%;
-  left: 50%;
-  margin-top: -9px;
-  margin-left: -9px;
-  border-radius: 50%;
-  border: 2px solid currentColor;
+  margin: auto;
+  border: 2px solid var(--_fg);
   border-right-color: transparent;
+  border-radius: 50%;
   animation: mjl-spin 0.75s linear infinite;
 }
 

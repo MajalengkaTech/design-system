@@ -8,6 +8,9 @@
     ".": "./dist/majalengka.css",
     "./css": "./dist/majalengka.css",
     "./min": "./dist/majalengka.min.css",
+    "./core": "./dist/core.min.css",
+    "./reset": "./dist/reset.min.css",
+    "./components/*": "./dist/components/*",
     "./src/*": "./src/*"
   },
   "license": "MIT",
@@ -28,6 +31,8 @@
     "build": "bun run build.ts"
   },
   "devDependencies": {
-    "@majalengka/tokens": "workspace:*"
+    "@majalengka/tokens": "workspace:*",
+    "known-css-properties": "^0.37.0",
+    "lightningcss": "^1.33.0"
   }
 }

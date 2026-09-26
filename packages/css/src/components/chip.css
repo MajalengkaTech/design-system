@@ -16,17 +16,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--mjl-color-status-danger-fg, #991B1B);
-  color: #FFFFFF;
-  font-family: var(--mjl-font-body, 'Inter', sans-serif);
+  background-color: var(--mjl-color-danger-700);
+  color: var(--mjl-color-neutral-50);
+  font-family: var(--mjl-font-body);
   font-weight: 700;
   font-size: 10px;
   line-height: 1;
   min-width: 16px;
   height: 16px;
   padding: 0 4px;
-  border-radius: var(--mjl-radius-full, 9999px);
-  border: 2px solid var(--mjl-color-surface-card, #FFFFFF);
+  border-radius: var(--mjl-radius-full);
+  border: 2px solid var(--mjl-bg-base);
   z-index: 2;
   font-variant-numeric: tabular-nums;
 }
@@ -40,9 +40,9 @@
 }
 
 .mjl-chip--success {
-  background-color: var(--mjl-color-status-success-fg, #065F46);
+  background-color: var(--mjl-color-success-700);
 }
 
 .mjl-chip--primary {
-  background-color: var(--mjl-color-primary-700, #0014A8);
+  background-color: var(--mjl-color-primary-700);
 }

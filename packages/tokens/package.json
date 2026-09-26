@@ -15,7 +15,9 @@
       "types": "./dist/preset.d.ts"
     },
     "./css": "./dist/tokens.css",
-    "./css/dark": "./dist/tokens-dark.css"
+    "./css/dark": "./dist/tokens-dark.css",
+    "./tailwind": "./dist/tailwind.css",
+    "./json": "./dist/tokens.json"
   },
   "license": "MIT",
   "repository": {

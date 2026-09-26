@@ -51,7 +51,7 @@ Source of truth: `@majalengka/tokens` (W3C DTCG format). Never hardcode colors/s
 
 - Primary blue (Biru Majalengka): `--mjl-color-primary-50` through `-950`, base `700 = #0014A8`
 - Neutral gray: `--mjl-color-neutral-50` through `-950`
-- Status: `--mjl-color-status-{success,warning,danger,info}-{bg,border,fg}`, plus `--mjl-color-status-mango` (accent, ~5% of page max)
+- Status: `--mjl-color-status-{success,warning,danger,info}-{bg,border,fg}`, plus `--mjl-accent-mango` (accent, ~5% of page max)
 - Spacing (4px grid): `--mjl-space-{0,1,2,3,4,5,6,8,10,12,16,20,24,32}`
 - Radius: `--mjl-radius-{sm,md,lg,full}`
 - Touch targets: `--mjl-touch-min` (44px), `--mjl-touch-large` (52px)
