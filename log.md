@@ -4,6 +4,35 @@ Catatan keputusan dan progres Majalengka Design System. Entri terbaru di atas.
 
 ## 2026-09-27
 
+### Fase 4 selesai — paket Vue
+- **Build ke `dist/`** (Vite library mode + deklarasi tipe `vue-tsc`), bukan source mentah lagi. `dist/index.js` 45.4 kB (10.5 kB gzip) untuk 42 komponen, `sideEffects: false` sehingga bisa di-tree-shake. `vue` dan `@majalengka/js` tidak dibundel.
+- **`MjlFormField` menyambungkan sendiri** `id`, `for`, `aria-describedby` (teks bantuan + error), `aria-invalid`, dan `required` ke `MjlInput`/`MjlSelect`/`MjlTextarea`/`MjlFileUpload` lewat provide/inject. `id` jadi opsional. Teks bantuan tetap tampil saat error (pola GOV.UK). Slot props tetap ada untuk kontrol buatan sendiri.
+- **`useId()` untuk semua id**: dua modal, dua field, atau dua TrustBanner di satu halaman tidak bentrok lagi.
+- **Plugin `createMajalengka({ link })`**: `MjlButton`, `MjlLink`, `MjlCard`, `MjlBreadcrumb`, `MjlNavMenu`, dan `MjlHeader` memakai `RouterLink`/`NuxtLink` untuk tautan internal. Tautan eksternal, `mailto:`, `tel:`, dan `#` tetap `<a>`.
+- **Bug diperbaiki**:
+  - `MjlModal` tidak terbuka kalau `v-model` sudah `true` saat mount,
+  - `MjlButton`: prop `to` tidak dipakai, `disabled` tidak berefek pada `<a>` (kini `href` dibuang), dan `aria-disabled="false"` selalu dirender,
+  - `MjlStepper` memakai `div` → `<ol>` + teks "(selesai)" untuk pembaca layar,
+  - `MjlPagination` merender semua halaman → elipsis dengan **jumlah tombol tetap** (7), supaya tombol tidak bergeser saat diklik,
+  - `MjlAlert` memakai `role="region" aria-live` untuk semua alert → `live` opsional (`danger` → `alert`, lainnya → `status`), ditambah tombol tutup untuk `dismissible` yang sebelumnya tidak dirender,
+  - `MjlFileUpload`: input tanpa nama → dibungkus `<label>`,
+  - `MjlFormSummary`: fokus tidak pernah dipindahkan → fokus pindah saat error muncul, dan judul menjadi heading,
+  - komentar HTML di akar template membuat komponen jadi multi-root di mode dev, sehingga atribut pemakai tidak diteruskan.
+- **Komponen baru**: `MjlTabs` (WAI-ARIA, melewati tab disabled, `data-mjl-manual` agar tidak diambil alih `@majalengka/js`), `MjlDrawer`, dan `useToast()`.
+- **Label ARIA bisa diganti lewat prop** (Pagination, Breadcrumb, Stepper, Modal, Drawer, NavMenu, Header, TrustBanner, Alert, Link, FormField). Default berbahasa Indonesia.
+- **`title-as`** di `MjlCard`, `MjlEmptyState`, `MjlModal`, dan `MjlFormSummary`, supaya urutan heading halaman tetap benar.
+- **CSS pendukung**: reset daftar untuk `<ol class="mjl-stepper">`, `.mjl-pagination__ellipsis`, `.mjl-alert__close`, `.mjl-file-upload__label`/`__hint` (border dropzone kini `border-input` 3:1), dan margin judul form summary.
+- **`@majalengka/js`**: atribut `data-mjl-manual` untuk mengecualikan tabs yang dikelola framework.
+- **Tes**: Vitest + happy-dom + axe-core, **30 tes**: wiring FormField, id unik, router link, tautan nonaktif, keyboard tabs, pagination di awal/tengah/akhir, stepper, modal sinkron v-model dan `dismissible=false`, alert role, fokus form summary, TrustBanner. Ditambah **10 uji di Edge** terhadap `dist/` (modal asli: fokus masuk, Esc, fokus kembali, klik di luar; tabs; pagination; form field; tanpa error konsol).
+- **Docs**: contoh di halaman FormField **tidak pernah berfungsi** (memakai prop `hint`/`error` yang tidak ada) dan sudah diperbaiki; halaman Instalasi kini menjelaskan plugin router; `packages/vue/README.md` baru.
+- **Root**: `bun run build` ikut membangun paket Vue, dan `bun run test` menjalankan tes Vue.
+- **Status**: selesai, belum di-commit.
+
+#### Catatan untuk Fase 5
+- Halaman docs komponen belum punya demo Vue interaktif; props table di beberapa halaman (Button, Pagination, Stepper) belum mengikuti API baru.
+- Pola dari template yang layak jadi komponen: kartu layanan, daftar langkah prosedur, daftar persyaratan, tombol ganti tema.
+- `mjl-header` dan `mjl-footer` bentrok dengan `mjl-container` (lihat catatan template).
+
 ### Template: Portal Dinas Pendidikan (Nuxt 4 + UnoCSS)
 - **Lokasi**: `templates/disdik/` (workspace baru `templates/*`). Jalankan dengan `bun run dev:disdik` di port 3001.
 - **Konsep redesain** [disdik.majalengkakab.go.id](https://disdik.majalengkakab.go.id/), **bukan situs resmi**: ada pita keterangan di atas, `noindex`, lambang daerah dan foto tidak disalin. Isi (6 layanan, detail Legalisir Ijazah, alamat, jam, judul berita) diambil dari situs resmi pada September 2026. Layanan tanpa detail di sumber **tidak diberi syarat karangan**.
@@ -167,8 +196,8 @@ Catatan keputusan dan progres Majalengka Design System. Entri terbaru di atas.
 | 1 | Pipeline token: JSON satu sumber, resolver alias, varian gelap status, cek kontras di build, output CSS/JSON/Tailwind/UnoCSS/TS dari satu sumber | **Selesai** |
 | 2 | CSS inti: selektor rata tanpa `!important` (`@layer` diganti `layer(components)` saat import), hapus fallback hex, focus-visible dan reduced-motion global, target 44px, paket CSS dipecah, Lightning CSS, budget jujur | **Selesai** |
 | 3 | Perilaku tanpa framework: `<dialog>` + `commandfor`, `<details>`, paket `@majalengka/js` < 3 kB (tabs, toast, tooltip, toggle, OTP, polyfill dialog) | **Selesai** |
-| 4 | Paket Vue: build ke `dist`, `useId()`, perbaikan Modal/Button/Stepper/FormField, label ARIA bisa diganti | Berikutnya |
-| 5 | Docs memakai token sendiri, halaman untuk semua komponen, CI (build, kontras, vue-tsc, axe), Changesets, rilis v0.2.0-beta | Belum |
+| 4 | Paket Vue: build ke `dist`, `useId()`, FormField otomatis, plugin router, MjlTabs/MjlDrawer/useToast, label ARIA bisa diganti, 30 tes | **Selesai** |
+| 5 | Docs memakai token sendiri, halaman untuk semua komponen, CI (build, kontras, vue-tsc, axe), Changesets, rilis v0.2.0-beta | Berikutnya |
 
 ### Temuan audit yang jadi dasar rencana
 - `semantic/light.json` dan `dark.json` diimpor tapi tidak dipakai `build.ts`. Token semantik di-hardcode dan nilainya sudah menyimpang dari JSON.

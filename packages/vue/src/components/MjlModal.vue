@@ -1,49 +1,66 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { useId } from 'vue';
+import { useDialog } from '../dialog';
 
 export interface MjlModalProps {
-	modelValue: boolean;
 	title?: string;
+	/** Esc, tombol tutup, dan klik di luar menutup modal. Matikan untuk keputusan yang wajib dijawab. */
+	dismissible?: boolean;
+	closeLabel?: string;
+	titleAs?: 'h2' | 'h3';
 }
 
-const props = defineProps<MjlModalProps>();
-
-const emit = defineEmits<{
-	'update:modelValue': [value: boolean];
-}>();
-
-const dialogRef = ref<HTMLDialogElement>();
-
-watch(() => props.modelValue, (open) => {
-	if (open) dialogRef.value?.showModal();
-	else dialogRef.value?.close();
+const props = withDefaults(defineProps<MjlModalProps>(), {
+	title: undefined,
+	dismissible: true,
+	closeLabel: 'Tutup',
+	titleAs: 'h2',
 });
 
-function onClose() {
-	emit('update:modelValue', false);
-}
+const open = defineModel<boolean>({ required: true });
+const titleId = useId();
+const { dialog, onClose, onCancel, onClick } = useDialog(open, { dismissible: () => props.dismissible });
 </script>
 
 <template>
 	<dialog
-		ref="dialogRef"
+		ref="dialog"
 		class="mjl-modal"
-		:aria-labelledby="title ? 'mjl-modal-title' : undefined"
+		:aria-labelledby="title ? titleId : undefined"
 		@close="onClose"
-		@cancel="onClose"
+		@cancel="onCancel"
+		@click="onClick"
 	>
-		<div class="mjl-modal__header">
-			<h3
+		<div
+			v-if="title || dismissible"
+			class="mjl-modal__header"
+		>
+			<component
+				:is="titleAs"
 				v-if="title"
-				id="mjl-modal-title"
+				:id="titleId"
 				class="mjl-modal__title"
-			>{{ title }}</h3>
+			>
+				{{ title }}
+			</component>
 			<button
+				v-if="dismissible"
 				type="button"
 				class="mjl-modal__close"
-				aria-label="Tutup"
-				@click="dialogRef?.close()"
-			>✕</button>
+				:aria-label="closeLabel"
+				@click="open = false"
+			>
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				><path d="M18 6 6 18M6 6l12 12" /></svg>
+			</button>
 		</div>
 
 		<div class="mjl-modal__body">

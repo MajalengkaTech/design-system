@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import MjlModal from './MjlModal.vue';
 import MjlButton from './MjlButton.vue';
+import MjlModal from './MjlModal.vue';
 
 export interface MjlConfirmDialogProps {
-	modelValue: boolean;
 	title: string;
+	/** Wajib menyebut tindakannya, mis. "Ya, batalkan pengajuan", bukan "Ya". */
 	confirmLabel: string;
 	cancelLabel?: string;
 	danger?: boolean;
@@ -15,34 +15,34 @@ withDefaults(defineProps<MjlConfirmDialogProps>(), {
 	danger: false,
 });
 
-const emit = defineEmits<{
-	'update:modelValue': [value: boolean];
-	confirm: [];
-}>();
+const open = defineModel<boolean>({ required: true });
+const emit = defineEmits<{ confirm: [] }>();
 
 function confirm() {
 	emit('confirm');
-	emit('update:modelValue', false);
+	open.value = false;
 }
 </script>
 
 <template>
 	<MjlModal
-		:model-value="modelValue"
+		v-model="open"
 		:title="title"
-		@update:model-value="$emit('update:modelValue', $event)"
 	>
 		<slot />
-
 		<template #footer>
 			<MjlButton
-				variant="outline"
-				@click="$emit('update:modelValue', false)"
-			>{{ cancelLabel }}</MjlButton>
+				variant="secondary"
+				@click="open = false"
+			>
+				{{ cancelLabel }}
+			</MjlButton>
 			<MjlButton
 				:variant="danger ? 'danger' : 'primary'"
 				@click="confirm"
-			>{{ confirmLabel }}</MjlButton>
+			>
+				{{ confirmLabel }}
+			</MjlButton>
 		</template>
 	</MjlModal>
 </template>

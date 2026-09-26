@@ -1,30 +1,50 @@
 <script setup lang="ts">
+import { useFieldControl } from '../field';
+
 export interface MjlFileUploadProps {
 	id?: string;
 	accept?: string;
 	multiple?: boolean;
 	hint?: string;
 	disabled?: boolean;
+	required?: boolean;
+	hasError?: boolean;
+	describedBy?: string;
+	/** Teks ajakan di area unggah. */
+	label?: string;
 }
 
-withDefaults(defineProps<MjlFileUploadProps>(), {
+const props = withDefaults(defineProps<MjlFileUploadProps>(), {
+	id: undefined,
+	accept: undefined,
 	multiple: false,
+	hint: undefined,
 	disabled: false,
+	required: false,
+	hasError: false,
+	describedBy: undefined,
+	label: 'Pilih berkas atau seret ke sini',
 });
 
-defineEmits<{
+const emit = defineEmits<{
 	'update:modelValue': [files: FileList | null];
 }>();
+
+const { id, describedBy, invalid, required } = useFieldControl(props);
 </script>
 
 <template>
-	<div class="mjl-file-upload">
+	<label
+		:for="id"
+		class="mjl-file-upload"
+	>
+		<!-- <label> membuat seluruh area bisa diklik dan memberi nama pada input -->
 		<slot>
-			<p><strong>Klik untuk memilih berkas</strong> atau seret ke sini</p>
-			<p
+			<span class="mjl-file-upload__label">{{ label }}</span>
+			<span
 				v-if="hint"
-				class="mjl-help-text"
-			>{{ hint }}</p>
+				class="mjl-file-upload__hint"
+			>{{ hint }}</span>
 		</slot>
 		<input
 			:id="id"
@@ -32,7 +52,10 @@ defineEmits<{
 			:accept="accept"
 			:multiple="multiple"
 			:disabled="disabled"
-			@change="$emit('update:modelValue', ($event.target as HTMLInputElement).files)"
+			:required="required"
+			:aria-invalid="invalid ? 'true' : undefined"
+			:aria-describedby="describedBy"
+			@change="emit('update:modelValue', ($event.target as HTMLInputElement).files)"
 		>
-	</div>
+	</label>
 </template>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useFieldControl } from '../field';
+
 export interface MjlSelectOption {
 	value: string;
 	label: string;
@@ -6,20 +8,20 @@ export interface MjlSelectOption {
 }
 
 export interface MjlSelectProps {
-	modelValue?: string;
 	id?: string;
 	options?: MjlSelectOption[];
 	placeholder?: string;
 	disabled?: boolean;
 	required?: boolean;
 	hasError?: boolean;
-	size?: 'md' | 'lg';
+	size?: 'sm' | 'md' | 'lg';
 	describedBy?: string;
 }
 
-withDefaults(defineProps<MjlSelectProps>(), {
-	modelValue: '',
+const props = withDefaults(defineProps<MjlSelectProps>(), {
+	id: undefined,
 	options: () => [],
+	placeholder: undefined,
 	disabled: false,
 	required: false,
 	hasError: false,
@@ -27,39 +29,39 @@ withDefaults(defineProps<MjlSelectProps>(), {
 	describedBy: undefined,
 });
 
-defineEmits<{
-	'update:modelValue': [value: string];
-}>();
+const model = defineModel<string>({ default: '' });
+const { id, describedBy, invalid, required } = useFieldControl(props);
 </script>
 
 <template>
 	<select
 		:id="id"
-		:value="modelValue"
+		v-model="model"
 		:disabled="disabled"
 		:required="required"
-		:aria-invalid="hasError ? 'true' : undefined"
+		:aria-invalid="invalid ? 'true' : undefined"
 		:aria-describedby="describedBy"
 		:class="[
 			'mjl-select',
-			`mjl-select--${size}`,
-			{ 'mjl-select--error': hasError },
+			{ [`mjl-select--${size}`]: size !== 'md', 'mjl-select--error': invalid },
 		]"
-		@change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
 	>
 		<option
 			v-if="placeholder"
 			value=""
 			disabled
-			:selected="!modelValue"
-		>{{ placeholder }}</option>
+		>
+			{{ placeholder }}
+		</option>
 		<slot>
 			<option
 				v-for="opt in options"
 				:key="opt.value"
 				:value="opt.value"
 				:disabled="opt.disabled"
-			>{{ opt.label }}</option>
+			>
+				{{ opt.label }}
+			</option>
 		</slot>
 	</select>
 </template>

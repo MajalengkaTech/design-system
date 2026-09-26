@@ -1,29 +1,38 @@
 <script setup lang="ts">
+import { useLink } from '../config';
+
 export interface MjlHeaderProps {
 	brand?: string;
 	brandHref?: string;
+	navLabel?: string;
 }
 
 withDefaults(defineProps<MjlHeaderProps>(), {
 	brand: undefined,
 	brandHref: '/',
+	navLabel: 'Menu utama',
 });
+
+const link = useLink();
 </script>
 
 <template>
 	<header class="mjl-header">
-		<a
+		<component
+			:is="link(brandHref).is"
 			v-if="brand || $slots.logo"
-			:href="brandHref"
+			v-bind="link(brandHref).attrs"
 			class="mjl-header__brand"
 		>
-			<slot name="logo">{{ brand }}</slot>
-		</a>
+			<slot name="logo">
+				{{ brand }}
+			</slot>
+		</component>
 
 		<nav
 			v-if="$slots.default"
 			class="mjl-header__nav"
-			aria-label="Menu utama"
+			:aria-label="navLabel"
 		>
 			<slot />
 		</nav>

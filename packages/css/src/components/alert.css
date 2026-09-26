@@ -26,6 +26,26 @@
   flex: 1;
 }
 
+.mjl-alert__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin: calc(-1 * var(--mjl-space-1));
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: var(--mjl-radius-sm);
+  cursor: pointer;
+}
+
+.mjl-alert__close:hover {
+  background-color: var(--mjl-bg-tint);
+}
+
 .mjl-alert__title {
   font-family: var(--mjl-font-title);
   font-weight: 700;

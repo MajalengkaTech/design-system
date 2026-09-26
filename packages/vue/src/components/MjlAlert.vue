@@ -1,26 +1,38 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 export interface MjlAlertProps {
 	variant?: 'info' | 'success' | 'warning' | 'danger';
 	title?: string;
 	dismissible?: boolean;
+	closeLabel?: string;
+	/**
+	 * Umumkan ke pembaca layar saat alert muncul setelah halaman dimuat
+	 * (mis. hasil kirim formulir). Alert yang sudah ada sejak awal tidak perlu.
+	 */
+	live?: boolean;
 }
 
-withDefaults(defineProps<MjlAlertProps>(), {
+const props = withDefaults(defineProps<MjlAlertProps>(), {
 	variant: 'info',
 	title: undefined,
 	dismissible: false,
+	closeLabel: 'Tutup pesan',
+	live: false,
 });
 
 defineEmits<{
 	dismiss: [];
 }>();
+
+// danger → alert (langsung dibacakan), lainnya → status (sopan)
+const role = computed(() => (props.live ? (props.variant === 'danger' ? 'alert' : 'status') : undefined));
 </script>
 
 <template>
 	<div
 		:class="['mjl-alert', `mjl-alert--${variant}`]"
-		role="region"
-		aria-live="polite"
+		:role="role"
 	>
 		<div
 			class="mjl-alert__icon"
@@ -87,5 +99,24 @@ defineEmits<{
 			</div>
 			<slot />
 		</div>
+
+		<button
+			v-if="dismissible"
+			type="button"
+			class="mjl-alert__close"
+			:aria-label="closeLabel"
+			@click="$emit('dismiss')"
+		>
+			<svg
+				width="18"
+				height="18"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				aria-hidden="true"
+			><path d="M18 6 6 18M6 6l12 12" /></svg>
+		</button>
 	</div>
 </template>

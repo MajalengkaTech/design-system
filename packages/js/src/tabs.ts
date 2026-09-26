@@ -42,7 +42,8 @@ function select(tabs: Element, index: number, focus: boolean): void {
 }
 
 export function enhanceTabs(root: ParentNode): void {
-  for (const tabs of all<HTMLElement>(root, ".mjl-tabs:not([data-mjl-ready])")) {
+  // data-mjl-manual: tabs dikelola framework (mis. MjlTabs di Vue), jangan disentuh
+  for (const tabs of all<HTMLElement>(root, ".mjl-tabs:not([data-mjl-ready]):not([data-mjl-manual])")) {
     const { list, buttons, panels } = parts(tabs);
     if (!list || !buttons.length) continue;
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useId } from 'vue';
+import { useLink } from '../config';
 
 export interface MjlNavItem {
 	label: string;
@@ -9,20 +10,25 @@ export interface MjlNavItem {
 
 export interface MjlNavMenuProps {
 	items: MjlNavItem[];
+	drawerTitle?: string;
+	closeLabel?: string;
 }
 
-defineProps<MjlNavMenuProps>();
+withDefaults(defineProps<MjlNavMenuProps>(), {
+	drawerTitle: 'Menu',
+	closeLabel: 'Tutup menu',
+});
 
+const link = useLink();
 const drawerRef = ref<HTMLDialogElement>();
+const titleId = useId();
 
 function openDrawer() {
 	drawerRef.value?.showModal();
 }
-
 function closeDrawer() {
 	drawerRef.value?.close();
 }
-
 defineExpose({ openDrawer, closeDrawer });
 </script>
 
@@ -32,39 +38,56 @@ defineExpose({ openDrawer, closeDrawer });
 			v-for="item in items"
 			:key="item.href"
 		>
-			<a
-				:href="item.href"
+			<component
+				:is="link(item.href).is"
+				v-bind="link(item.href).attrs"
 				:class="['mjl-nav-menu__link', { 'mjl-nav-menu__link--active': item.active }]"
 				:aria-current="item.active ? 'page' : undefined"
-			>{{ item.label }}</a>
+			>
+				{{ item.label }}
+			</component>
 		</li>
 	</ul>
 
 	<dialog
 		ref="drawerRef"
 		class="mjl-nav-drawer"
-		aria-label="Menu navigasi"
+		:aria-labelledby="titleId"
 	>
 		<div class="mjl-nav-drawer__header">
-			<strong>Menu</strong>
+			<strong :id="titleId">{{ drawerTitle }}</strong>
 			<button
 				type="button"
 				class="mjl-icon-btn"
-				aria-label="Tutup menu"
+				:aria-label="closeLabel"
 				@click="closeDrawer"
-			>✕</button>
+			>
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					aria-hidden="true"
+				><path d="M18 6 6 18M6 6l12 12" /></svg>
+			</button>
 		</div>
 		<ul class="mjl-nav-menu mjl-nav-menu--mobile">
 			<li
 				v-for="item in items"
 				:key="item.href"
 			>
-				<a
-					:href="item.href"
+				<component
+					:is="link(item.href).is"
+					v-bind="link(item.href).attrs"
 					:class="['mjl-nav-menu__link', { 'mjl-nav-menu__link--active': item.active }]"
 					:aria-current="item.active ? 'page' : undefined"
 					@click="closeDrawer"
-				>{{ item.label }}</a>
+				>
+					{{ item.label }}
+				</component>
 			</li>
 		</ul>
 	</dialog>

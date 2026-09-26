@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "cd docs && bun dev",
-    "build": "bun run build:tokens && bun run build:css && bun run build:js && cd docs && bun run build",
+    "build": "bun run build:tokens && bun run build:css && bun run build:js && bun run build:vue && cd docs && bun run build",
     "build:tokens": "cd packages/tokens && bun run build",
     "build:css": "cd packages/css && bun run build",
     "build:vue": "cd packages/vue && bun run build",
@@ -21,7 +21,8 @@
     "preview:docs": "cd docs && bun preview",
     "build:js": "cd packages/js && bun run build",
     "publish:js": "cd packages/js && npm publish",
-    "dev:disdik": "cd templates/disdik && bun run dev"
+    "dev:disdik": "cd templates/disdik && bun run dev",
+    "test": "cd packages/vue && bun run test"
   },
   "devDependencies": {
     "typescript": "^5.8.0"

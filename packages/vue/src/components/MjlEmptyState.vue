@@ -2,9 +2,11 @@
 export interface MjlEmptyStateProps {
 	title: string;
 	description?: string;
+	/** Level heading judul, sesuaikan dengan struktur halaman. */
+	titleAs?: 'h2' | 'h3' | 'h4' | 'p';
 }
 
-defineProps<MjlEmptyStateProps>();
+withDefaults(defineProps<MjlEmptyStateProps>(), { description: undefined, titleAs: 'h3' });
 </script>
 
 <template>
@@ -15,7 +17,12 @@ defineProps<MjlEmptyStateProps>();
 		>
 			<slot name="icon" />
 		</div>
-		<h3 class="mjl-empty-state__title">{{ title }}</h3>
+		<component
+			:is="titleAs"
+			class="mjl-empty-state__title"
+		>
+			{{ title }}
+		</component>
 		<p
 			v-if="description"
 			class="mjl-empty-state__desc"

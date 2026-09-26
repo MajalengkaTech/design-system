@@ -1,33 +1,35 @@
 <script setup lang="ts">
+import { useId } from 'vue';
+
 export interface MjlRadioProps {
-	modelValue?: string;
 	value: string;
 	name: string;
 	id?: string;
 	disabled?: boolean;
 }
 
-withDefaults(defineProps<MjlRadioProps>(), {
-	modelValue: undefined,
+const props = withDefaults(defineProps<MjlRadioProps>(), {
+	id: undefined,
 	disabled: false,
 });
 
-defineEmits<{
-	'update:modelValue': [value: string];
-}>();
+const model = defineModel<string>();
+const autoId = useId();
 </script>
 
 <template>
-	<label class="mjl-control-group">
+	<label
+		class="mjl-control-group"
+		:for="props.id ?? autoId"
+	>
 		<input
-			:id="id"
+			:id="props.id ?? autoId"
+			v-model="model"
 			type="radio"
 			class="mjl-radio"
 			:name="name"
 			:value="value"
-			:checked="modelValue === value"
 			:disabled="disabled"
-			@change="$emit('update:modelValue', value)"
 		>
 		<span><slot /></span>
 	</label>

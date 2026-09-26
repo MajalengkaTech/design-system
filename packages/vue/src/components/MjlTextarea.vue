@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useFieldControl } from '../field';
+
 export interface MjlTextareaProps {
-	modelValue?: string;
 	id?: string;
 	placeholder?: string;
 	rows?: number;
@@ -11,8 +12,9 @@ export interface MjlTextareaProps {
 	describedBy?: string;
 }
 
-withDefaults(defineProps<MjlTextareaProps>(), {
-	modelValue: '',
+const props = withDefaults(defineProps<MjlTextareaProps>(), {
+	id: undefined,
+	placeholder: undefined,
 	rows: 4,
 	disabled: false,
 	required: false,
@@ -21,23 +23,21 @@ withDefaults(defineProps<MjlTextareaProps>(), {
 	describedBy: undefined,
 });
 
-defineEmits<{
-	'update:modelValue': [value: string];
-}>();
+const model = defineModel<string>({ default: '' });
+const { id, describedBy, invalid, required } = useFieldControl(props);
 </script>
 
 <template>
 	<textarea
 		:id="id"
-		:value="modelValue"
+		v-model="model"
 		:placeholder="placeholder"
 		:rows="rows"
 		:disabled="disabled"
 		:required="required"
 		:maxlength="maxlength"
-		:aria-invalid="hasError ? 'true' : undefined"
+		:aria-invalid="invalid ? 'true' : undefined"
 		:aria-describedby="describedBy"
-		:class="['mjl-textarea', { 'mjl-textarea--error': hasError }]"
-		@input="$emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"
+		:class="['mjl-textarea', { 'mjl-textarea--error': invalid }]"
 	/>
 </template>

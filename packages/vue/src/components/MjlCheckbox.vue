@@ -1,32 +1,41 @@
 <script setup lang="ts">
+import { useId } from 'vue';
+
 export interface MjlCheckboxProps {
-	modelValue?: boolean;
 	id?: string;
 	disabled?: boolean;
 	required?: boolean;
+	hasError?: boolean;
+	describedBy?: string;
 }
 
-withDefaults(defineProps<MjlCheckboxProps>(), {
-	modelValue: false,
+const props = withDefaults(defineProps<MjlCheckboxProps>(), {
+	id: undefined,
 	disabled: false,
 	required: false,
+	hasError: false,
+	describedBy: undefined,
 });
 
-defineEmits<{
-	'update:modelValue': [value: boolean];
-}>();
+const model = defineModel<boolean>({ default: false });
+const autoId = useId();
 </script>
 
 <template>
-	<label class="mjl-control-group">
+	<label
+		class="mjl-control-group"
+		:for="props.id ?? autoId"
+	>
+		<!-- Label membungkus input, jadi seluruh baris (min. 44px) bisa diklik -->
 		<input
-			:id="id"
+			:id="props.id ?? autoId"
+			v-model="model"
 			type="checkbox"
 			class="mjl-checkbox"
-			:checked="modelValue"
 			:disabled="disabled"
 			:required="required"
-			@change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
+			:aria-invalid="hasError ? 'true' : undefined"
+			:aria-describedby="describedBy"
 		>
 		<span><slot /></span>
 	</label>

@@ -1,19 +1,21 @@
 <script setup lang="ts">
+import { useFieldControl } from '../field';
+
 export interface MjlInputProps {
-	modelValue?: string | number;
 	id?: string;
 	type?: string;
 	placeholder?: string;
 	disabled?: boolean;
 	required?: boolean;
 	hasError?: boolean;
-	size?: 'md' | 'lg';
+	size?: 'sm' | 'md' | 'lg';
 	describedBy?: string;
 }
 
-withDefaults(defineProps<MjlInputProps>(), {
-	modelValue: '',
+const props = withDefaults(defineProps<MjlInputProps>(), {
+	id: undefined,
 	type: 'text',
+	placeholder: undefined,
 	disabled: false,
 	required: false,
 	hasError: false,
@@ -21,26 +23,23 @@ withDefaults(defineProps<MjlInputProps>(), {
 	describedBy: undefined,
 });
 
-defineEmits<{
-	'update:modelValue': [value: string];
-}>();
+const model = defineModel<string | number>({ default: '' });
+const { id, describedBy, invalid, required } = useFieldControl(props);
 </script>
 
 <template>
 	<input
 		:id="id"
+		v-model="model"
 		:type="type"
-		:value="modelValue"
 		:placeholder="placeholder"
 		:disabled="disabled"
 		:required="required"
-		:aria-invalid="hasError ? 'true' : undefined"
+		:aria-invalid="invalid ? 'true' : undefined"
 		:aria-describedby="describedBy"
 		:class="[
 			'mjl-input',
-			`mjl-input--${size}`,
-			{ 'mjl-input--error': hasError },
+			{ [`mjl-input--${size}`]: size !== 'md', 'mjl-input--error': invalid },
 		]"
-		@input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
 	>
 </template>

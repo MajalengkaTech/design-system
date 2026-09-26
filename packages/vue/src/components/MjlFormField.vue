@@ -1,20 +1,51 @@
 <script setup lang="ts">
+import { computed, provide, useId } from 'vue';
+import { FIELD_KEY } from '../field';
+
 export interface MjlFormFieldProps {
-	id: string;
 	label: string;
+	/** Opsional; dibuat otomatis kalau kosong. */
+	id?: string;
 	required?: boolean;
 	optional?: boolean;
 	helpText?: string;
 	errorText?: string;
+	/** Teks penanda kolom opsional. Default "(opsional)". */
+	optionalLabel?: string;
 }
 
-defineProps<MjlFormFieldProps>();
+const props = withDefaults(defineProps<MjlFormFieldProps>(), {
+	id: undefined,
+	required: false,
+	optional: false,
+	helpText: undefined,
+	errorText: undefined,
+	optionalLabel: '(opsional)',
+});
+
+const autoId = useId();
+const fieldId = computed(() => props.id ?? autoId);
+const helpId = computed(() => `${fieldId.value}-bantuan`);
+const errorId = computed(() => `${fieldId.value}-error`);
+
+// Teks bantuan tetap tampil saat error: petunjuk format paling dibutuhkan ketika isian ditolak
+const describedBy = computed(() =>
+	[props.helpText && helpId.value, props.errorText && errorId.value].filter(Boolean).join(' ') || undefined,
+);
+const invalid = computed(() => !!props.errorText);
+
+provide(FIELD_KEY, {
+	id: fieldId,
+	describedBy,
+	invalid,
+	required: computed(() => props.required),
+});
 </script>
 
 <template>
 	<div class="mjl-form-field">
 		<label
-			:for="id"
+			:for="fieldId"
 			class="mjl-label"
 		>
 			{{ label }}
@@ -26,18 +57,12 @@ defineProps<MjlFormFieldProps>();
 			<span
 				v-else-if="optional"
 				class="mjl-label__optional"
-			>(Opsional)</span>
+			>{{ optionalLabel }}</span>
 		</label>
 
-		<slot
-			:id="id"
-			:has-error="!!errorText"
-			:described-by="errorText ? `${id}-error` : (helpText ? `${id}-help` : undefined)"
-		/>
-
 		<p
-			v-if="helpText && !errorText"
-			:id="`${id}-help`"
+			v-if="helpText"
+			:id="helpId"
 			class="mjl-help-text"
 		>
 			{{ helpText }}
@@ -45,9 +70,8 @@ defineProps<MjlFormFieldProps>();
 
 		<p
 			v-if="errorText"
-			:id="`${id}-error`"
+			:id="errorId"
 			class="mjl-error-text"
-			role="alert"
 		>
 			<svg
 				width="16"
@@ -66,5 +90,12 @@ defineProps<MjlFormFieldProps>();
 			</svg>
 			{{ errorText }}
 		</p>
+
+		<!-- Slot props tetap disediakan untuk kontrol buatan sendiri -->
+		<slot
+			:id="fieldId"
+			:has-error="invalid"
+			:described-by="describedBy"
+		/>
 	</div>
 </template>

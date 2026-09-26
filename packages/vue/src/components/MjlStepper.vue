@@ -8,35 +8,39 @@ export interface StepItem {
 export interface MjlStepperProps {
 	steps: StepItem[];
 	currentStepIndex: number;
+	label?: string;
+	/** Status yang dibacakan pembaca layar; tanda centang dan warna saja tidak cukup. */
+	completedLabel?: string;
 }
 
-defineProps<MjlStepperProps>();
+withDefaults(defineProps<MjlStepperProps>(), {
+	label: 'Tahapan pengajuan',
+	completedLabel: 'selesai',
+});
 </script>
 
 <template>
-	<nav
-		class="mjl-stepper"
-		aria-label="Tahapan pengajuan formulir"
-	>
-		<div
-			v-for="(step, index) in steps"
-			:key="step.id"
-			:class="[
-				'mjl-step',
-				{
-					'mjl-step--completed': index < currentStepIndex,
-					'mjl-step--current': index === currentStepIndex,
-					'mjl-step--upcoming': index > currentStepIndex,
-				},
-			]"
-			:aria-current="index === currentStepIndex ? 'step' : undefined"
-		>
-			<div
-				class="mjl-step-indicator"
-				aria-hidden="true"
+	<nav :aria-label="label">
+		<ol class="mjl-stepper">
+			<li
+				v-for="(step, index) in steps"
+				:key="step.id"
+				:class="[
+					'mjl-step',
+					{
+						'mjl-step--completed': index < currentStepIndex,
+						'mjl-step--current': index === currentStepIndex,
+						'mjl-step--upcoming': index > currentStepIndex,
+					},
+				]"
+				:aria-current="index === currentStepIndex ? 'step' : undefined"
 			>
-				<template v-if="index < currentStepIndex">
+				<span
+					class="mjl-step-indicator"
+					aria-hidden="true"
+				>
 					<svg
+						v-if="index < currentStepIndex"
 						width="18"
 						height="18"
 						viewBox="0 0 24 24"
@@ -45,22 +49,24 @@ defineProps<MjlStepperProps>();
 						stroke-width="3"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-					>
-						<polyline points="20 6 9 17 4 12" />
-					</svg>
-				</template>
-				<template v-else>
-					{{ index + 1 }}
-				</template>
-			</div>
+					><polyline points="20 6 9 17 4 12" /></svg>
+					<template v-else>{{ index + 1 }}</template>
+				</span>
 
-			<div class="mjl-step-content">
-				<span class="mjl-step-title">{{ step.title }}</span>
-				<span
-					v-if="step.desc"
-					class="mjl-step-desc"
-				>{{ step.desc }}</span>
-			</div>
-		</div>
+				<span class="mjl-step-content">
+					<span class="mjl-step-title">
+						{{ step.title }}
+						<span
+							v-if="index < currentStepIndex"
+							class="mjl-sr-only"
+						>({{ completedLabel }})</span>
+					</span>
+					<span
+						v-if="step.desc"
+						class="mjl-step-desc"
+					>{{ step.desc }}</span>
+				</span>
+			</li>
+		</ol>
 	</nav>
 </template>

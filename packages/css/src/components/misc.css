@@ -124,6 +124,14 @@
   pointer-events: none;
 }
 
+.mjl-pagination__ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--mjl-touch-min);
+  color: var(--mjl-text-subtle);
+}
+
 /* Breadcrumb */
 .mjl-breadcrumb {
   display: flex;
@@ -320,8 +328,10 @@
 }
 
 /* File Upload Dropzone */
+/* Pakai <label class="mjl-file-upload"> agar seluruh area bisa diklik dan input punya nama */
 .mjl-file-upload {
-  border: 2px dashed var(--mjl-border-line);
+  display: block;
+  border: 2px dashed var(--mjl-border-input);
   border-radius: var(--mjl-radius-md);
   padding: var(--mjl-space-6);
   text-align: center;
@@ -334,6 +344,22 @@
 .mjl-file-upload:focus-within {
   border-color: var(--mjl-border-focus);
   background-color: var(--mjl-bg-brand-subtle);
+}
+
+.mjl-file-upload__label,
+.mjl-file-upload__hint {
+  display: block;
+}
+
+.mjl-file-upload__label {
+  font-weight: 600;
+  color: var(--mjl-text-strong);
+}
+
+.mjl-file-upload__hint {
+  margin-top: var(--mjl-space-1);
+  font-size: var(--mjl-text-sm-size);
+  color: var(--mjl-text-subtle);
 }
 
 .mjl-file-upload input[type="file"] {

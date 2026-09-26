@@ -10,10 +10,13 @@
   margin-bottom: var(--mjl-space-4);
 }
 
+/* Biasanya <h2>: margin dan ukuran bawaan heading perlu dinetralkan */
 .mjl-form-summary__title {
+  margin: 0 0 var(--mjl-space-2);
+  font-family: var(--mjl-font-title);
+  font-size: var(--mjl-text-base-size);
   font-weight: 700;
   color: var(--mjl-status-danger-fg);
-  margin-bottom: var(--mjl-space-2);
 }
 
 .mjl-form-summary__list {
