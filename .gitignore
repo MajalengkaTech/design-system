@@ -21,3 +21,6 @@ skills-lock.json
 untukagy.md
 link-sumber-penting.md
 okf-base.yaml
+
+# Template statis hasil `bun run export:docs` (dibuat ulang saat build docs)
+/docs/public/templates/

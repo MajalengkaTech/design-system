@@ -4,6 +4,35 @@ Catatan keputusan dan progres Majalengka Design System. Entri terbaru di atas.
 
 ## 2026-09-27
 
+### Template: Portal Dinas Pendidikan (Nuxt 4 + UnoCSS)
+- **Lokasi**: `templates/disdik/` (workspace baru `templates/*`). Jalankan dengan `bun run dev:disdik` di port 3001.
+- **Konsep redesain** [disdik.majalengkakab.go.id](https://disdik.majalengkakab.go.id/), **bukan situs resmi**: ada pita keterangan di atas, `noindex`, lambang daerah dan foto tidak disalin. Isi (6 layanan, detail Legalisir Ijazah, alamat, jam, judul berita) diambil dari situs resmi pada September 2026. Layanan tanpa detail di sumber **tidak diberi syarat karangan**.
+- **Arah redesain**:
+  - layanan dulu, berita kemudian; pencarian di hero mencari layanan, termasuk kata kunci seperti "pkl" dan "ijazah hilang",
+  - emoji diganti ikon Lucide,
+  - berita nasional dan statistik pengunjung dibuang,
+  - halaman detail layanan berisi "yang perlu dibawa", langkah bernomor, FAQ `<details>`, dan kotak ringkasan.
+- **Halaman**: `/`, `/layanan` (bisa dicari lewat `?q=`), `/layanan/[slug]`, dan halaman error dengan `mjl-error-page`.
+- **Stack**:
+  - `@majalengka/css` untuk komponen,
+  - `presetMajalengka({ preflight: false })` untuk utilitas token UnoCSS,
+  - `presetIcons` + Lucide,
+  - `@majalengka/js` untuk menu ponsel `<dialog commandfor>` dan toggle,
+  - tema terang/gelap/otomatis disimpan di cookie supaya dirender server tanpa kedip.
+- **Verifikasi**:
+  - axe-core WCAG 2.2 AA: **0 pelanggaran** di 6 halaman × 2 tema (build produksi),
+  - 12 alur pengguna lolos di Edge: skip link, pencarian, kata kunci, ganti tema dan tersimpan setelah reload, menu ponsel dengan Esc dan navigasi, serta pencarian dan detail yang tetap berfungsi **tanpa JavaScript**,
+  - tidak ada scroll horizontal di 390px; tangkapan layar desktop/ponsel × terang/gelap rapi.
+- **Docs**: halaman Template ditulis ulang. Sebelumnya halaman itu mendaftarkan 9 template yang tidak ada dan CLI `bun create majalengka-app` yang tidak pernah dibuat. Sekarang Disdik tercantum sebagai satu-satunya yang tersedia, yang lain ditandai "direncanakan", dan langkah menjalankannya bisa diikuti.
+- **Pratinjau di docs**: halaman `/template/portal-dinas-pendidikan` dengan komponen `TemplatePreview.vue` (desktop diperkecil proporsional, tablet, ponsel ukuran asli, bisa diklik) dan tombol "Buka layar penuh" ke `/templates/disdik/`. Template di-*generate* statis lewat `bun run export:docs` (base `/templates/disdik/`) ke `docs/public/templates/` (di-gitignore), dan build docs menjalankannya otomatis sehingga ikut ter-deploy. Placeholder dipasang sebelum hydrate supaya iframe 1280px tidak sempat tampil terpotong. 9 uji di Edge lolos.
+- **Status**: selesai, belum di-commit.
+
+#### Temuan dari template (masukan untuk Fase 4–5)
+- `presetIcons` tidak menemukan `@iconify-json/*` di `node_modules` bergaya isolated milik Bun; koleksi harus didaftarkan eksplisit. Perlu dicatat di docs UnoCSS.
+- `mjl-header` dan `mjl-footer` punya padding sendiri, sehingga bentrok dengan `mjl-container` dan butuh `px-0`. Pertimbangkan: komponen shell tidak memberi padding horizontal, atau punya elemen `__inner`.
+- Pola yang ditulis ulang di template dan layak jadi komponen: **kartu layanan** (ikon + judul + ringkasan + tautan), **daftar langkah bernomor** (prosedur, berbeda dari Stepper yang menunjukkan progres), **daftar persyaratan** bercentang, dan **tombol ganti tema**.
+- Template tidak butuh kelas `mjl-btn--md` karena `md` sudah default, tapi banyak contoh di docs masih menuliskannya. Sederhanakan di Fase 5.
+
 ### Fase 3 selesai — perilaku tanpa framework
 - **Prinsip: fitur native dulu, JS hanya pelengkap.** Modal, drawer, dan menu mobile memakai `<dialog>` dengan atribut standar `commandfor`/`command="show-modal"` dan `closedby="any"`, yang di browser modern jalan tanpa JavaScript.
 - **Paket baru `@majalengka/js`** (2.53 kB gzip, batas build 3 kB, tanpa dependensi). Tersedia versi ESM (`import { init, toast }`) dan versi `<script>` (`Mjl.toast(...)`) untuk WordPress/PHP. Isinya:

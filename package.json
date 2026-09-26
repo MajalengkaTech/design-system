@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "docs"
+    "docs",
+    "templates/*"
   ],
   "scripts": {
     "dev": "cd docs && bun dev",
@@ -19,7 +20,8 @@
     "generate:docs": "cd docs && bun generate",
     "preview:docs": "cd docs && bun preview",
     "build:js": "cd packages/js && bun run build",
-    "publish:js": "cd packages/js && npm publish"
+    "publish:js": "cd packages/js && npm publish",
+    "dev:disdik": "cd templates/disdik && bun run dev"
   },
   "devDependencies": {
     "typescript": "^5.8.0"

@@ -1,60 +1,45 @@
 ---
 title: Template
-description: Kumpulan template siap pakai berbasis Majalengka Design System untuk portal layanan publik, website desa, dashboard pengelola, dan aplikasi warga.
+description: Template halaman lengkap yang dibangun dengan Majalengka Design System, siap dijadikan titik awal proyek portal layanan publik.
 ---
 
-# Template Majalengka Design System
+# Template
 
-Koleksi template antarmuka siap pakai yang dirancang dengan **Majalengka Design System**. Dibangun dengan prinsip aksesibilitas **WCAG 2.1 Level AA**, performa cepat di jaringan seluler daerah, dan tata letak responsif ramah layar ponsel.
-
-Tersedia untuk berbagai tumpukan teknologi: **Nuxt 4 / Vue 3**, **HTML & CSS Murni** (`@majalengka/css`), serta integrasi backend umum (Laravel, PHP, WordPress).
+Template adalah contoh situs utuh yang memakai token, komponen CSS, dan perilaku JS dari Majalengka Design System. Tujuannya dua: jadi titik awal proyek baru, dan membuktikan bahwa design system ini bekerja di halaman sungguhan, bukan hanya di demo komponen.
 
 ---
 
-## 1. Layanan Publik & Portal Warga
-
-Template untuk kebutuhan interaksi langsung warga dengan aparatur pemerintahan desa, kecamatan, dan instansi:
+## Tersedia
 
 ::u-page-grid
-:u-page-card{icon="i-lucide-globe" title="Portal Desa & Kelurahan Digital" description="Website resmi desa dengan transparansi APBDes, profil aparatur desa, direktori potensi wisata lokal, dan pengumuman warga."}
-:u-page-card{icon="i-lucide-clipboard-check" title="Portal Permohonan Layanan Terpadu" description="Formulir permohonan surat izin, adminduk, dan dokumen kependudukan multi-tahap lengkap dengan pelacakan nomor tiket."}
-:u-page-card{icon="i-lucide-megaphone" title="Pusat Pengaduan & Aspirasi Warga" description="Kanal pelaporan keluhan sarana publik dan infrastruktur desa dengan upload bukti foto dan integrasi status penanganan."}
+:u-page-card{icon="i-lucide-graduation-cap" title="Portal Dinas Pendidikan" description="Konsep redesain disdik.majalengkakab.go.id dengan Nuxt 4 dan UnoCSS. Beranda dengan pencarian layanan, daftar layanan, dan halaman detail berisi syarat, langkah, dan FAQ. Lolos axe WCAG 2.2 AA dan tetap berfungsi tanpa JavaScript." to="/template/portal-dinas-pendidikan"}
 ::
 
----
-
-## 2. Dashboard & Pengelola Internal
-
-Template panel administrasi khusus pengelola data, verifikator berkas, dan aparatur dinas/desa:
-
-::u-page-grid
-:u-page-card{icon="i-lucide-layout-dashboard" title="Dashboard Verifikator Berkas" description="Antarmuka antrean verifikasi dokumen kependudukan dengan tabel data responsif, modal preview berkas, dan aksi persetujuan cepat."}
-:u-page-card{icon="i-lucide-chart-column-increasing" title="Statistik & Analitik Layanan Daerah" description="Visualisasi data tren permohonan bulanan, indeks kepuasan masyarakat, dan distribusi pemohon per kecamatan di Majalengka."}
-:u-page-card{icon="i-lucide-shield-alert" title="Manajemen Krisis & Pengumuman Darurat" description="Panel kendali siaga bencana alam dan kedaruratan daerah dengan modul broadcast peringatan dini dan peta evakuasi."}
+::note
+Template ini **konsep**, bukan situs resmi Dinas Pendidikan. Isinya diambil dari situs resmi pada September 2026, dan halamannya memasang pita keterangan serta `noindex`.
 ::
 
----
-
-## 3. Direktori, Potensi & Publikasi Daerah
-
-Template etalase promosi potensi lokal Kabupaten Majalengka:
-
-::u-page-grid
-:u-page-card{icon="i-lucide-store" title="Direktori Produk UMKM Majalengka" description="Katalog etalase produk unggulan daerah (mangga gedong gincu, tenun, olahan pangan) lengkap dengan kontak WhatsApp penjual."}
-:u-page-card{icon="i-lucide-map-pin" title="Panduan Wisata & Destinasi Alam" description="Direktori wisata alam Majalengka (terasering, curug, paralayang) dengan rute navigasi, tarif retribusi, dan fasilitas."}
-:u-page-card{icon="i-lucide-newspaper" title="Portal Warta & Agenda Kegiatan" description="Majalah digital dan jadwal agenda kebudayaan, car-free day, dan festival seni daerah Majalengka."}
-::
-
----
-
-## Cara Menggunakan Template
-
-Seluruh template dapat diinisialisasi melalui CLI resmi atau disalin langsung dari repositori:
+### Menjalankan
 
 ```bash
-# Buat proyek baru menggunakan template desa digital
-bun create majalengka-app my-desa-portal --template portal-desa
-
-# Atau salin komponen & tata letak langsung ke proyek Vue / Nuxt eksisting
-bun add @majalengka/vue @majalengka/css
+git clone https://github.com/MajalengkaTech/design-system.git
+cd design-system
+bun install
+bun run dev:disdik   # http://localhost:3001
 ```
+
+Untuk memakainya sebagai awal proyek sendiri, salin folder `templates/disdik`, lalu ganti isi `app/data/layanan.ts` dan `app/data/situs.ts` dengan data instansi Anda. Ubah dependensi `workspace:*` di `package.json` menjadi versi yang terbit di npm.
+
+---
+
+## Direncanakan
+
+Template berikut belum dibuat. Usulan dan kontribusi terbuka lewat GitHub.
+
+| Template | Isi |
+|---|---|
+| Portal desa dan kelurahan | Profil desa, transparansi APBDes, pengumuman warga |
+| Permohonan layanan terpadu | Formulir multi-langkah dengan pelacakan nomor tiket |
+| Pengaduan warga | Laporan dengan unggah foto dan status penanganan |
+| Dashboard verifikator | Antrean berkas, pratinjau dokumen, persetujuan cepat |
+| Direktori UMKM | Katalog produk dengan kontak WhatsApp penjual |

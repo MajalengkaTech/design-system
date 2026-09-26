@@ -1,0 +1,24 @@
+{
+  "name": "@majalengka/template-disdik",
+  "private": true,
+  "type": "module",
+  "description": "Template konsep redesain portal Dinas Pendidikan, dibangun dengan Nuxt, UnoCSS, dan Majalengka Design System",
+  "scripts": {
+    "dev": "nuxt dev --port 3001",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "export:docs": "bun run scripts/export-docs.ts"
+  },
+  "dependencies": {
+    "@majalengka/css": "workspace:*",
+    "@majalengka/js": "workspace:*",
+    "@majalengka/tokens": "workspace:*",
+    "nuxt": "^4.2.2"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.0",
+    "@unocss/nuxt": "^66.0.0",
+    "unocss": "^66.0.0"
+  }
+}
