@@ -41,9 +41,11 @@ const activeTab = ref<'preview' | 'code'>('preview');
 			<slot />
 		</div>
 
-		<div v-if="(code || $slots.code) && activeTab === 'code'" class="bg-slate-950 p-4 text-xs font-mono text-slate-200 overflow-x-auto">
+		<!-- Blok kode dirender oleh ProsePre (Shiki) milik Docus, jadi wadah ini tidak
+		     memberi latar sendiri — cukup menghapus margin/bingkai bawaan agar menyatu. -->
+		<div v-if="(code || $slots.code) && activeTab === 'code'" class="mjl-demo-code border-t border-slate-200 dark:border-slate-800">
 			<slot name="code">
-				<pre><code>{{ code }}</code></pre>
+				<pre class="m-0 overflow-x-auto bg-slate-50 p-4 text-sm dark:bg-slate-950"><code>{{ code }}</code></pre>
 			</slot>
 		</div>
 	</div>

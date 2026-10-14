@@ -3,8 +3,6 @@ title: Template
 description: Kumpulan template siap pakai berbasis Majalengka Design System untuk portal layanan publik, website desa, dashboard pengelola, dan aplikasi warga.
 ---
 
-# Template Majalengka Design System
-
 Koleksi template antarmuka siap pakai yang dirancang dengan **Majalengka Design System**. Dibangun dengan prinsip aksesibilitas **WCAG 2.1 Level AA**, performa cepat di jaringan seluler daerah, dan tata letak responsif ramah layar ponsel.
 
 Tersedia untuk berbagai tumpukan teknologi: **Nuxt 4 / Vue 3**, **HTML & CSS Murni** (`@majalengka/css`), serta integrasi backend umum (Laravel, PHP, WordPress).

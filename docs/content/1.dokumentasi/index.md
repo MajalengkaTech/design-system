@@ -3,8 +3,6 @@ title: Dokumentasi & Panduan
 description: Panduan arsitektur, token desain, pola layanan publik, dan standar kualitas Majalengka Design System.
 ---
 
-# Dokumentasi & Panduan
-
 Dokumentasi ini merangkum seluruh prinsip desain, token warna & tipografi, arsitektur framework-agnostic, serta standar kepatuhan aksesibilitas untuk pembangunan layanan digital di ekosistem web Majalengka — dipakai instansi, komunitas, maupun UMKM digital, bukan produk resmi Pemkab Majalengka.
 
 ---
