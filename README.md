@@ -12,8 +12,8 @@ Repositori ini adalah sumber kebenaran tunggal (*single source of truth*) untuk 
 majalengka-tech/design-system
 ├── packages/
 │   ├── tokens/      # Sumber token W3C DTCG JSON + build pipeline CSS/TS
-│   ├── css/         # Paket CSS murni (@majalengka/css) tanpa proses build (< 35kB)
-│   └── vue/         # Komponen referensi Vue 3 + TypeScript (@majalengka/vue)
+│   ├── css/         # Paket CSS murni (@majalengka/css), siap pakai tanpa build di sisi pemakai (~9 kB gzip)
+│   └── vue/         # Komponen Vue 3 + TypeScript (@majalengka/vue), dirilis sebagai ESM + .d.ts
 ├── docs/            # Website dokumentasi resmi berbasis Docus (Nuxt 4 + Nuxt Content)
 └── majalengka-design-system/ # Bundle pengetahuan terbuka OKF (Open Knowledge Format) v0.2
 ```
@@ -56,20 +56,62 @@ import '@majalengka/css';
 
 ---
 
-## Menjalankan Dokumentasi Secara Lokal
+## Pengembangan
 
-Website dokumentasi terletak di folder `docs/`:
+Semua perintah dijalankan dari root repo (Bun workspaces):
 
 ```bash
-# Pemasangan dependensi
-cd docs
-bun install
-
-# Menjalankan dev server Docus
-bun run dev
-
-# Membuka di browser: http://localhost:3000
+bun install          # pasang dependensi seluruh workspace
+bun run check        # build token + CSS, typecheck, unit test, dan build paket Vue
+bun run dev          # dev server dokumentasi di http://localhost:3000
+bun run build:docs   # build situs dokumentasi
 ```
+
+| Perintah | Isi |
+|---|---|
+| `bun run build:tokens` | `packages/tokens/src/**/*.json` → `dist/tokens.css`, `tokens-dark.css`, ekspor TS, preset UnoCSS |
+| `bun run build:css` | Gabung + minify (Lightning CSS) → `dist/majalengka(.min).css`; **gagal** bila anggaran ukuran terlampaui |
+| `bun run typecheck` / `bun run test` | `vue-tsc` dan Vitest untuk `@majalengka/vue` |
+| `bun run build:vue` | Vite library build → `dist/index.js` + deklarasi `.d.ts` |
+
+CI (`.github/workflows/ci.yml`) menjalankan `bun run check` dan build dokumentasi di setiap PR.
+
+### Anggaran ukuran CSS
+
+`@majalengka/css` wajib memenuhi **kedua** batas berikut (dicek otomatis saat build):
+
+| Ukuran | Batas | Saat ini (v0.1.0) |
+|---|---|---|
+| Minified | < 64 kB | ±57 kB |
+| Gzip (yang benar-benar lewat jaringan) | < 12 kB | ±9 kB |
+
+---
+
+## Deploy Dokumentasi ke Cloudflare Pages
+
+Pengaturan project di **Workers & Pages → Settings**:
+
+| Pengaturan | Nilai |
+|---|---|
+| Root directory | `docs` |
+| Build command | `bun install && bun run build` |
+| Build output directory | `dist` |
+
+`docs/bun.lock` adalah symlink ke `bun.lock` di root agar Cloudflare mendeteksi Bun, bukan npm (npm tidak mengerti dependensi `workspace:*`).
+
+**Variables and Secrets** (Production dan Preview):
+
+| Variable | Keterangan |
+|---|---|
+| `BUN_VERSION` | Samakan dengan `.bun-version` |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | *Secret*. Kunci Gemini API untuk AI assistant ([AI Studio](https://aistudio.google.com/apikey)) |
+| `GEMINI_MODEL` | Opsional, mis. `gemini-3.8-flash` (default `gemini-2.5-flash`) |
+| `AI_GATEWAY_API_KEY` | *Secret*, opsional. Dipakai hanya bila kunci Gemini kosong |
+| `NUXT_SITE_URL` | `https://ui.majalengka.tech` |
+
+**Bindings** (Production dan Preview): D1 database dengan nama **`DB`**. Nuxt Content di Cloudflare membaca isi dokumentasi dari D1; tanpa binding ini halaman tetap tampil (prerender), tetapi AI assistant dan MCP server tidak bisa mencari halaman. D1 diisi otomatis saat pertama kali dipakai.
+
+Variabel dan binding dibaca saat build, jadi lakukan deploy ulang setelah mengubahnya.
 
 ---
 

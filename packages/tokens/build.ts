@@ -90,146 +90,82 @@ for (const [step, obj] of Object.entries(elevationData.elevation.motion.easing))
   css += `  --mjl-ease-${step}: ${obj.$value};\n`;
 }
 
-css += `\n  /* ==========================================================================
-     Semantic Functional Tokens (Kumo-Style Architecture) - Light Mode
-     ========================================================================== */
-  /* Surfaces */
-  --mjl-bg-canvas: var(--mjl-color-neutral-100);
-  --mjl-bg-base: #FFFFFF;
-  --mjl-bg-elevated: #F7F8FA;
-  --mjl-bg-tint: rgba(0, 0, 0, 0.04);
-  --mjl-bg-sunken: #EEF0F4;
+// 2. Semantic tokens — dibaca dari src/semantic/{light,dark}.json, BUKAN
+// ditulis manual di sini. Path token menjadi nama CSS variable
+// (bg.canvas -> --mjl-bg-canvas, color.text.linkHover -> --mjl-color-text-link-hover)
+// dan referensi DTCG {a.b.c} menjadi var(--mjl-a-b-c).
+type TokenNode = { $value?: unknown; [key: string]: unknown };
 
-  /* Typography */
-  --mjl-text-strong: #0B0E15;
-  --mjl-text-default: #222834;
-  --mjl-text-subtle: #6B7488;
-  --mjl-text-muted: #97A0B2;
-  --mjl-text-inverse: #FFFFFF;
-  --mjl-text-brand: var(--mjl-color-primary-700); /* #0014A8 Hero Biru Majalengka */
+const kebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const varName = (path: string[]) => `--mjl-${path.map(kebab).join("-")}`;
 
-  /* Borders & Hairlines */
-  --mjl-border-line: rgba(0, 0, 0, 0.08);
-  --mjl-border-hairline: rgba(0, 0, 0, 0.05);
-  --mjl-border-input: #DFE3EA;
-  --mjl-border-focus: var(--mjl-color-primary-500);
-  --mjl-border-brand: var(--mjl-color-primary-700);
-
-  /* Actions */
-  --mjl-action-primary-bg: var(--mjl-color-primary-700); /* #0014A8 di mode terang */
-  --mjl-action-primary-hover: var(--mjl-color-primary-800); /* #001086 */
-  --mjl-action-primary-active: var(--mjl-color-primary-900); /* #000C63 */
-  --mjl-action-primary-fg: #FFFFFF;
-  --mjl-action-primary-ring: rgba(0, 20, 168, 0.25);
-
-  --mjl-action-secondary-bg: var(--mjl-bg-base);
-  --mjl-action-secondary-hover: var(--mjl-bg-tint);
-  --mjl-action-secondary-fg: var(--mjl-text-default);
-  --mjl-action-secondary-border: var(--mjl-border-line);
-
-  --mjl-action-danger-bg: var(--mjl-color-status-danger-fg);
-  --mjl-action-danger-hover: #931d17;
-  --mjl-action-danger-fg: #FFFFFF;
-
-  /* Backward Compatibility Aliases */
-  --mjl-color-surface-canvas: var(--mjl-bg-canvas);
-  --mjl-color-surface-card: var(--mjl-bg-base);
-  --mjl-color-surface-sunken: var(--mjl-bg-sunken);
-  --mjl-color-surface-overlay: var(--mjl-bg-elevated);
-  --mjl-color-text-primary: var(--mjl-text-strong);
-  --mjl-color-text-secondary: var(--mjl-text-subtle);
-  --mjl-color-text-muted: var(--mjl-text-muted);
-  --mjl-color-text-inverse: var(--mjl-text-inverse);
-  --mjl-color-text-link: var(--mjl-text-brand);
-  --mjl-color-text-link-hover: var(--mjl-color-primary-800);
-  --mjl-color-action-primary-default: var(--mjl-action-primary-bg);
-  --mjl-color-action-primary-hover: var(--mjl-action-primary-hover);
-  --mjl-color-action-primary-active: var(--mjl-action-primary-active);
-  --mjl-color-action-primary-fg: var(--mjl-action-primary-fg);
-  --mjl-color-action-secondary-default: var(--mjl-action-secondary-bg);
-  --mjl-color-action-secondary-hover: var(--mjl-action-secondary-hover);
-  --mjl-color-action-secondary-active: var(--mjl-color-neutral-400);
-  --mjl-color-action-secondary-fg: var(--mjl-action-secondary-fg);
-  --mjl-color-border-subtle: var(--mjl-border-hairline);
-  --mjl-color-border-default: var(--mjl-border-line);
-  --mjl-color-border-input: var(--mjl-border-input);
-  --mjl-color-border-focus: var(--mjl-border-focus);
-  --mjl-color-border-error: var(--mjl-color-status-danger-fg);
+function flattenTokens(node: TokenNode, path: string[] = [], out = new Map<string, string>()) {
+  for (const [key, child] of Object.entries(node)) {
+    if (key.startsWith("$") || typeof child !== "object" || child === null) continue;
+    const childNode = child as TokenNode;
+    if ("$value" in childNode) out.set(varName([...path, key]), String(childNode.$value));
+    else flattenTokens(childNode, [...path, key], out);
+  }
+  return out;
 }
 
-/* ==========================================================================
-   Semantic Functional Tokens - Dark Mode (Automatic High Contrast)
-   ========================================================================== */
-[data-theme="dark"],
-[data-mode="dark"],
-.dark {
-  /* Surfaces */
-  --mjl-bg-canvas: #0B0E15;
-  --mjl-bg-base: #151922;
-  --mjl-bg-elevated: #1C222E;
-  --mjl-bg-tint: rgba(255, 255, 255, 0.06);
-  --mjl-bg-sunken: #07090E;
+// Semua CSS variable global yang sudah ditulis di blok :root di atas — target
+// referensi yang sah selain token semantik itu sendiri.
+const globalVars = new Set([...css.matchAll(/^\s*(--mjl-[a-z0-9-]+):/gm)].map((m) => m[1]));
 
-  /* Typography */
-  --mjl-text-strong: #F7F8FA;
-  --mjl-text-default: #DFE3EA;
-  --mjl-text-subtle: #97A0B2;
-  --mjl-text-muted: #6B7488;
-  --mjl-text-inverse: #0B0E15;
-  --mjl-text-brand: #94A3FF; /* Luminous Majalengka Blue (WCAG AAA kontras di latar gelap) */
-
-  /* Borders & Hairlines */
-  --mjl-border-line: rgba(255, 255, 255, 0.12);
-  --mjl-border-hairline: rgba(255, 255, 255, 0.06);
-  --mjl-border-input: #2D3748;
-  --mjl-border-focus: #6B7DFF;
-  --mjl-border-brand: #6B7DFF;
-
-  /* Actions */
-  --mjl-action-primary-bg: #4256F5; /* Luminous Blue Majalengka agar kontras & menyala di latar gelap */
-  --mjl-action-primary-hover: #6B7DFF;
-  --mjl-action-primary-active: #94A3FF;
-  --mjl-action-primary-fg: #FFFFFF;
-  --mjl-action-primary-ring: rgba(107, 125, 255, 0.35);
-
-  --mjl-action-secondary-bg: var(--mjl-bg-base);
-  --mjl-action-secondary-hover: var(--mjl-bg-tint);
-  --mjl-action-secondary-fg: var(--mjl-text-default);
-  --mjl-action-secondary-border: var(--mjl-border-line);
-
-  --mjl-action-danger-bg: #E03131;
-  --mjl-action-danger-hover: #F03E3E;
-  --mjl-action-danger-fg: #FFFFFF;
-
-  /* Backward Compatibility Aliases */
-  --mjl-color-surface-canvas: var(--mjl-bg-canvas);
-  --mjl-color-surface-card: var(--mjl-bg-base);
-  --mjl-color-surface-sunken: var(--mjl-bg-sunken);
-  --mjl-color-surface-overlay: var(--mjl-bg-elevated);
-  --mjl-color-text-primary: var(--mjl-text-strong);
-  --mjl-color-text-secondary: var(--mjl-text-subtle);
-  --mjl-color-text-muted: var(--mjl-text-muted);
-  --mjl-color-text-inverse: var(--mjl-text-inverse);
-  --mjl-color-text-link: var(--mjl-text-brand);
-  --mjl-color-text-link-hover: #BCC7FF;
-  --mjl-color-action-primary-default: var(--mjl-action-primary-bg);
-  --mjl-color-action-primary-hover: var(--mjl-action-primary-hover);
-  --mjl-color-action-primary-active: var(--mjl-action-primary-active);
-  --mjl-color-action-primary-fg: var(--mjl-action-primary-fg);
-  --mjl-color-action-secondary-default: var(--mjl-action-secondary-bg);
-  --mjl-color-action-secondary-hover: var(--mjl-action-secondary-hover);
-  --mjl-color-action-secondary-active: #4C5466;
-  --mjl-color-action-secondary-fg: var(--mjl-action-secondary-fg);
-  --mjl-color-border-subtle: var(--mjl-border-hairline);
-  --mjl-color-border-default: var(--mjl-border-line);
-  --mjl-color-border-input: var(--mjl-border-input);
-  --mjl-color-border-focus: var(--mjl-border-focus);
-  --mjl-color-border-error: #F87171;
+function semanticBlock(selector: string, title: string, tokens: Map<string, string>) {
+  let block = `/* ==========================================================================\n   ${title}\n   ========================================================================== */\n${selector} {\n`;
+  let group = "";
+  for (const [name, raw] of tokens) {
+    const value = raw.replace(/\{([^}]+)\}/g, (_, ref: string) => {
+      const target = varName(ref.split("."));
+      if (!globalVars.has(target) && !tokens.has(target)) {
+        throw new Error(`[${title}] ${name} mereferensikan {${ref}} yang tidak ada`);
+      }
+      return `var(${target})`;
+    });
+    // Baris kosong antar-kelompok (bg, text, action-primary, color-surface, ...) agar mudah dibaca.
+    const depth = /^--mjl-(color|action)-/.test(name) ? 5 : 4;
+    const nextGroup = name.split("-").slice(0, depth).join("-");
+    if (nextGroup !== group) {
+      block += group ? "\n" : "";
+      group = nextGroup;
+    }
+    block += `  ${name}: ${value};\n`;
+  }
+  return block + "}\n";
 }
-`;
+
+const lightTokens = flattenTokens(lightSemantic as TokenNode);
+const darkTokens = flattenTokens(darkSemantic as TokenNode);
+
+// Mode gelap harus mendefinisikan ulang SEMUA token semantik: custom property
+// yang berisi var() dihitung di elemen tempat ia dideklarasikan lalu diwarisi
+// sebagai nilai jadi, jadi token yang terlewat akan tetap bernilai mode terang.
+const missingInDark = [...lightTokens.keys()].filter((k) => !darkTokens.has(k));
+const extraInDark = [...darkTokens.keys()].filter((k) => !lightTokens.has(k));
+if (missingInDark.length || extraInDark.length) {
+  throw new Error(
+    `light.json dan dark.json harus punya token yang sama.\n` +
+      (missingInDark.length ? `  Hilang di dark: ${missingInDark.join(", ")}\n` : "") +
+      (extraInDark.length ? `  Hanya ada di dark: ${extraInDark.join(", ")}\n` : ""),
+  );
+}
+
+css += `}\n\n`;
+css += semanticBlock(":root", "Semantic Functional Tokens - Light Mode", lightTokens);
+const darkCss = semanticBlock(
+  '[data-theme="dark"],\n[data-mode="dark"],\n.dark',
+  "Semantic Functional Tokens - Dark Mode",
+  darkTokens,
+);
+css += `\n${darkCss}`;
 
 writeFileSync(resolve(distDir, "tokens.css"), css);
-writeFileSync(resolve(distDir, "tokens-dark.css"), css.slice(css.indexOf('[data-theme="dark"]')));
+writeFileSync(
+  resolve(distDir, "tokens-dark.css"),
+  `/* @majalengka/tokens - hanya blok mode gelap. Butuh tokens.css (token global) dimuat lebih dulu. */\n${darkCss}`,
+);
 
 // 3. Generate TypeScript Export
 const tsContent = `/**
@@ -242,8 +178,8 @@ export const spacing = ${JSON.stringify(spacingData.spacing, null, 2)} as const;
 export const elevation = ${JSON.stringify(elevationData.elevation, null, 2)} as const;
 
 export const brand = {
-  primary: "#0014A8",
-  mango: "#F0A202",
+  primary: ${JSON.stringify(colorData.color.primary["700"].$value)},
+  mango: ${JSON.stringify(colorData.color.status.mango.fg.$value)},
   name: "Majalengka Design System",
   tagline: "Design system open-source untuk ekosistem web Majalengka.tech"
 } as const;

@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useId } from 'vue';
 
 withDefaults(defineProps<{ owner: string; href?: string }>(), { href: '' });
 
 const isOpen = ref(false);
+// ID unik per instance agar aria-controls tidak bentrok bila banner dipakai lebih dari sekali.
+const detailsId = useId();
 const toggle = () => {
 	isOpen.value = !isOpen.value;
 };
@@ -20,7 +22,7 @@ const toggle = () => {
 				type="button"
 				class="mjl-trust-banner__toggle"
 				:aria-expanded="isOpen"
-				aria-controls="mjl-trust-banner-details"
+				:aria-controls="detailsId"
 				@click="toggle"
 			>
 				Cara memastikan
@@ -32,7 +34,7 @@ const toggle = () => {
 		<div
 			v-if="$slots.default"
 			v-show="isOpen"
-			id="mjl-trust-banner-details"
+			:id="detailsId"
 			class="mjl-trust-banner__details"
 		>
 			<slot />

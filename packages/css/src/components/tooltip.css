@@ -36,3 +36,13 @@
   visibility: visible;
   transform: translateX(-50%) translateY(-2px);
 }
+
+/* Pemicu yang fokus berada DI DALAM pembungkus (mis. MjlTooltip membungkus
+   <button>). Aturan terpisah agar browser tanpa :has() tetap memakai aturan
+   hover/focus di atas — selector list dengan :has() yang tak dikenal akan
+   membatalkan seluruh aturan. */
+[data-mjl-tooltip]:has(:focus-visible)::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-2px);
+}

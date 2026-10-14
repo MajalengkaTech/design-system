@@ -3,8 +3,6 @@ title: Katalog Komponen
 description: Direktori komponen antarmuka open-source Majalengka Design System — lengkap, teruji, aksesibel, dan framework-agnostic.
 ---
 
-# Katalog Komponen Majalengka
-
 Selamat datang di direktori komponen **Majalengka Design System**, proyek open-source untuk ekosistem web Majalengka.tech. Seluruh komponen di bawah ini dirancang mematuhi standar aksesibilitas **WCAG 2.1 Level AA**, prinsip ergonomi **Kumo UI**, serta kaidah **Hukum UX & Psikologi Kognitif**.
 
 Dapat digunakan langsung di framework apa pun melalui **CSS Murni** (`@majalengka/css`), **UnoCSS** (`presetMajalengka`), **Tailwind CSS**, maupun **Vue 3** (`@majalengka/vue`).

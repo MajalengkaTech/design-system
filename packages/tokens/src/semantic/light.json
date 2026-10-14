@@ -1,41 +1,242 @@
 {
   "$schema": "https://tr.designtokens.org/format/",
-  "semantic": {
-    "color": {
-      "surface": {
-        "canvas": { "$type": "color", "$value": "{color.neutral.100}" },
-        "card": { "$type": "color", "$value": "{color.neutral.50}" },
-        "sunken": { "$type": "color", "$value": "{color.neutral.200}" },
-        "overlay": { "$type": "color", "$value": "{color.neutral.50}" }
+  "$description": "Token semantik mode terang. Nama CSS = --mjl-<path> (camelCase jadi kebab-case). Referensi {a.b} menjadi var(--mjl-a-b).",
+  "bg": {
+    "canvas": {
+      "$type": "color",
+      "$value": "{color.neutral.100}",
+      "$description": "Latar halaman"
+    },
+    "base": {
+      "$type": "color",
+      "$value": "{color.neutral.50}",
+      "$description": "Latar kartu & konten"
+    },
+    "elevated": {
+      "$type": "color",
+      "$value": "{color.neutral.100}",
+      "$description": "Permukaan terangkat / overlay"
+    },
+    "tint": {
+      "$type": "color",
+      "$value": "rgba(0, 0, 0, 0.04)",
+      "$description": "Hover halus"
+    },
+    "sunken": {
+      "$type": "color",
+      "$value": "{color.neutral.200}",
+      "$description": "Area cekung"
+    }
+  },
+  "text": {
+    "strong": {
+      "$type": "color",
+      "$value": "{color.neutral.950}"
+    },
+    "default": {
+      "$type": "color",
+      "$value": "{color.neutral.900}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{color.neutral.600}"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{color.neutral.500}"
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{color.neutral.50}"
+    },
+    "brand": {
+      "$type": "color",
+      "$value": "{color.primary.700}",
+      "$description": "Biru Majalengka #0014A8"
+    }
+  },
+  "border": {
+    "line": {
+      "$type": "color",
+      "$value": "rgba(0, 0, 0, 0.08)"
+    },
+    "hairline": {
+      "$type": "color",
+      "$value": "rgba(0, 0, 0, 0.05)"
+    },
+    "input": {
+      "$type": "color",
+      "$value": "{color.neutral.300}"
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "{color.primary.500}"
+    },
+    "brand": {
+      "$type": "color",
+      "$value": "{color.primary.700}"
+    }
+  },
+  "action": {
+    "primary": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.primary.700}"
       },
-      "text": {
-        "primary": { "$type": "color", "$value": "{color.neutral.900}" },
-        "secondary": { "$type": "color", "$value": "{color.neutral.600}" },
-        "muted": { "$type": "color", "$value": "{color.neutral.500}" },
-        "inverse": { "$type": "color", "$value": "{color.neutral.50}" },
-        "link": { "$type": "color", "$value": "{color.primary.700}" },
-        "linkHover": { "$type": "color", "$value": "{color.primary.800}" }
+      "hover": {
+        "$type": "color",
+        "$value": "{color.primary.800}"
       },
-      "action": {
-        "primary": {
-          "default": { "$type": "color", "$value": "{color.primary.700}" },
-          "hover": { "$type": "color", "$value": "{color.primary.800}" },
-          "active": { "$type": "color", "$value": "{color.primary.900}" },
-          "fg": { "$type": "color", "$value": "#FFFFFF" }
-        },
-        "secondary": {
-          "default": { "$type": "color", "$value": "{color.neutral.200}" },
-          "hover": { "$type": "color", "$value": "{color.neutral.300}" },
-          "active": { "$type": "color", "$value": "{color.neutral.400}" },
-          "fg": { "$type": "color", "$value": "{color.neutral.900}" }
-        }
+      "active": {
+        "$type": "color",
+        "$value": "{color.primary.900}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "#FFFFFF"
+      },
+      "ring": {
+        "$type": "color",
+        "$value": "rgba(0, 20, 168, 0.25)"
+      }
+    },
+    "secondary": {
+      "bg": {
+        "$type": "color",
+        "$value": "{bg.base}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{bg.tint}"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{text.default}"
       },
       "border": {
-        "subtle": { "$type": "color", "$value": "{color.neutral.200}" },
-        "default": { "$type": "color", "$value": "{color.neutral.300}" },
-        "input": { "$type": "color", "$value": "{color.neutral.400}" },
-        "focus": { "$type": "color", "$value": "{color.primary.500}" },
-        "error": { "$type": "color", "$value": "{color.status.danger.fg}" }
+        "$type": "color",
+        "$value": "{border.line}"
+      }
+    },
+    "danger": {
+      "bg": {
+        "$type": "color",
+        "$value": "{color.status.danger.fg}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "#931D17"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "#FFFFFF"
+      }
+    }
+  },
+  "color": {
+    "$description": "Alias nama lama (--mjl-color-*) agar kode yang sudah ada tetap jalan. Pakai token fungsional di atas untuk kode baru.",
+    "surface": {
+      "canvas": {
+        "$type": "color",
+        "$value": "{bg.canvas}"
+      },
+      "card": {
+        "$type": "color",
+        "$value": "{bg.base}"
+      },
+      "sunken": {
+        "$type": "color",
+        "$value": "{bg.sunken}"
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": "{bg.elevated}"
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "{text.strong}"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{text.subtle}"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{text.muted}"
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{text.inverse}"
+      },
+      "link": {
+        "$type": "color",
+        "$value": "{text.brand}"
+      },
+      "linkHover": {
+        "$type": "color",
+        "$value": "{color.primary.800}"
+      }
+    },
+    "action": {
+      "primary": {
+        "default": {
+          "$type": "color",
+          "$value": "{action.primary.bg}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{action.primary.hover}"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{action.primary.active}"
+        },
+        "fg": {
+          "$type": "color",
+          "$value": "{action.primary.fg}"
+        }
+      },
+      "secondary": {
+        "default": {
+          "$type": "color",
+          "$value": "{action.secondary.bg}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{action.secondary.hover}"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "{color.neutral.400}"
+        },
+        "fg": {
+          "$type": "color",
+          "$value": "{action.secondary.fg}"
+        }
+      }
+    },
+    "border": {
+      "subtle": {
+        "$type": "color",
+        "$value": "{border.hairline}"
+      },
+      "default": {
+        "$type": "color",
+        "$value": "{border.line}"
+      },
+      "input": {
+        "$type": "color",
+        "$value": "{border.input}"
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{border.focus}"
+      },
+      "error": {
+        "$type": "color",
+        "$value": "{color.status.danger.fg}"
       }
     }
   }
