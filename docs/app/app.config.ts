@@ -21,6 +21,17 @@ export default defineAppConfig({
       primary: 'brand',
       neutral: 'slate',
     },
+    // Ikon tab ::code-group. Dicocokkan dengan label tab (huruf kecil);
+    // Nuxt UI hanya punya bawaan untuk sebagian label (mis. "vue").
+    prose: {
+      codeIcon: {
+        html: 'i-vscode-icons-file-type-html',
+        react: 'i-vscode-icons-file-type-reactts',
+        angular: 'i-vscode-icons-file-type-angular',
+        laravel: 'i-vscode-icons-file-type-blade',
+        php: 'i-vscode-icons-file-type-php3',
+      },
+    },
     // Docus subcomponent defaults (sesuai docs docus.dev/en/concepts/theme)
     toc: {
       title: 'Daftar Isi',
