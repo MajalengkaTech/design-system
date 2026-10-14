@@ -11,6 +11,27 @@
   backdrop-filter: blur(2px);
 }
 
+/* Varian <dialog class="mjl-drawer-backdrop"> (dipakai MjlDrawer.vue): dibuka
+   lewat showModal() sehingga fokus terkunci & Esc menutup secara native. */
+dialog.mjl-drawer-backdrop {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+
+dialog.mjl-drawer-backdrop:not([open]) {
+  display: none;
+}
+
+dialog.mjl-drawer-backdrop::backdrop {
+  background: transparent;
+}
+
 .mjl-drawer {
   background-color: var(--mjl-color-surface-card, #FFFFFF);
   box-shadow: var(--mjl-shadow-lg);

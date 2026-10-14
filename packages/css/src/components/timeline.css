@@ -62,6 +62,7 @@
 }
 
 .mjl-timeline__time {
+  display: block;
   font-size: var(--mjl-text-xs-size, 12px);
   color: var(--mjl-color-text-muted, #97A0B2);
   margin-bottom: 4px;

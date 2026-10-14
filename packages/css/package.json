@@ -28,6 +28,7 @@
     "build": "bun run build.ts"
   },
   "devDependencies": {
-    "@majalengka/tokens": "workspace:*"
+    "@majalengka/tokens": "workspace:*",
+    "lightningcss": "1.33.0"
   }
 }

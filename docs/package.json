@@ -9,7 +9,7 @@
     "preview": "nuxt preview --extends docus"
   },
   "dependencies": {
-    "docus": "latest",
+    "docus": "5.13.0",
     "agents": "^0.20.1",
     "better-sqlite3": "^12.5.0",
     "nuxt": "^4.2.2",

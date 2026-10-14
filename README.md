@@ -12,8 +12,8 @@ Repositori ini adalah sumber kebenaran tunggal (*single source of truth*) untuk 
 majalengka-tech/design-system
 ├── packages/
 │   ├── tokens/      # Sumber token W3C DTCG JSON + build pipeline CSS/TS
-│   ├── css/         # Paket CSS murni (@majalengka/css) tanpa proses build (< 35kB)
-│   └── vue/         # Komponen referensi Vue 3 + TypeScript (@majalengka/vue)
+│   ├── css/         # Paket CSS murni (@majalengka/css), siap pakai tanpa build di sisi pemakai (~9 kB gzip)
+│   └── vue/         # Komponen Vue 3 + TypeScript (@majalengka/vue), dirilis sebagai ESM + .d.ts
 ├── docs/            # Website dokumentasi resmi berbasis Docus (Nuxt 4 + Nuxt Content)
 └── majalengka-design-system/ # Bundle pengetahuan terbuka OKF (Open Knowledge Format) v0.2
 ```
@@ -56,20 +56,34 @@ import '@majalengka/css';
 
 ---
 
-## Menjalankan Dokumentasi Secara Lokal
+## Pengembangan
 
-Website dokumentasi terletak di folder `docs/`:
+Semua perintah dijalankan dari root repo (Bun workspaces):
 
 ```bash
-# Pemasangan dependensi
-cd docs
-bun install
-
-# Menjalankan dev server Docus
-bun run dev
-
-# Membuka di browser: http://localhost:3000
+bun install          # pasang dependensi seluruh workspace
+bun run check        # build token + CSS, typecheck, unit test, dan build paket Vue
+bun run dev          # dev server dokumentasi di http://localhost:3000
+bun run build:docs   # build situs dokumentasi
 ```
+
+| Perintah | Isi |
+|---|---|
+| `bun run build:tokens` | `packages/tokens/src/**/*.json` → `dist/tokens.css`, `tokens-dark.css`, ekspor TS, preset UnoCSS |
+| `bun run build:css` | Gabung + minify (Lightning CSS) → `dist/majalengka(.min).css`; **gagal** bila anggaran ukuran terlampaui |
+| `bun run typecheck` / `bun run test` | `vue-tsc` dan Vitest untuk `@majalengka/vue` |
+| `bun run build:vue` | Vite library build → `dist/index.js` + deklarasi `.d.ts` |
+
+CI (`.github/workflows/ci.yml`) menjalankan `bun run check` dan build dokumentasi di setiap PR.
+
+### Anggaran ukuran CSS
+
+`@majalengka/css` wajib memenuhi **kedua** batas berikut (dicek otomatis saat build):
+
+| Ukuran | Batas | Saat ini (v0.1.0) |
+|---|---|---|
+| Minified | < 64 kB | ±57 kB |
+| Gzip (yang benar-benar lewat jaringan) | < 12 kB | ±9 kB |
 
 ---
 
