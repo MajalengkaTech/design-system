@@ -46,3 +46,19 @@ textarea {
   white-space: nowrap;
   border: 0;
 }
+
+/*
+ * Hormati preferensi gerak minimal pengguna (WCAG 2.3.3 Animation from
+ * Interactions). Animasi & transisi dipersingkat hampir nol, bukan dihapus,
+ * supaya event transitionend/animationend tetap terpicu.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

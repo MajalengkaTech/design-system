@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { onMounted, ref, useId, watch } from 'vue';
 
 export interface MjlModalProps {
 	modelValue: boolean;
@@ -13,14 +13,27 @@ const emit = defineEmits<{
 }>();
 
 const dialogRef = ref<HTMLDialogElement>();
+// ID unik per instance — beberapa modal di satu halaman tidak boleh berbagi
+// id judul, kalau tidak aria-labelledby bisa menunjuk judul modal lain.
+const titleId = useId();
 
-watch(() => props.modelValue, (open) => {
-	if (open) dialogRef.value?.showModal();
-	else dialogRef.value?.close();
-});
+function sync(open: boolean) {
+	const dialog = dialogRef.value;
+	if (!dialog) return;
+	if (open && !dialog.open) dialog.showModal();
+	else if (!open && dialog.open) dialog.close();
+}
 
+// watch tidak jalan untuk nilai awal, jadi modal yang di-render dengan
+// modelValue=true harus dibuka saat mount (ref dialog baru ada saat itu).
+onMounted(() => sync(props.modelValue));
+watch(() => props.modelValue, sync);
+
+// Esc memicu `cancel` lalu `close`, jadi cukup dengarkan `close` saja agar
+// update:modelValue tidak terkirim dua kali. Emit hanya bila parent masih
+// menganggap modal terbuka.
 function onClose() {
-	emit('update:modelValue', false);
+	if (props.modelValue) emit('update:modelValue', false);
 }
 </script>
 
@@ -28,14 +41,13 @@ function onClose() {
 	<dialog
 		ref="dialogRef"
 		class="mjl-modal"
-		:aria-labelledby="title ? 'mjl-modal-title' : undefined"
+		:aria-labelledby="title ? titleId : undefined"
 		@close="onClose"
-		@cancel="onClose"
 	>
 		<div class="mjl-modal__header">
 			<h3
 				v-if="title"
-				id="mjl-modal-title"
+				:id="titleId"
 				class="mjl-modal__title"
 			>{{ title }}</h3>
 			<button

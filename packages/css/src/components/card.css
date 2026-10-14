@@ -45,6 +45,12 @@
   line-height: 1.6;
 }
 
+.mjl-card__body {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--mjl-text-default, #222834);
+}
+
 .mjl-card__footer {
   margin-top: auto;
   padding-top: var(--mjl-space-4, 16px);

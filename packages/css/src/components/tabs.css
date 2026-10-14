@@ -52,8 +52,10 @@
 }
 
 .mjl-tab:focus-visible {
-  outline: none;
-  ring: 2px solid var(--mjl-border-focus, #4256F5);
+  /* `ring` bukan properti CSS — dulu fokus keyboard jadi tak terlihat (WCAG 2.4.7). */
+  outline: 2px solid var(--mjl-border-focus, #4256F5);
+  outline-offset: -2px;
+  border-radius: var(--mjl-radius-sm, 6px);
 }
 
 .mjl-tab--active {
