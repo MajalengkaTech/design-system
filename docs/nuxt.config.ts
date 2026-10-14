@@ -44,21 +44,38 @@ export default defineNuxtConfig({
     ],
   },
 
-  // Docus AI Assistant — aktifkan dengan API key.
-  // Model default Docus (google/gemini-3-flash) ditolak untuk akun
-  // AI Gateway yang belum top-up kredit ("Free tier users do not have
-  // access to this model"). gemini-2.5-flash sudah dites langsung ke
-  // gateway dan terbukti bisa diakses dengan kredensial yang sama.
+  // Docus AI Assistant. Endpoint-nya ada di server/routes/__docus__/assistant.ts
+  // dan memakai Gemini API langsung bila GOOGLE_GENERATIVE_AI_API_KEY diset;
+  // tanpa itu ia jatuh ke Vercel AI Gateway (AI_GATEWAY_API_KEY + `model`).
+  // Asisten hanya ditampilkan bila salah satu kunci tersedia saat build.
   docus: {
     assistant: {
-      enabled: true,
+      enabled: !!(process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.AI_GATEWAY_API_KEY),
       mcpServer: '/mcp',
+      // Hanya dipakai jalur AI Gateway. gemini-3-flash (default Docus) ditolak
+      // untuk akun Gateway tanpa kredit; gemini-2.5-flash terbukti bisa.
       model: 'google/gemini-2.5-flash',
     },
   },
 
-  // Runtime config — expose AI_GATEWAY_API_KEY ke server Nitro
+  // Bahasa syntax highlight. Docus bawaan tidak memuat tsx, php, dan blade,
+  // padahal contoh "Penggunaan di Berbagai Teknologi" di halaman komponen
+  // memakainya (React, PHP, Laravel). Tanpa ini kodenya tampil polos.
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          langs: ['bash', 'diff', 'json', 'js', 'ts', 'tsx', 'html', 'css', 'vue', 'shell', 'mdc', 'md', 'yaml', 'php', 'blade'],
+        },
+      },
+    },
+  },
+
+  // Runtime config (server-only). Bisa juga ditimpa saat runtime lewat
+  // NUXT_GOOGLE_API_KEY / NUXT_GEMINI_MODEL / NUXT_AI_GATEWAY_API_KEY.
   runtimeConfig: {
+    googleApiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || '',
+    geminiModel: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
     aiGatewayApiKey: process.env.AI_GATEWAY_API_KEY || '',
   },
 

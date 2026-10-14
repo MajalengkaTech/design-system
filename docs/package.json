@@ -9,12 +9,13 @@
     "preview": "nuxt preview --extends docus"
   },
   "dependencies": {
-    "docus": "5.13.0",
+    "@ai-sdk/google": "^4.0.95",
+    "@majalengka/css": "workspace:*",
+    "@majalengka/tokens": "workspace:*",
+    "@majalengka/vue": "workspace:*",
     "agents": "^0.20.1",
     "better-sqlite3": "^12.5.0",
-    "nuxt": "^4.2.2",
-    "@majalengka/tokens": "workspace:*",
-    "@majalengka/css": "workspace:*",
-    "@majalengka/vue": "workspace:*"
+    "docus": "5.13.0",
+    "nuxt": "^4.2.2"
   }
 }
