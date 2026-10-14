@@ -87,6 +87,34 @@ CI (`.github/workflows/ci.yml`) menjalankan `bun run check` dan build dokumentas
 
 ---
 
+## Deploy Dokumentasi ke Cloudflare Pages
+
+Pengaturan project di **Workers & Pages → Settings**:
+
+| Pengaturan | Nilai |
+|---|---|
+| Root directory | `docs` |
+| Build command | `bun install && bun run build` |
+| Build output directory | `dist` |
+
+`docs/bun.lock` adalah symlink ke `bun.lock` di root agar Cloudflare mendeteksi Bun, bukan npm (npm tidak mengerti dependensi `workspace:*`).
+
+**Variables and Secrets** (Production dan Preview):
+
+| Variable | Keterangan |
+|---|---|
+| `BUN_VERSION` | Samakan dengan `.bun-version` |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | *Secret*. Kunci Gemini API untuk AI assistant ([AI Studio](https://aistudio.google.com/apikey)) |
+| `GEMINI_MODEL` | Opsional, mis. `gemini-3.8-flash` (default `gemini-2.5-flash`) |
+| `AI_GATEWAY_API_KEY` | *Secret*, opsional. Dipakai hanya bila kunci Gemini kosong |
+| `NUXT_SITE_URL` | `https://ui.majalengka.tech` |
+
+**Bindings** (Production dan Preview): D1 database dengan nama **`DB`**. Nuxt Content di Cloudflare membaca isi dokumentasi dari D1; tanpa binding ini halaman tetap tampil (prerender), tetapi AI assistant dan MCP server tidak bisa mencari halaman. D1 diisi otomatis saat pertama kali dipakai.
+
+Variabel dan binding dibaca saat build, jadi lakukan deploy ulang setelah mengubahnya.
+
+---
+
 ## Prinsip Desain
 1. **Aksesibel Sejak Awal**: Kepatuhan penuh WCAG 2.1 Level AA (kontras minimal 4.5:1, target sentuh 44×44px, navigasi keyboard penuh).
 2. **Framework-Agnostic**: Mudah dipakai di aplikasi warisan (PHP polos) hingga framework frontend mutakhir.
